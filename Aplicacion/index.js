@@ -1,0 +1,1 @@
+alert("Esta es la pagina para gestionar docentes!");

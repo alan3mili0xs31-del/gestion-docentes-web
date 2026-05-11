@@ -1,8 +1,8 @@
 function main() {
   const formulario = document.getElementById('formulario');
-  const tabla = document.getElementById('tablaSolicitudes');
+  const tabla = document.getElementById('tablaCursos');
   const contador = document.getElementById('contador');
-
+  /*
   formulario.addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -27,17 +27,17 @@ function main() {
     actualizarContador();
     formulario.reset();
   });
-
+  */
   tabla.addEventListener('click', function(event) {
-    if (event.target.classList.contains('eliminar')) {
+    if (event.target.classList.contains('eliminarBtn')) {
       event.target.closest('tr').remove();
       actualizarContador();
     }
   });
-
+  /*
   function actualizarContador() {
     contador.textContent = tabla.querySelectorAll('tr').length;
-  }
+  }*/
 }
 
 main();

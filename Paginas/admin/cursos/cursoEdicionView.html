@@ -27,9 +27,16 @@
       <p>Alumno: Olaya Toscano Alan</p>
       <p>Asignatura: Desarrollo de Aplicaciones Web I SOF-S-MA-6-3</p>
     </header>
-
+    
     <main class="container my-4">
-      <h1>Formulario de creación de curso <i class="bi bi-plus-circle"></i></h1>
+      <div class=" row top-content">
+        <div>
+          <a href="./cursoDashboardView.html"><button type="button" class="btn btn-light"><i class="bi bi-caret-left-fill"></i></button></a>
+        </div>
+        <div>
+          <h1>Editar curso <i class="bi bi-pencil-square"></i></h1>
+        </div>
+      </div>  
       <div class="card shadow-sm mx-auto col-lg-8">
           <div class="card-header">
             Datos del curso
@@ -38,47 +45,41 @@
             <form id="crearCurso_form">
               <div class="mb-3">
                 <label for="cursoNombreInput" class="form-label">Nombre del curso</label>
-                <input type="text" class="form-control" id="cursoNombreInput" placeholder="Curso del programacion">
+                <input type="text" class="form-control" id="cursoNombreInput" value="Curso de POO con JavaScript">
               </div>
               <div class="mb-3">
                 <label for="docenteCursoInput" class="form-label">Docente</label>
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>-- Selecciona un docente --</option>
-                  <option value="1">Alan Olaya</option>
-                  <option value="2">Sebastian Acosta</option>
-                  <option value="3">Josue Paredes</option>
+                <select id="docenteCursoInput" class="form-select" aria-label="Default select example">
+                  <option value="1" selected>Alan Olaya</option>
                 </select>
               </div>
               <div class="mb-3">
-                <label for="docenteCursoInput" class="form-label">Asignatura</label>
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>-- Selecciona una asignatura --</option>
-                  <option value="1">Programación Orientada a Objetos</option>
-                  <option value="2">Diseño y Arquitectura de Software</option>
-                  <option value="3">Desarrollo de Aplicaciones Web</option>
+                <label for="asignaturaCursoInput" class="form-label">Asignatura</label>
+                <select id="asignaturaCursoInput" class="form-select" aria-label="Default select example">
+                  <option value="1" selected>Programación Orientada a Objetos</option>
                 </select>
               </div>
               <div class="mb-3">
                 <label for="cursoDescripcionInput" class="form-label">Acerca del curso</label>
-                <textarea class="form-control" id="cursoDescripcionInput" rows="5" placeholder="Describe brevemente de qué tratará el curso"></textarea>
+                <textarea class="form-control" id="cursoDescripcionInput" rows="5">En este curso aprenderemos los fundamentos de programación orientada a objetos, y cómo esta se usar en la construcción de sistemas.
+                </textarea>
               </div>
               <div class="mb-3 d-flex flex-column">
                 <label for="cursoHorarioInput" class="form-label">Horario del curso</label>
-                <div class="form-text">Seleccione los días de clases del horario.</div>
                 <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                   <input type="checkbox" class="btn-check" id="lunesCheck" autocomplete="off">
                   <label class="btn btn btn-outline-dark" for="lunesCheck">Lunes</label>
     
-                  <input type="checkbox" class="btn-check" id="martesCheck" autocomplete="off">
+                  <input type="checkbox" class="btn-check" id="martesCheck" autocomplete="off" checked>
                   <label class="btn btn btn-outline-dark" for="martesCheck">Martes</label>
     
-                  <input type="checkbox" class="btn-check" id="miercolesCheck" autocomplete="off">
+                  <input type="checkbox" class="btn-check" id="miercolesCheck" autocomplete="off" checked>
                   <label class="btn btn btn-outline-dark" for="miercolesCheck">Miercoles</label>
     
                   <input type="checkbox" class="btn-check" id="juevesCheck" autocomplete="off">
                   <label class="btn btn btn-outline-dark" for="juevesCheck">Jueves</label>
     
-                  <input type="checkbox" class="btn-check" id="viernesCheck" autocomplete="off">
+                  <input type="checkbox" class="btn-check" id="viernesCheck" autocomplete="off" checked>
                   <label class="btn btn btn-outline-dark" for="viernesCheck">Viernes</label>
                   
                   <input type="checkbox" class="btn-check" id="sabadoCheck" autocomplete="off">
@@ -91,16 +92,19 @@
               <div class="row mb-3">
                 <div class="col-md-6">
                   <label for="cursofechaInicioInput" class="form-label">Fecha de Inicio:</label>
-                  <input type="date" id="cursofechaInicioInput" class="form-control" required>
+                  <input type="date" id="cursofechaInicioInput" class="form-control" value="2026-05-12">
                 </div>
                 <div class="col-md-6">
                   <label for="cursofechaFinInput" class="form-label">Fecha Fin:</label>
-                  <input type="date" id="cursofechaFinInput" class="form-control" required>
+                  <input type="date" id="cursofechaFinInput" class="form-control" value="2026-09-12">
                 </div>
               </div>
-              <div class="row mb-3">
+              <div id="editButtonsContainer">
                 <a href="./cursoDashboardView.html">
-                  <button id="crearCursoBtn" type="button" class="btn btn-primary">Crear curso <i class="bi bi-plus-circle"></i></button>
+                  <button id="guardarCambios" type="button" class="btn btn-primary">Guardar cambios <i class="bi bi-floppy"></i></button>
+                </a>
+                <a href="./cursoDashboardView.html">
+                  <button id="cancelarCambios" type="button" class="btn btn-light">Cancelar <i class="bi bi-x-circle"></i></button>
                 </a>
               </div>
             </form>

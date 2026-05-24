@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Nueva Asignatura - Sistema de Gestión Docente</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <h1>Sistema de Gestión Docente</h1>
+        <div>
+            <a href="listado-asignaturas.html" class="btn btn-outline" style="color: white; border-color: #444; background: transparent; padding: 5px 12px; font-size: 0.85rem;">Volver al Listado</a>
+        </div>
+    </header>
+
+    <main class="container" style="max-width: 850px;">
+        
+        <div class="card" style="margin-top: 20px;">
+            <h2 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 24px;">Registrar Nueva Asignatura</h2>
+            
+            <form>
+                <div class="form-group">
+                    <label for="codigo">Código de la asignatura</label>
+                    <input type="text" id="codigo" class="form-control" placeholder="Ej: INF-601" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="nombre">Nombre Materia</label>
+                    <input type="text" id="nombre" class="form-control" placeholder="Ingrese el nombre completo de la materia" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="creditos">Créditos</label>
+                    <input type="number" id="creditos" class="form-control" placeholder="Ej: 4" min="1" max="10" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="semestre">Semestre</label>
+                        <select id="semestre" class="form-control" required>
+                            <option value="" disabled selected>Seleccione un semestre...</option>
+                            <option value="1">Primer Semestre</option>
+                            <option value="2">Segundo Semestre</option>
+                            <option value="3">Tercer Semestre</option>
+                            <option value="4">Cuarto Semestre</option>
+                            <option value="5">Quinto Semestre</option>
+                            <option value="6">Sexto Semestre</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="facultad">Facultad</label>
+                        <select id="facultad" class="form-control" required>
+                            <option value="" disabled selected>Seleccione una facultad...</option>
+                            <option value="FACCI">Facultad de Ciencias Informáticas</option>
+                            <option value="FACI">Facultad de Ciencias Industriales</option>
+                            <option value="FACE">Facultad de Ciencias Económicas</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <a href="listado-asignaturas.html" class="btn btn-outline">Cancelar</a>
+                    <button type="submit" class="btn btn-dark">Guardar Asignatura</button>
+                </div>
+            </form>
+        </div>
+
+    </main>
+
+</body>
+</html>

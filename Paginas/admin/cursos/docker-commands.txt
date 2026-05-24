@@ -1,0 +1,1 @@
+docker run -d -p 3000:80 --name nginx_web_server -v /home/alan013/front-end/html/ug-practicas/gestion-docentes-web/Paginas/admin/cursos:/usr/share/nginx/html:ro nginx

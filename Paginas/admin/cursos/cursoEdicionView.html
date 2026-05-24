@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Metadatos -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Alan Olaya Toscano">
+    <meta name="description" content="Este es mi portafolio de web development con Bootstrap c:">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Bootstrap">
+    <!-- Titulo -->
+    <title>Uso de Bootstrap y JavaScript en formularios</title>
+    <link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/favicon-32x32.png" type="image/png">
+    <!-- BootStrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./styles.css">
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-light">
+    <!-- Cabecera -->
+    <header class="bg-dark text-white text-center p-3">
+      <h2>Lección: Uso de Bootstrap y JavaScript en formularios</h2>
+      <p>Alumno: Olaya Toscano Alan</p>
+      <p>Asignatura: Desarrollo de Aplicaciones Web I SOF-S-MA-6-3</p>
+    </header>
+    
+    <main class="container my-4">
+      <div class=" row top-content">
+        <div>
+          <a href="./cursoDashboardView.html"><button type="button" class="btn btn-light"><i class="bi bi-caret-left-fill"></i></button></a>
+        </div>
+        <div>
+          <h1>Editar curso <i class="bi bi-pencil-square"></i></h1>
+        </div>
+      </div>  
+      <div class="card shadow-sm mx-auto col-lg-8">
+          <div class="card-header">
+            Datos del curso
+          </div>
+          <div class="card-body">
+            <form id="crearCurso_form">
+              <div class="mb-3">
+                <label for="cursoNombreInput" class="form-label">Nombre del curso</label>
+                <input type="text" class="form-control" id="cursoNombreInput" value="Curso de POO con JavaScript">
+              </div>
+              <div class="mb-3">
+                <label for="docenteCursoInput" class="form-label">Docente</label>
+                <select id="docenteCursoInput" class="form-select" aria-label="Default select example">
+                  <option value="1" selected>Alan Olaya</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="asignaturaCursoInput" class="form-label">Asignatura</label>
+                <select id="asignaturaCursoInput" class="form-select" aria-label="Default select example">
+                  <option value="1" selected>Programación Orientada a Objetos</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="cursoDescripcionInput" class="form-label">Acerca del curso</label>
+                <textarea class="form-control" id="cursoDescripcionInput" rows="5">En este curso aprenderemos los fundamentos de programación orientada a objetos, y cómo esta se usar en la construcción de sistemas.
+                </textarea>
+              </div>
+              <div class="mb-3 d-flex flex-column">
+                <label for="cursoHorarioInput" class="form-label">Horario del curso</label>
+                <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                  <input type="checkbox" class="btn-check" id="lunesCheck" autocomplete="off">
+                  <label class="btn btn btn-outline-dark" for="lunesCheck">Lunes</label>
+    
+                  <input type="checkbox" class="btn-check" id="martesCheck" autocomplete="off" checked>
+                  <label class="btn btn btn-outline-dark" for="martesCheck">Martes</label>
+    
+                  <input type="checkbox" class="btn-check" id="miercolesCheck" autocomplete="off" checked>
+                  <label class="btn btn btn-outline-dark" for="miercolesCheck">Miercoles</label>
+    
+                  <input type="checkbox" class="btn-check" id="juevesCheck" autocomplete="off">
+                  <label class="btn btn btn-outline-dark" for="juevesCheck">Jueves</label>
+    
+                  <input type="checkbox" class="btn-check" id="viernesCheck" autocomplete="off" checked>
+                  <label class="btn btn btn-outline-dark" for="viernesCheck">Viernes</label>
+                  
+                  <input type="checkbox" class="btn-check" id="sabadoCheck" autocomplete="off">
+                  <label class="btn btn btn-outline-dark" for="sabadoCheck">Sábado</label>
+                  
+                  <input type="checkbox" class="btn-check" id="domingoCheck" autocomplete="off">
+                  <label class="btn btn btn-outline-dark" for="domingoCheck">Domingo</label>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="cursofechaInicioInput" class="form-label">Fecha de Inicio:</label>
+                  <input type="date" id="cursofechaInicioInput" class="form-control" value="2026-05-12">
+                </div>
+                <div class="col-md-6">
+                  <label for="cursofechaFinInput" class="form-label">Fecha Fin:</label>
+                  <input type="date" id="cursofechaFinInput" class="form-control" value="2026-09-12">
+                </div>
+              </div>
+              <div id="editButtonsContainer">
+                <a href="./cursoDashboardView.html">
+                  <button id="guardarCambios" type="button" class="btn btn-primary">Guardar cambios <i class="bi bi-floppy"></i></button>
+                </a>
+                <a href="./cursoDashboardView.html">
+                  <button id="cancelarCambios" type="button" class="btn btn-light">Cancelar <i class="bi bi-x-circle"></i></button>
+                </a>
+              </div>
+            </form>
+          </div>
+      </div>
+    </main>
+
+    <footer class="bg-dark text-white text-center p-3">
+      &copy; ¡Esta página tiene derechos reservados!
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

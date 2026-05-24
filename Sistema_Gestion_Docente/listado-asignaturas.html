@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Asignaturas - Sistema de Gestión Docente</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <h1>Portal del Docente</h1>
+        <div>
+            <a href="#" class="btn btn-outline" style="color: white; border-color: #444; background: transparent; padding: 5px 12px; font-size: 0.85rem; margin-right: 8px;">Mi Perfil</a>
+            <a href="#" class="btn btn-outline" style="color: white; border-color: #444; background: transparent; padding: 5px 12px; font-size: 0.85rem;">Cerrar Sesión</a>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="page-header">
+            <h2>Listado de Asignaturas</h2>
+            <a href="nueva-asignatura.html" class="btn btn-dark">+ Nueva Asignatura</a>
+        </div>
+
+        <div class="card filter-section">
+            <div class="form-group" style="max-width: 350px; margin-bottom: 0;">
+                <label for="filtrarFacultad">Filtrar por Facultad</label>
+                <select id="filtrarFacultad" class="form-control">
+                    <option value="">Mostrar todas</option>
+                    <option value="facci">Facultad de Ciencias Informáticas</option>
+                    <option value="faci">Facultad de Ciencias Industriales</option>
+                    <option value="face">Facultad de Ciencias Económicas</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="card" style="padding: 0; overflow: hidden;">
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nombre Materia</th>
+                            <th>Créditos</th>
+                            <th>Semestre</th>
+                            <th>Facultad</th>
+                            <th style="text-align: right;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>INF-601</strong></td>
+                            <td>Ingeniería de Software II</td>
+                            <td>4</td>
+                            <td>Sexto Semestre</td>
+                            <td>Ciencias Informáticas</td>
+                            <td style="text-align: right;">
+                                <a href="detalle-asignatura.html" class="action-btn" title="Ver detalle">👁️</a>
+                                <a href="editar-asignatura.html" class="action-btn" title="Editar">✏️</a>
+                                <button class="action-btn delete" title="Eliminar">🗑️</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>INF-602</strong></td>
+                            <td>Base de Datos Avanzada</td>
+                            <td>3</td>
+                            <td>Sexto Semestre</td>
+                            <td>Ciencias Informáticas</td>
+                            <td style="text-align: right;">
+                                <a href="detalle-asignatura.html" class="action-btn" title="Ver detalle">👁️</a>
+                                <a href="editar-asignatura.html" class="action-btn" title="Editar">✏️</a>
+                                <button class="action-btn delete" title="Eliminar">🗑️</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>INF-603</strong></td>
+                            <td>Arquitectura de Sistemas</td>
+                            <td>4</td>
+                            <td>Sexto Semestre</td>
+                            <td>Ciencias Informáticas</td>
+                            <td style="text-align: right;">
+                                <a href="detalle-asignatura.html" class="action-btn" title="Ver detalle">👁️</a>
+                                <a href="editar-asignatura.html" class="action-btn" title="Editar">✏️</a>
+                                <button class="action-btn delete" title="Eliminar">🗑️</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>

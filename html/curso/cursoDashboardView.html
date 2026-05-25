@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Metadatos -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Alan Olaya Toscano">
+    <meta name="description" content="Este es mi portafolio de web development con Bootstrap c:">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Bootstrap">
+    <!-- Titulo -->
+    <title>Sistema de Gestion de Docentes</title>
+    <link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/favicon-32x32.png" type="image/png">
+    <!-- BootStrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/curso/styles.css">
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-light">
+
+    <!-- Cabecera -->
+    <header>
+      <nav class="navbar navbar-dark bg-dark mb-4">
+        <div class="container d-flex flex-row justify-content-between">
+            <div>
+              <span class="navbar-brand mb-0 h1">Sistema de Gestión Docente</span>
+              <a style="text-decoration: none; color: #FFF;" href="../home.html"><i  class="bi bi-house mr-3" style="font-size: 1.5rem;"></i> Home</a>
+            </div>
+            <div>   
+                <a href="../actividad-docente/perfil.html" class="btn btn-outline-light btn-sm me-2">Mi Perfil</a>
+                <a href="../login/login.html" class="btn btn-light btn-sm">Cerrar Sesión</a>
+            </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container my-4 ">
+      <!-- Titulo de la seccion -->
+      <div class=" row top-content">
+        <!-- <div>
+          <a href="./cursoDashboardView.html"><button type="button" class="btn btn-light"><i class="bi bi-caret-left-fill"></i></button></a>
+        </div>-->
+        <div>
+          <h1>Listado de cursos <i class="bi bi-card-list"></i></h1>
+        </div>
+      </div>
+
+      <!-- Contenedor de la tabla -->
+      <div class="card shadow-sm mx-auto col-lg-10">
+        <div class="card-body">
+          <div class="filter-container d-flex flex-row">
+            <!-- Seccion de filtro -->
+            <div><i class="bi bi-funnel"></i> Filtrar por nombre:</div>
+            <div>
+              <input type="text" class="form-control" id="filtroCursoInput" placeholder="Ingrese el nombre del curso">
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center btn-filtros">
+              <button id="filtrarCursosBtn" type="button" class="btn btn-primary">Filtrar cursos <i class="bi bi-search"></i></button>
+              <button id="resetearFiltrosBtn" type="button" class="btn btn-primary">Resetear <i class="bi bi-arrow-repeat"></i></button>
+            </div>
+          </div>
+
+          <!-- Tabla de cursos -->
+          <table class="tabla-cursos table table-bordered table-striped table-hover mt-4">
+            <thead class="table-light">
+              <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Docente</th>
+                <th>Asignatura</th>
+                <th>Fecha de inicio</th>
+                <th>Fecha Fin</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody id="tablaCursos">
+              <!-- Filas de la tabla -->
+              
+              <!-- <tr>
+                <td>1</td>
+                <td>Curso de POO con JavaScript</td>
+                <td>Alan Olaya</td>
+                <td>Programacíon Orientada a Objetos</td>
+                <td>12/05/2026</td>
+                <td>12/09/2026</td>
+                <td>
+                  <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                    <a href="./cursoDetallesView.html"><button id="detallesCursoBtn" type="button" class="btn btn-success"><i class="bi bi-info-circle"></i></button></a>
+                    <a href="./cursoEdicionView.html"><button id="modificarCursoBtn" type="button" class="btn btn-warning"><i class="bi bi-pencil-square" style="color:white"></i></button></a>
+                    <button type="button" class="btn btn-danger eliminarBtn"><i class="bi bi-trash3-fill eliminarBtn"></i></button>
+                  </div>
+                </td>
+              </tr> -->
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-between align-items-center">
+            <a href="./cursoFormularioView.html">
+              <button type="button" class="btn btn-primary">Nuevo curso <i class="bi bi-plus-circle"></i></button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bg-dark text-white text-center p-3">
+      &copy; ¡Esta página tiene derechos reservados!
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="../../js/curso/dashboard.js" type="module"></script>
+  </body>
+</html>

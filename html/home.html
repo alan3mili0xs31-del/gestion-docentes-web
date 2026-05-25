@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Metadatos -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Alan Olaya Toscano">
+    <meta name="description" content="Este es mi portafolio de web development con Bootstrap c:">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Bootstrap">
+    <!-- Titulo -->
+    <title>Sistema de Gestion de Docentes</title>
+    <link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/favicon-32x32.png" type="image/png">
+    <!-- BootStrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/curso/styles.css">
+    <style>
+      .module-item {
+        width: 200px;
+        background-color: #212129;
+        height: 200px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+        transform: scale(100%);
+        transition: all ease 300ms;
+      }
+
+      .module-item:hover {
+        transform: scale(103%);
+        background-color: #29292F;
+      }
+
+      .module-item:active {
+        transform: scale(102%);
+        background-color: #313139;
+      }
+
+      .title-section h1 {
+        text-align: center;
+      }
+
+      .main-container {
+        display: flex;
+        flex-direction: column;
+        width: 75%;
+        height: 75%;
+
+      }
+
+      .module-setion {
+        display: flex;
+        flex-direction: row;
+        
+      }
+      
+      .module-grid {
+        display: flex;
+        flex-wrap: wrap;
+        color: #FFF;
+        gap: 10px;        
+        justify-content: center;
+      }
+
+      i {
+        font-size: 5rem;
+        color: #FFF;
+      }
+
+      a {
+        text-decoration: none;
+        color: white;
+      }
+    </style>
+  </head>
+  <body class="bg-light">
+
+    <!-- Cabecera -->
+    <header>
+      <nav class="navbar navbar-dark bg-dark mb-4">
+        <div class="container d-flex flex-row justify-content-between">
+            <div>
+              <span class="navbar-brand mb-0 h1">Sistema de Gestión Docente</span><a href="./home.html">
+                <i class="bi bi-house mr-3" style="font-size: 1.5rem;"></i> Home</a>
+            </div>
+            <div>   
+                <a href="./actividad-docente/perfil.html" class="btn btn-outline-light btn-sm me-2">Mi Perfil</a>
+                <a href="./login/login.html" class="btn btn-light btn-sm">Cerrar Sesión</a>
+            </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container my-4">
+      <!-- Titulo de la seccion -->
+      <div class="main-container row col-8">
+        <div class="title-section">
+          <h1>Mis Módulos</h1>
+        </div>
+        <div class="module-section my-4">
+          <div class="module-grid">
+            <a href="../html/docente/listado-docentes.html">
+              <div class="module-item"><span>Docentes</span><i class="bi bi-person-rolodex"></i></div>
+            </a>
+            <a href="../html/curso/cursoDashboardView.html">
+              <div class="module-item "><span>Cursos</span><i class="bi bi-card-heading"></i></div>
+            </a>
+            <a href="../html/asignatura/listado-asignaturas.html">
+              <div class="module-item"><span>Asignaturas</span><i class="bi bi-journal-bookmark"></i></div>
+            </a>
+            <a href="../html/actividad-docente/listado.html">
+              <div class="module-item"><span>Actividades Docente</span><i class="bi bi-book-half"></i></div>
+            </a>
+            <a href="../html/asistencia-docente/dashboard.html">
+              <div class="module-item"><span>Asistencias Docente</span><i class="bi bi-calendar2-check-fill"></i></div>  
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bg-dark text-white text-center p-3">
+      &copy; ¡Esta página tiene derechos reservados!
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  </body>
+</html>

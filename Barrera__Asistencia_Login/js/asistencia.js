@@ -1,36 +1,35 @@
+// js/asistencia.js
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if user is logged in for protected pages
     const path = window.location.pathname;
     const isLoginPage = path.endsWith('login.html');
+    const usuarioRol = sessionStorage.getItem('usuarioRol');
     
     if (!isLoginPage) {
-        const docenteLogueadoId = sessionStorage.getItem('docenteLogueadoId');
-        if (!docenteLogueadoId) {
+        const usuarioLogueadoId = sessionStorage.getItem('usuarioLogueadoId');
+        if (!usuarioLogueadoId) {
             window.location.href = 'login.html';
             return;
         }
     }
 
-    // Helper to get logged-in user
     function getDocenteLogueado() {
-        const id = parseInt(sessionStorage.getItem('docenteLogueadoId'));
-        const docentes = JSON.parse(localStorage.getItem('docentes')) || [];
-        return docentes.find(d => d.id === id);
+        const id = parseInt(sessionStorage.getItem('usuarioLogueadoId'));
+        const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+        return usuarios.find(u => u.id === id);
     }
     
-    // Set user name in navbar
     const navbarUserName = document.getElementById('navbarUserName');
     if (navbarUserName) {
         const docente = getDocenteLogueado();
         if (docente) navbarUserName.textContent = docente.nombre;
     }
 
-    // Logout
     const btnLogout = document.getElementById('btnLogout');
     if (btnLogout) {
         btnLogout.addEventListener('click', (e) => {
             e.preventDefault();
-            sessionStorage.removeItem('docenteLogueadoId');
+            sessionStorage.clear();
             window.location.href = 'login.html';
         });
     }
@@ -40,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const formRegistrar = document.getElementById('formRegistrar');
     const formEditar = document.getElementById('formEditar');
 
-    // Dashboard & Historial - Load Table
     if (tablaDashboard || tablaHistorial) {
         cargarTablaAsistencias(tablaDashboard || tablaHistorial);
     }
@@ -49,12 +47,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const docenteLogueado = getDocenteLogueado();
         const asistencias = JSON.parse(localStorage.getItem('asistencias')) || [];
         const cursos = JSON.parse(localStorage.getItem('cursos')) || [];
-        const docentes = JSON.parse(localStorage.getItem('docentes')) || [];
+        const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+        const docentes = usuarios.filter(u => u.rol === 'docente');
 
-        const misAsistencias = asistencias
-            .filter(a => a.id_docente === docenteLogueado.id)
-            .sort((a, b) => new Date(b.fecha_asistencia) - new Date(a.fecha_asistencia));
+        if (!docenteLogueado) return;
 
+        let misAsistencias = asistencias;
+        // Si no es admin, solo ve sus propias asistencias
+        if (usuarioRol !== 'admin') {
+            misAsistencias = asistencias.filter(a => a.id_docente === docenteLogueado.id);
+        }
+
+        misAsistencias.sort((a, b) => new Date(b.fecha_asistencia) - new Date(a.fecha_asistencia));
         tbodyElement.innerHTML = '';
 
         if (misAsistencias.length === 0) {
@@ -66,19 +70,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const docente = docentes.find(d => d.id === asistencia.id_docente);
             const curso = cursos.find(c => c.id === asistencia.id_curso);
             
-            let estadoBadge = '';
-            if (asistencia.estado === 'Presente') estadoBadge = '<span class="badge bg-success">Presente</span>';
-            else if (asistencia.estado === 'Ausente') estadoBadge = '<span class="badge bg-danger">Ausente</span>';
-            else estadoBadge = '<span class="badge bg-warning text-dark">Atraso</span>';
+            let estadoBadge = asistencia.estado === 'Presente' ? '<span class="badge bg-success">Presente</span>' : 
+                              (asistencia.estado === 'Ausente' ? '<span class="badge bg-danger">Ausente</span>' : 
+                              '<span class="badge bg-warning text-dark">Atraso</span>');
 
-            let acciones = '';
-            if (tbodyElement.id === 'tablaDashboard') {
-                acciones = `
-                    <a href="editar.html?id=${asistencia.id}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i> Editar</a>
-                `;
-            } else {
-                 acciones = `<span class="text-muted">Solo lectura</span>`;
-            }
+            let acciones = tbodyElement.id === 'tablaDashboard' ? 
+                `<a href="editar.html?id=${asistencia.id}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i> Editar</a>` : 
+                `<span class="text-muted">Solo lectura</span>`;
 
             tbodyElement.innerHTML += `
                 <tr>
@@ -92,12 +90,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Registrar / Editar - Load Selects
     function cargarSelects(docenteSelectId, cursoSelectId) {
         const docenteSelect = document.getElementById(docenteSelectId);
         const cursoSelect = document.getElementById(cursoSelectId);
         
-        const docentes = JSON.parse(localStorage.getItem('docentes')) || [];
+        const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+        const docentes = usuarios.filter(u => u.rol === 'docente');
         const cursos = JSON.parse(localStorage.getItem('cursos')) || [];
 
         if (docenteSelect) {
@@ -107,11 +105,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 option.textContent = d.nombre;
                 docenteSelect.appendChild(option);
             });
-            // Pre-select logged in user
+            
             const docenteLogueado = getDocenteLogueado();
             if (docenteLogueado) {
-                docenteSelect.value = docenteLogueado.id;
-                docenteSelect.disabled = true; // Prevent changing own id for simplicity in this flow
+                // Si es admin, NO bloqueamos el select
+                if (usuarioRol !== 'admin') {
+                    docenteSelect.value = docenteLogueado.id;
+                    docenteSelect.disabled = true; 
+                }
             }
         }
 
@@ -130,7 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         formRegistrar.addEventListener('submit', (e) => {
             e.preventDefault();
-            
             const docenteId = parseInt(document.getElementById('docente').value);
             const cursoId = parseInt(document.getElementById('curso').value);
             const fecha = document.getElementById('fecha').value;
@@ -139,27 +139,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const asistencias = JSON.parse(localStorage.getItem('asistencias')) || [];
             const nuevoId = asistencias.length > 0 ? Math.max(...asistencias.map(a => a.id)) + 1 : 1;
 
-            asistencias.push({
-                id: nuevoId,
-                id_docente: docenteId,
-                id_curso: cursoId,
-                fecha_asistencia: fecha,
-                estado: estado
-            });
-
+            asistencias.push({ id: nuevoId, id_docente: docenteId, id_curso: cursoId, fecha_asistencia: fecha, estado: estado });
             localStorage.setItem('asistencias', JSON.stringify(asistencias));
-            window.location.href = 'dashboard.html';
+            
+            window.location.href = usuarioRol === 'admin' ? 'admin_asistencias.html' : 'dashboard.html';
         });
     }
 
     if (formEditar) {
         cargarSelects('docente', 'curso');
-        
         const urlParams = new URLSearchParams(window.location.search);
         const asistenciaId = parseInt(urlParams.get('id'));
         
         if (isNaN(asistenciaId)) {
-            alert("ID de asistencia no válido.");
             window.location.href = 'dashboard.html';
             return;
         }
@@ -168,20 +160,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const asistencia = asistencias.find(a => a.id === asistenciaId);
 
         if (!asistencia) {
-            alert("Asistencia no encontrada.");
             window.location.href = 'dashboard.html';
             return;
         }
 
-        // Check if the current user owns this record (security check for prototype)
-        const docenteLogueadoId = parseInt(sessionStorage.getItem('docenteLogueadoId'));
-        if (asistencia.id_docente !== docenteLogueadoId) {
+        const docenteLogueadoId = parseInt(sessionStorage.getItem('usuarioLogueadoId'));
+        // El admin se salta esta validación
+        if (asistencia.id_docente !== docenteLogueadoId && usuarioRol !== 'admin') {
             alert("No tienes permiso para editar este registro.");
             window.location.href = 'dashboard.html';
             return;
         }
 
-        // Fill form
         document.getElementById('asistenciaId').value = asistencia.id;
         document.getElementById('docente').value = asistencia.id_docente;
         document.getElementById('curso').value = asistencia.id_curso;
@@ -190,24 +180,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         formEditar.addEventListener('submit', (e) => {
             e.preventDefault();
-            
             const id = parseInt(document.getElementById('asistenciaId').value);
-            const docenteId = parseInt(document.getElementById('docente').value);
-            const cursoId = parseInt(document.getElementById('curso').value);
-            const fecha = document.getElementById('fecha').value;
-            const estado = document.getElementById('estado').value;
-
             const index = asistencias.findIndex(a => a.id === id);
+            
             if (index !== -1) {
                 asistencias[index] = {
                     id: id,
-                    id_docente: docenteId,
-                    id_curso: cursoId,
-                    fecha_asistencia: fecha,
-                    estado: estado
+                    id_docente: parseInt(document.getElementById('docente').value),
+                    id_curso: parseInt(document.getElementById('curso').value),
+                    fecha_asistencia: document.getElementById('fecha').value,
+                    estado: document.getElementById('estado').value
                 };
                 localStorage.setItem('asistencias', JSON.stringify(asistencias));
-                window.location.href = 'dashboard.html';
+                window.location.href = usuarioRol === 'admin' ? 'admin_asistencias.html' : 'dashboard.html';
             }
         });
     }

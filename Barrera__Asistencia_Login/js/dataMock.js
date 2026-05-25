@@ -1,11 +1,20 @@
-// Initialize mock data if not present
+// js/dataMock.js
+
 function initDataMock() {
-    if (!localStorage.getItem('docentes')) {
-        const docentes = [
-            { id: 1, nombre: 'Juan Pérez', cedula: '1234567890', password: '123' },
-            { id: 2, nombre: 'Ana Gómez', cedula: '0987654321', password: '123' }
+    // Limpiamos la vieja clave "docentes" si existe, para forzar la actualización a "usuarios"
+    if (localStorage.getItem('docentes')) {
+        localStorage.removeItem('docentes');
+    }
+
+    if (!localStorage.getItem('usuarios')) {
+        const usuarios = [
+            // Docentes
+            { id: 1, nombre: 'Juan Pérez', cedula: '1234567890', password: '123', rol: 'docente' },
+            { id: 2, nombre: 'Ana Gómez', cedula: '0987654321', password: '123', rol: 'docente' },
+            // Nuevo Administrador
+            { id: 3, nombre: 'Admin Sistema', cedula: '0000000000', password: 'admin', rol: 'admin' }
         ];
-        localStorage.setItem('docentes', JSON.stringify(docentes));
+        localStorage.setItem('usuarios', JSON.stringify(usuarios));
     }
 
     if (!localStorage.getItem('cursos')) {

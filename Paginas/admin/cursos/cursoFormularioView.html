@@ -8,13 +8,13 @@
     <meta name="description" content="Este es mi portafolio de web development con Bootstrap c:">
     <meta name="keywords" content="HTML, CSS, JavaScript, Bootstrap">
     <!-- Titulo -->
-    <title>Uso de Bootstrap y JavaScript en formularios</title>
+    <title>Sistema de Gestion de Docentes</title>
     <link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/favicon-32x32.png" type="image/png">
     <!-- BootStrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./css/styles.css">
     <!-- Google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,10 +22,16 @@
   </head>
   <body class="bg-light">
     <!-- Cabecera -->
-    <header class="bg-dark text-white text-center p-3">
-      <h2>Lección: Uso de Bootstrap y JavaScript en formularios</h2>
-      <p>Alumno: Olaya Toscano Alan</p>
-      <p>Asignatura: Desarrollo de Aplicaciones Web I SOF-S-MA-6-3</p>
+    <header>
+      <nav class="navbar navbar-dark bg-dark mb-4">
+        <div class="container d-flex flex-row">
+            <span class="navbar-brand mb-0 h1">Portal de Cursos</span>
+            <div>
+                <a href="../usuarios/perfil.html" class="btn btn-outline-light btn-sm me-2">Mi Perfil</a>
+                <a href="../../index.html" class="btn btn-light btn-sm">Cerrar Sesión</a>
+            </div>
+        </div>
+      </nav>
     </header>
 
     <main class="container my-4">
@@ -47,6 +53,7 @@
                 <label for="cursoNombreInput" class="form-label">Nombre del curso</label>
                 <input type="text" class="form-control" id="cursoNombreInput" placeholder="Curso del programacion">
               </div>
+              
               <div class="mb-3">
                 <label for="docenteCursoInput" class="form-label">Docente</label>
                 <select id="docenteCursoInput" class="form-select" aria-label="Default select example">
@@ -65,36 +72,40 @@
                   <option value="3">Desarrollo de Aplicaciones Web</option>
                 </select>
               </div>
+
               <div class="mb-3">
                 <label for="cursoDescripcionInput" class="form-label">Acerca del curso</label>
                 <textarea class="form-control" id="cursoDescripcionInput" rows="5" placeholder="Describe brevemente de qué tratará el curso"></textarea>
               </div>
+
+              <!-- Selector de horario -->
               <div class="mb-3 d-flex flex-column">
                 <label for="cursoHorarioInput" class="form-label">Horario del curso</label>
                 <div class="form-text">Seleccione los días de clases del horario.</div>
                 <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                  <input type="checkbox" class="btn-check" id="lunesCheck" autocomplete="off">
+                  <input type="checkbox" class="btn-check" id="lunesCheck" autocomplete="off" value="lunes">
                   <label class="btn btn btn-outline-dark" for="lunesCheck">Lunes</label>
     
-                  <input type="checkbox" class="btn-check" id="martesCheck" autocomplete="off">
+                  <input type="checkbox" class="btn-check" id="martesCheck" autocomplete="off" value="martes">
                   <label class="btn btn btn-outline-dark" for="martesCheck">Martes</label>
     
-                  <input type="checkbox" class="btn-check" id="miercolesCheck" autocomplete="off">
+                  <input type="checkbox" class="btn-check" id="miercolesCheck" autocomplete="off" value="miercoles">
                   <label class="btn btn btn-outline-dark" for="miercolesCheck">Miercoles</label>
     
-                  <input type="checkbox" class="btn-check" id="juevesCheck" autocomplete="off">
+                  <input type="checkbox" class="btn-check" id="juevesCheck" autocomplete="off" value="jueves">
                   <label class="btn btn btn-outline-dark" for="juevesCheck">Jueves</label>
     
-                  <input type="checkbox" class="btn-check" id="viernesCheck" autocomplete="off">
+                  <input type="checkbox" class="btn-check" id="viernesCheck" autocomplete="off" value="viernes">
                   <label class="btn btn btn-outline-dark" for="viernesCheck">Viernes</label>
                   
-                  <input type="checkbox" class="btn-check" id="sabadoCheck" autocomplete="off">
+                  <input type="checkbox" class="btn-check" id="sabadoCheck" autocomplete="off" value="sabado">
                   <label class="btn btn btn-outline-dark" for="sabadoCheck">Sábado</label>
                   
-                  <input type="checkbox" class="btn-check" id="domingoCheck" autocomplete="off">
+                  <input type="checkbox" class="btn-check" id="domingoCheck" autocomplete="off" value="domingo">
                   <label class="btn btn btn-outline-dark" for="domingoCheck">Domingo</label>
                 </div>
               </div>
+
               <div class="row mb-3">
                 <div class="col-md-6">
                   <label for="cursofechaInicioInput" class="form-label">Fecha de Inicio:</label>
@@ -120,6 +131,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="./app.js"></script>
+    <script src="./js/formulario.js" type="module"></script>
   </body>
 </html>

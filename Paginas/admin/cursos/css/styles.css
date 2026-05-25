@@ -61,3 +61,15 @@ main {
   flex-direction: row;
   gap: 20px
 }
+
+.lista-cursos {
+  width: 1000px;
+}
+
+.btn-filtros {
+  gap: 10px
+}
+
+#idCursoCargado {
+  display: none;
+}

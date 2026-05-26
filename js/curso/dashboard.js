@@ -1,5 +1,3 @@
-import cursoRepo from "./cursoRepo.js";
-import cursoSesion from "./cursoSesion.js";
 
 const tablaCursos = document.getElementById("tablaCursos");
   

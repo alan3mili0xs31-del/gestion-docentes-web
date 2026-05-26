@@ -46,4 +46,3 @@ class CursoRepo {
 
 const cursoRepo = new CursoRepo();
 
-export default cursoRepo;

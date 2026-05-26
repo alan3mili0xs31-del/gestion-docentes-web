@@ -1,5 +1,3 @@
-import cursoRepo from "./cursoRepo.js";
-import cursoSesion from "./cursoSesion.js";
 
 function obtenerHorario() {
   // checkbox de horario
@@ -20,7 +18,7 @@ function obtenerHorario() {
   return horarioCurso;
 }
 
-export function obtenerCursoDesdeFormulario() {
+function obtenerCursoDesdeFormulario() {
   const docente = document.getElementById("docenteCursoInput");
   const nombre = document.getElementById("cursoNombreInput").value;
   const asignatura = document.getElementById("asignaturaCursoInput");
@@ -58,7 +56,7 @@ export function obtenerCursoDesdeFormulario() {
   };
 }
 
-export function cargarDatosAlFormulario() {
+function cargarDatosAlFormulario() {
   const curso = cursoRepo.obtenerCursoPorId(cursoSesion.obtenerId());
 
   const idCurso = document.getElementById("idCursoCargado");
@@ -81,7 +79,7 @@ export function cargarDatosAlFormulario() {
   console.log(curso);
 }
 
-export function cargarHorario(horarioCurso) {
+function cargarHorario(horarioCurso) {
   // checkbox de horario
   const lunes = document.getElementById("lunesCheck");
   const martes = document.getElementById("martesCheck");
@@ -99,7 +97,7 @@ export function cargarHorario(horarioCurso) {
   });
 }
 
-export function cargarAlSelect(select, nombre) {
+function cargarAlSelect(select, nombre) {
   for(let opcion of select.children) {
     if(opcion.textContent === nombre) {
       select.selectedIndex = opcion.value;

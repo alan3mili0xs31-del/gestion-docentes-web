@@ -1,9 +1,4 @@
 
-import cursoRepo from "./cursoRepo.js";
-import { obtenerCursoDesdeFormulario } from "./cursoFormularioComponente.js";
-import { cargarDatosAlFormulario } from "./cursoFormularioComponente.js";
-
-//@ts-check
 function main() {
   cargarDatosAlFormulario();
   const guardarCambiosBtn = document.getElementById("guardarCambios");

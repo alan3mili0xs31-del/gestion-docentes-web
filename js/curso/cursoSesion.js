@@ -9,5 +9,3 @@ class CursoSesion {
 }
 
 const cursoSesion = new CursoSesion();
-
-export default cursoSesion;

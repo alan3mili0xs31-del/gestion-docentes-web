@@ -1,5 +1,4 @@
-import cursoRepo from "./cursoRepo.js";
-import { obtenerCursoDesdeFormulario } from "./cursoFormularioComponente.js";
+
 const formulario = document.getElementById("crearCurso_form");
 
 function main() {

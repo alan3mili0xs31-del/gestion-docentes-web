@@ -1,75 +1,61 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Detalle de Docente - Arreaga Matamoros Jonathan</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="../../css/docente/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle Docente - Sistema</title>
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
-<body class="min-h-screen flex items-center justify-center">
-  
-  <header>
-    <nav  class="navbar navbar-dark bg-dark mb-4">
-      <div class="container d-flex flex-row justify-content-between" style="padding: 0;">
-          <div >
-            <span class="navbar-brand mb-0 h1" style="font-size: 1.2rem;">Sistema de Gestión Docente</span>
-            <a style="text-decoration: none; color: #FFF;" href="../home.html"><i class="bi bi-house mr-3" style="font-size: 1.5rem; text-decoration: none; color: #FFF;"></i> Home</a>
-          </div>
-          <div>   
-              <a href="../actividad-docente/perfil.html" style="font-size: 1rem; padding: 4px 8px;" class="btn btn-outline-light btn-sm me-2">Mi Perfil</a>
-              <a href="../login/login.html" class="btn btn-light btn-sm" style="font-size: 1rem; padding: 4px 8px;">Cerrar Sesión</a>
-          </div>
-      </div>
+<body class="home-body">
+
+    <nav class="navbar">
+        <div class="nav-brand">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+            <span>Sistema de Gestión Docente</span>
+        </div>
+        <div class="nav-actions">
+            <a href="../actividad-docente/perfil.html" class="btn-outline">Mi Perfil</a>
+            <a href="../login/login.html" class="btn-white">Cerrar Sesión</a>
+        </div>
     </nav>
-  </header>
 
-  <div class="container max-w-lg">
-    <div class="bg-white rounded-3xl shadow-xl p-10" style="padding: 20px;">
-      <h2 class="text-3xl font-bold text-center mb-8">Detalle del Docente</h2>
-      
-      <form id="formDetalle">
-        <div class="space-y-6">
-          <div>
-            <label class="block text-sm font-medium mb-2">Cédula</label>
-            <input type="text" id="cedula" class="form-input bg-gray-100" readonly>
-          </div>
-          <div>
-            <label class="block text-sm font-medium mb-2">Nombres</label>
-            <input type="text" id="nombres" class="form-input bg-gray-100" readonly>
-          </div>
-          <div>
-            <label class="block text-sm font-medium mb-2">Apellidos</label>
-            <input type="text" id="apellidos" class="form-input bg-gray-100" readonly>
-          </div>
+    <div class="dot-pattern top-left"></div>
+    <div class="dot-pattern bottom-right"></div>
+
+    <main class="main-container content-align-top">
+        
+        <div class="breadcrumb" style="color: var(--text-gray); font-size: 0.85rem; margin-bottom: 1rem;">
+            <a href="listado-docentes.html" style="color: var(--text-gray); text-decoration: none;">Docentes</a> / <span style="color: var(--c-primary-main); font-weight: 600;">Detalles</span>
         </div>
 
-        <div class="flex gap-4 mt-10 mt-4">
-          <a href="listado-docentes.html" class="btn btn-secondary flex-1 justify-center">Volver al Listado</a>
-        </div>
-      </form>
+        <header class="section-header">
+            <div>
+                <h1 class="page-title">Detalles del Docente</h1>
+                <p class="page-subtitle">Información completa del docente seleccionado.</p>
+            </div>
+            <div>
+                <a href="listado-docentes.html" class="btn-cancel">Volver al listado</a>
+            </div>
+        </header>
 
-      <div class="mt-12 mt-4">
-        <h3 class="text-xl font-semibold mb-6">Accesos Rápidos</h3>
-        <div class="grid grid-cols-3 gap-6 d-flex flex-column">
-          <a href="#" class="p-8 border-2 border-dashed border-gray-300 rounded-3xl hover:border-indigo-400 hover:bg-indigo-50 text-center transition group">
-            <i class="fas fa-book text-5xl text-indigo-600 mb-4 group-hover:scale-110 transition"></i>
-            <p class="font-medium text-gray-700">Cursos Asignados</p>
-          </a>
-          <a href="#" class="p-8 border-2 border-dashed border-gray-300 rounded-3xl hover:border-indigo-400 hover:bg-indigo-50 text-center transition group">
-            <i class="fas fa-tasks text-5xl text-indigo-600 mb-4 group-hover:scale-110 transition"></i>
-            <p class="font-medium text-gray-700">Actividades Académicas</p>
-          </a>
-          <a href="#" class="p-8 border-2 border-dashed border-gray-300 rounded-3xl hover:border-indigo-400 hover:bg-indigo-50 text-center transition group">
-            <i class="fas fa-clock text-5xl text-indigo-600 mb-4 group-hover:scale-110 transition"></i>
-            <p class="font-medium text-gray-700">Asistencia</p>
-          </a>
+        <div class="details-layout" style="grid-template-columns: 1fr; max-width: 800px; margin: 0 auto; width: 100%;">
+            <div class="form-section">
+                <div class="section-card">
+                    <div id="contenedorDetalle" style="text-align: center; color: var(--text-gray); padding: 2rem 0;">
+                        <p>Cargando información...</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-    </div>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../../js/docente/detalle-docente.js"></script>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Sistema de Gestión Docente. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="../../js/docente/DocenteModel.js"></script>
+    <script src="../../js/docente/DocenteView.js"></script>
+    <script src="../../js/docente/DocenteController.js"></script>
 </body>
 </html>

@@ -88,15 +88,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (act) {
             contenedorDetalle.innerHTML = `
-                <div class="row mb-3"><div class="col-sm-4 fw-bold">Categoría:</div><div class="col-sm-8">${act.categoria}</div></div><hr class="text-muted">
-                <div class="row mb-3"><div class="col-sm-4 fw-bold">Docente:</div><div class="col-sm-8">${act.docente}</div></div><hr class="text-muted">
-                <div class="row mb-3"><div class="col-sm-4 fw-bold">Horas Realizadas:</div><div class="col-sm-8">${act.horas} horas</div></div><hr class="text-muted">
-                <div class="row mb-3"><div class="col-sm-4 fw-bold">Fecha de Inicio:</div><div class="col-sm-8">${act.fechaInicio}</div></div><hr class="text-muted">
-                <div class="row mb-3"><div class="col-sm-4 fw-bold">Fecha de Fin:</div><div class="col-sm-8">${act.fechaFin}</div></div>
+                <div class="grid-2" style="text-align: left;">
+                    <div class="meta-group"><div class="meta-label">Categoría</div><div class="meta-value">${act.categoria}</div></div>
+                    <div class="meta-group"><div class="meta-label">Docente</div><div class="meta-value">${act.docente}</div></div>
+                    <div class="meta-group"><div class="meta-label">Horas Realizadas</div><div class="meta-value">${act.horas} horas</div></div>
+                    <div class="meta-group"><div class="meta-label">Fecha de Inicio</div><div class="meta-value">${act.fechaInicio}</div></div>
+                    <div class="meta-group"><div class="meta-label">Fecha de Fin</div><div class="meta-value">${act.fechaFin}</div></div>
+                </div>
                 
-                <div class="d-flex justify-content-end mt-4">
-                    <a href="editar.html?id=${actividadId}" class="btn btn-dark me-2">Ir a Editar</a>
-                    <a href="listado.html" class="btn btn-outline-secondary">Regresar</a>
+                <div class="form-actions-bar">
+                    <a href="listado.html" class="btn-cancel">Regresar</a>
+                    <a href="editar.html?id=${actividadId}" class="btn-save" style="text-decoration: none;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                        Ir a Editar
+                    </a>
                 </div>
             `;
         }

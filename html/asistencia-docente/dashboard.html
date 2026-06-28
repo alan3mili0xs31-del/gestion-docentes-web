@@ -3,65 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Sistema de Docentes</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../../css/asistencia-docente/global.css">
+    <title>Asistencias Recientes - Sistema de Docentes</title>
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
-<body>
+<body class="home-body">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="../home.html">Sistema de Gestión Docente</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="dashboard.html">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="historial.html">Historial Completo</a>
-                    </li>
-                </ul>
-                <div class="d-flex align-items-center">
-                    <span class="text-light me-3">Hola, <span id="navbarUserName">Docente</span></span>
-                    <a href="../actividad-docente/perfil.html" class="btn btn-outline-light btn-sm me-2">Mi Perfil</a>
-                    <button id="btnLogout" class="btn btn-outline-light btn-sm">Salir</button>
-                </div>
-            </div>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+            <span>Sistema de Gestión Docente</span>
+        </div>
+        <div class="nav-actions">
+            <span style="color: #fff; font-size: 0.9rem; opacity: 0.85;">Hola, <span id="navbarUserName" style="font-weight: 600;">Docente</span></span>
+            <a href="../actividad-docente/perfil.html" class="btn-outline">Mi Perfil</a>
+            <button id="btnLogout" class="btn-white">Salir</button>
         </div>
     </nav>
 
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="h3">Asistencias Recientes</h1>
-            <a href="../login/registrar.html" class="btn btn-primary">
-                <i class="bi bi-plus-lg"></i> Registrar Asistencia
+    <main class="main-container content-align-top">
+
+        <div style="display: flex; gap: 1.5rem; margin-bottom: 1rem;">
+            <a href="dashboard.html" style="color: var(--c-primary-main); font-weight: 600; text-decoration: none; font-size: 0.9rem; border-bottom: 2px solid var(--c-primary-main); padding-bottom: 2px;">Dashboard</a>
+            <a href="historial.html" style="color: var(--text-gray); font-weight: 500; text-decoration: none; font-size: 0.9rem;">Historial Completo</a>
+        </div>
+
+        <header class="section-header">
+            <div>
+                <h1 class="page-title">Asistencias Recientes</h1>
+                <p class="page-subtitle">Registros de asistencia de las últimas sesiones.</p>
+            </div>
+            <a href="registrar.html" class="btn-save" style="text-decoration: none;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.5rem;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Registrar Asistencia
             </a>
-        </div>
+        </header>
 
-        <div class="table-responsive bg-white">
-            <table class="table table-striped table-hover mb-0">
-                <thead class="table-light">
-                    <tr>
-                        <th>Docente</th>
-                        <th>Fecha</th>
-                        <th>Curso</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="tablaDashboard">
-                    <!-- Dinámico -->
-                </tbody>
-            </table>
+        <div class="modern-card" style="padding: 1.5rem;">
+            <div class="table-container" style="overflow-x: auto;">
+                <table class="data-table" style="width: 100%; min-width: 700px; border-collapse: separate; border-spacing: 0 10px;">
+                    <thead>
+                        <tr>
+                            <th style="padding: 1rem; color: var(--text-gray); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Docente</th>
+                            <th style="padding: 1rem; color: var(--text-gray); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Fecha</th>
+                            <th style="padding: 1rem; color: var(--text-gray); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Curso</th>
+                            <th style="padding: 1rem; color: var(--text-gray); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Estado</th>
+                            <th style="padding: 1rem; color: var(--text-gray); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaDashboard">
+                        <!-- Llenado dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
+    </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../../js/login/dataMock.js"></script>
-    <script src="../../js/asistencia-docente/asistencia.js"></script>
+    <footer class="footer">
+        <p>&copy; 2026 Sistema de Gestión Docente. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="../../js/asistencia-docente/AsistenciaModel.js"></script>
+    <script src="../../js/asistencia-docente/AsistenciaView.js"></script>
+    <script src="../../js/asistencia-docente/AsistenciaController.js"></script>
 </body>
 </html>

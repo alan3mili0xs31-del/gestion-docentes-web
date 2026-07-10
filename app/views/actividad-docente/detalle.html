@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Actividad - Gestión Docente</title>
+    <link rel="stylesheet" href="../../../public/css/style.css">
+</head>
+<body class="home-body">
+
+    <nav class="navbar">
+        <div class="nav-brand">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+            <span>Sistema de Gestión Docente</span>
+        </div>
+        <div class="nav-actions">
+            <a href="../actividad-docente/perfil.html" class="btn-outline">Mi Perfil</a>
+            <a href="../login/login.html" class="btn-white">Cerrar SesiÃ³n</a>
+        </div>
+    </nav>
+
+    <div class="dot-pattern top-left"></div>
+    <div class="dot-pattern bottom-right"></div>
+
+    <main class="main-container content-align-top">
+
+        <div class="breadcrumb" style="color: var(--text-gray); font-size: 0.85rem; margin-bottom: 1rem;">
+            <a href="listado.html" style="color: var(--text-gray); text-decoration: none;">Actividades</a> / <span style="color: var(--c-primary-main); font-weight: 600;">Detalles</span>
+        </div>
+
+        <header class="section-header">
+            <div>
+                <h1 class="page-title">Detalle de la Actividad</h1>
+                <p class="page-subtitle">InformaciÃ³n completa de la actividad registrada.</p>
+            </div>
+            <div>
+                <a href="listado.html" class="btn-cancel">Volver al listado</a>
+            </div>
+        </header>
+
+        <div class="details-layout" style="grid-template-columns: 1fr; max-width: 800px; margin: 0 auto; width: 100%;">
+            <div class="form-section">
+                <div class="section-card">
+                    <div id="contenedorDetalle" style="text-align: center; color: var(--text-gray); padding: 2rem 0;">
+                        <p>Cargando informaciÃ³n...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Sistema de Gestión Docente. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="../../../public/js/actividad-docente/ActividadModel.js"></script>
+    <script src="../../../public/js/actividad-docente/ActividadView.js"></script>
+    <script src="../../../public/js/actividad-docente/ActividadControlador.js"></script>
+</body>
+</html>
+

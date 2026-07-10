@@ -1,4 +1,4 @@
-class AsignaturaController {
+﻿class AsignaturaControlador {
     constructor(model, view) {
         this.model = model;
         this.view = view;
@@ -58,7 +58,7 @@ class AsignaturaController {
     }
 
     handleEliminarAsignatura(id) {
-        if (confirm('¿Estás seguro de eliminar esta asignatura?')) {
+        if (confirm('Â¿EstÃ¡s seguro de eliminar esta asignatura?')) {
             this.model.delete(id);
             this.updateTable();
         }
@@ -68,5 +68,6 @@ class AsignaturaController {
 document.addEventListener('DOMContentLoaded', () => {
     const model = new AsignaturaModel();
     const view = new AsignaturaView();
-    const controller = new AsignaturaController(model, view);
+    const Controlador = new AsignaturaControlador(model, view);
 });
+

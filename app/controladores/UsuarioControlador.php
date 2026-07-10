@@ -1,10 +1,10 @@
-<?php
+﻿<?php
 
-require_once '../app/models/Usuario.php';
+require_once '../app/modelos/Usuario.php';
 
-class UsuarioController
+class UsuarioControlador
 {
-    public function index()
+    public function listar()
     {
         // TODO:
         // 1. Obtener el listado de usuarios desde el modelo.
@@ -21,7 +21,7 @@ class UsuarioController
     {
         // TODO:
         // 1. Recibir los datos enviados por el formulario ($_POST).
-        // 2. Validar la información.
+        // 2. Validar la informaciÃ³n.
         // 3. Llamar al modelo para insertar el usuario.
         // 4. Redirigir al listado de usuarios.
     }
@@ -30,15 +30,15 @@ class UsuarioController
     {
         // TODO:
         // 1. Obtener el id del usuario.
-        // 2. Consultar la información del usuario.
-        // 3. Mostrar el formulario de edición.
+        // 2. Consultar la informaciÃ³n del usuario.
+        // 3. Mostrar el formulario de ediciÃ³n.
     }
 
     public function actualizar()
     {
         // TODO:
         // 1. Recibir los datos modificados.
-        // 2. Validar la información.
+        // 2. Validar la informaciÃ³n.
         // 3. Actualizar el usuario mediante el modelo.
         // 4. Redirigir al listado.
     }

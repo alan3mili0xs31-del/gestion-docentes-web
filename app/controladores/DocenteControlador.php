@@ -1,10 +1,10 @@
-<?php
+﻿<?php
 
-require_once '../app/models/Docente.php';
+require_once '../app/modelos/Docente.php';
 
-class DocenteController
+class DocenteControlador
 {
-    public function index()
+    public function listar()
     {
         // TODO:
         // 1. Obtener el listado de docentes desde el modelo.
@@ -21,7 +21,7 @@ class DocenteController
     {
         // TODO:
         // 1. Recibir los datos enviados por el formulario ($_POST).
-        // 2. Validar la información.
+        // 2. Validar la informaciÃ³n.
         // 3. Llamar al modelo para insertar el docente.
         // 4. Redirigir al listado de docentes.
     }
@@ -30,15 +30,15 @@ class DocenteController
     {
         // TODO:
         // 1. Obtener el id del docente.
-        // 2. Consultar la información del docente.
-        // 3. Mostrar el formulario de edición.
+        // 2. Consultar la informaciÃ³n del docente.
+        // 3. Mostrar el formulario de ediciÃ³n.
     }
 
     public function actualizar()
     {
         // TODO:
         // 1. Recibir los datos modificados.
-        // 2. Validar la información.
+        // 2. Validar la informaciÃ³n.
         // 3. Actualizar el docente mediante el modelo.
         // 4. Redirigir al listado.
     }

@@ -1,10 +1,10 @@
-<?php
+﻿<?php
 
-require_once '../app/models/Curso.php';
+require_once '../app/modelos/Curso.php';
 
-class CursoController
+class CursoControlador
 {
-    public function index()
+    public function listar()
     {
         // TODO:
         // 1. Obtener el listado de cursos desde el modelo.
@@ -21,7 +21,7 @@ class CursoController
     {
         // TODO:
         // 1. Recibir los datos enviados por el formulario ($_POST).
-        // 2. Validar la información.
+        // 2. Validar la informaciÃ³n.
         // 3. Llamar al modelo para insertar el curso.
         // 4. Redirigir al listado de cursos.
     }
@@ -30,15 +30,15 @@ class CursoController
     {
         // TODO:
         // 1. Obtener el id del curso.
-        // 2. Consultar la información del curso.
-        // 3. Mostrar el formulario de edición.
+        // 2. Consultar la informaciÃ³n del curso.
+        // 3. Mostrar el formulario de ediciÃ³n.
     }
 
     public function actualizar()
     {
         // TODO:
         // 1. Recibir los datos modificados.
-        // 2. Validar la información.
+        // 2. Validar la informaciÃ³n.
         // 3. Actualizar el curso mediante el modelo.
         // 4. Redirigir al listado.
     }

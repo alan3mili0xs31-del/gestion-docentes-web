@@ -1,13 +1,13 @@
-<?php
+﻿<?php
 
-$router['GET']['/actividades'] = ['ActividadAcademicaController', 'index'];
+$router['GET']['/actividades'] = ['ActividadAcademicaControlador', 'listar'];
 
-$router['GET']['/actividades/crear'] = ['ActividadAcademicaController', 'crear'];
+$router['GET']['/actividades/crear'] = ['ActividadAcademicaControlador', 'crear'];
 
-$router['POST']['/actividades/guardar'] = ['ActividadAcademicaController', 'guardar'];
+$router['POST']['/actividades/guardar'] = ['ActividadAcademicaControlador', 'guardar'];
 
-$router['GET']['/actividades/editar'] = ['ActividadAcademicaController', 'editar'];
+$router['GET']['/actividades/editar'] = ['ActividadAcademicaControlador', 'editar'];
 
-$router['POST']['/actividades/actualizar'] = ['ActividadAcademicaController', 'actualizar'];
+$router['POST']['/actividades/actualizar'] = ['ActividadAcademicaControlador', 'actualizar'];
 
-$router['POST']['/actividades/eliminar'] = ['ActividadAcademicaController', 'eliminar'];
+$router['POST']['/actividades/eliminar'] = ['ActividadAcademicaControlador', 'eliminar'];

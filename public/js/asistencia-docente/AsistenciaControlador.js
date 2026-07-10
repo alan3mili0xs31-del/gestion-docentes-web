@@ -1,4 +1,4 @@
-class AsistenciaController {
+﻿class AsistenciaControlador {
     constructor(model, view) {
         this.model = model;
         this.view = view;
@@ -79,5 +79,6 @@ class AsistenciaController {
 document.addEventListener('DOMContentLoaded', () => {
     const model = new AsistenciaModel();
     const view = new AsistenciaView();
-    const controller = new AsistenciaController(model, view);
+    const Controlador = new AsistenciaControlador(model, view);
 });
+

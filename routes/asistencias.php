@@ -1,13 +1,13 @@
-<?php
+﻿<?php
 
-$router['GET']['/asistencias'] = ['AsistenciaController', 'index'];
+$router['GET']['/asistencias'] = ['AsistenciaControlador', 'listar'];
 
-$router['GET']['/asistencias/crear'] = ['AsistenciaController', 'crear'];
+$router['GET']['/asistencias/crear'] = ['AsistenciaControlador', 'crear'];
 
-$router['POST']['/asistencias/guardar'] = ['AsistenciaController', 'guardar'];
+$router['POST']['/asistencias/guardar'] = ['AsistenciaControlador', 'guardar'];
 
-$router['GET']['/asistencias/editar'] = ['AsistenciaController', 'editar'];
+$router['GET']['/asistencias/editar'] = ['AsistenciaControlador', 'editar'];
 
-$router['POST']['/asistencias/actualizar'] = ['AsistenciaController', 'actualizar'];
+$router['POST']['/asistencias/actualizar'] = ['AsistenciaControlador', 'actualizar'];
 
-$router['POST']['/asistencias/eliminar'] = ['AsistenciaController', 'eliminar'];
+$router['POST']['/asistencias/eliminar'] = ['AsistenciaControlador', 'eliminar'];

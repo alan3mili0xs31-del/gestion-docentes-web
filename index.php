@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 session_start();
 
@@ -8,7 +8,7 @@ require_once 'config/Conexion.php';
 $router = [];
 
 // Cargar rutas
-// Cada router añade las rutas usando el arreglo de router
+// Cada router aÃ±ade las rutas usando el arreglo de router
 require_once 'routes/auth.php';
 require_once 'routes/docentes.php';
 require_once 'routes/cursos.php';
@@ -39,12 +39,12 @@ $method = $_SERVER['REQUEST_METHOD'];
 // Buscar la ruta
 if (isset($router[$method][$uri])) {
 
-    $controller = $router[$method][$uri][0];
+    $controlador = $router[$method][$uri][0];
     $action = $router[$method][$uri][1];
 
-    require_once "app/controllers/$controller.php";
+    require_once "app/controladores/$controlador.php";
 
-    $obj = new $controller();
+    $obj = new $controlador();
 
     $obj->$action();
 
@@ -55,3 +55,4 @@ if (isset($router[$method][$uri])) {
     echo "<h1>404 - Página no encontrada</h1>";
 
 }
+

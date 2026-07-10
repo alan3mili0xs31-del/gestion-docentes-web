@@ -1,9 +1,9 @@
-<?php
+﻿<?php
 
-$router['GET']['/'] = ['AuthController', 'login'];
+$router['GET']['/'] = ['AuthControlador', 'login'];
 
-$router['GET']['/login'] = ['AuthController', 'login'];
+$router['GET']['/login'] = ['AuthControlador', 'login'];
 
-$router['POST']['/login'] = ['AuthController', 'autenticar'];
+$router['POST']['/login'] = ['AuthControlador', 'autenticar'];
 
-$router['GET']['/logout'] = ['AuthController', 'cerrarSesion'];
+$router['GET']['/logout'] = ['AuthControlador', 'cerrarSesion'];

@@ -1,4 +1,4 @@
-class DocenteController {
+﻿class DocenteControlador {
     constructor(model, view) {
         this.model = model;
         this.view = view;
@@ -59,7 +59,7 @@ class DocenteController {
     }
 
     handleEliminarDocente(id) {
-        if (confirm('¿Estás seguro de eliminar este docente?')) {
+        if (confirm('Â¿EstÃ¡s seguro de eliminar este docente?')) {
             this.model.delete(id);
             this.updateTable();
         }
@@ -69,5 +69,6 @@ class DocenteController {
 document.addEventListener('DOMContentLoaded', () => {
     const model = new DocenteModel();
     const view = new DocenteView();
-    const controller = new DocenteController(model, view);
+    const Controlador = new DocenteControlador(model, view);
 });
+

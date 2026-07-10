@@ -1,10 +1,10 @@
-<?php
+﻿<?php
 
-require_once '../app/models/Asistencia.php';
+require_once '../app/modelos/Asistencia.php';
 
-class AsistenciaController
+class AsistenciaControlador
 {
-    public function index()
+    public function listar()
     {
         // TODO:
         // 1. Obtener el listado de asistencias desde el modelo.
@@ -21,7 +21,7 @@ class AsistenciaController
     {
         // TODO:
         // 1. Recibir los datos enviados por el formulario ($_POST).
-        // 2. Validar la información.
+        // 2. Validar la informaciÃ³n.
         // 3. Llamar al modelo para insertar el asistencia.
         // 4. Redirigir al listado de asistencias.
     }
@@ -30,15 +30,15 @@ class AsistenciaController
     {
         // TODO:
         // 1. Obtener el id del asistencia.
-        // 2. Consultar la información del asistencia.
-        // 3. Mostrar el formulario de edición.
+        // 2. Consultar la informaciÃ³n del asistencia.
+        // 3. Mostrar el formulario de ediciÃ³n.
     }
 
     public function actualizar()
     {
         // TODO:
         // 1. Recibir los datos modificados.
-        // 2. Validar la información.
+        // 2. Validar la informaciÃ³n.
         // 3. Actualizar el asistencia mediante el modelo.
         // 4. Redirigir al listado.
     }

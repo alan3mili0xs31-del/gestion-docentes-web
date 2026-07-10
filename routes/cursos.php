@@ -1,13 +1,13 @@
-<?php
+﻿<?php
 
-$router['GET']['/cursos'] = ['CursoController', 'index'];
+$router['GET']['/cursos'] = ['CursoControlador', 'listar'];
 
-$router['GET']['/cursos/crear'] = ['CursoController', 'crear'];
+$router['GET']['/cursos/crear'] = ['CursoControlador', 'crear'];
 
-$router['POST']['/cursos/guardar'] = ['CursoController', 'guardar'];
+$router['POST']['/cursos/guardar'] = ['CursoControlador', 'guardar'];
 
-$router['GET']['/cursos/editar'] = ['CursoController', 'editar'];
+$router['GET']['/cursos/editar'] = ['CursoControlador', 'editar'];
 
-$router['POST']['/cursos/actualizar'] = ['CursoController', 'actualizar'];
+$router['POST']['/cursos/actualizar'] = ['CursoControlador', 'actualizar'];
 
-$router['POST']['/cursos/eliminar'] = ['CursoController', 'eliminar'];
+$router['POST']['/cursos/eliminar'] = ['CursoControlador', 'eliminar'];

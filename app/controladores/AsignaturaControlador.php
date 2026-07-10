@@ -1,10 +1,10 @@
-<?php
+﻿<?php
 
-require_once '../app/models/Asignatura.php';
+require_once '../app/modelos/Asignatura.php';
 
-class AsignaturaController
+class AsignaturaControlador
 {
-    public function index()
+    public function listar()
     {
         // TODO:
         // 1. Obtener el listado de asignaturas desde el modelo.
@@ -21,7 +21,7 @@ class AsignaturaController
     {
         // TODO:
         // 1. Recibir los datos enviados por el formulario ($_POST).
-        // 2. Validar la información.
+        // 2. Validar la informaciÃ³n.
         // 3. Llamar al modelo para insertar el asignatura.
         // 4. Redirigir al listado de asignaturas.
     }
@@ -30,15 +30,15 @@ class AsignaturaController
     {
         // TODO:
         // 1. Obtener el id del asignatura.
-        // 2. Consultar la información del asignatura.
-        // 3. Mostrar el formulario de edición.
+        // 2. Consultar la informaciÃ³n del asignatura.
+        // 3. Mostrar el formulario de ediciÃ³n.
     }
 
     public function actualizar()
     {
         // TODO:
         // 1. Recibir los datos modificados.
-        // 2. Validar la información.
+        // 2. Validar la informaciÃ³n.
         // 3. Actualizar el asignatura mediante el modelo.
         // 4. Redirigir al listado.
     }

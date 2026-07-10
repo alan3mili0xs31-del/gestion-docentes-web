@@ -1,4 +1,4 @@
-class ActividadController {
+﻿class ActividadControlador {
     constructor(model, view) {
         this.model = model;
         this.view = view;
@@ -48,7 +48,7 @@ class ActividadController {
     }
 
     handleEliminarActividad(id) {
-        if(confirm("¿Estás seguro de que deseas eliminar esta actividad académica?")) {
+        if(confirm("Â¿EstÃ¡s seguro de que deseas eliminar esta actividad acadÃ©mica?")) {
             this.model.delete(id);
             this.updateTable();
         }
@@ -58,5 +58,6 @@ class ActividadController {
 document.addEventListener('DOMContentLoaded', () => {
     const model = new ActividadModel();
     const view = new ActividadView();
-    const controller = new ActividadController(model, view);
+    const Controlador = new ActividadControlador(model, view);
 });
+

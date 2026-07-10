@@ -1,13 +1,13 @@
-<?php
+﻿<?php
 
-$router['GET']['/asignaturas'] = ['AsignaturaController', 'index'];
+$router['GET']['/asignaturas'] = ['AsignaturaControlador', 'listar'];
 
-$router['GET']['/asignaturas/crear'] = ['AsignaturaController', 'crear'];
+$router['GET']['/asignaturas/crear'] = ['AsignaturaControlador', 'crear'];
 
-$router['POST']['/asignaturas/guardar'] = ['AsignaturaController', 'guardar'];
+$router['POST']['/asignaturas/guardar'] = ['AsignaturaControlador', 'guardar'];
 
-$router['GET']['/asignaturas/editar'] = ['AsignaturaController', 'editar'];
+$router['GET']['/asignaturas/editar'] = ['AsignaturaControlador', 'editar'];
 
-$router['POST']['/asignaturas/actualizar'] = ['AsignaturaController', 'actualizar'];
+$router['POST']['/asignaturas/actualizar'] = ['AsignaturaControlador', 'actualizar'];
 
-$router['POST']['/asignaturas/eliminar'] = ['AsignaturaController', 'eliminar'];
+$router['POST']['/asignaturas/eliminar'] = ['AsignaturaControlador', 'eliminar'];

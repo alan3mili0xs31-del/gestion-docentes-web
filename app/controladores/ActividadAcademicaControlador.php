@@ -1,10 +1,10 @@
-<?php
+﻿<?php
 
-require_once '../app/models/ActividadAcademica.php';
+require_once '../app/modelos/ActividadAcademica.php';
 
-class ActividadAcademicaController
+class ActividadAcademicaControlador
 {
-    public function index()
+    public function listar()
     {
         // TODO:
         // 1. Obtener el listado de actividad academicas desde el modelo.
@@ -21,7 +21,7 @@ class ActividadAcademicaController
     {
         // TODO:
         // 1. Recibir los datos enviados por el formulario ($_POST).
-        // 2. Validar la información.
+        // 2. Validar la informaciÃ³n.
         // 3. Llamar al modelo para insertar el actividad academica.
         // 4. Redirigir al listado de actividad academicas.
     }
@@ -30,15 +30,15 @@ class ActividadAcademicaController
     {
         // TODO:
         // 1. Obtener el id del actividad academica.
-        // 2. Consultar la información del actividad academica.
-        // 3. Mostrar el formulario de edición.
+        // 2. Consultar la informaciÃ³n del actividad academica.
+        // 3. Mostrar el formulario de ediciÃ³n.
     }
 
     public function actualizar()
     {
         // TODO:
         // 1. Recibir los datos modificados.
-        // 2. Validar la información.
+        // 2. Validar la informaciÃ³n.
         // 3. Actualizar el actividad academica mediante el modelo.
         // 4. Redirigir al listado.
     }

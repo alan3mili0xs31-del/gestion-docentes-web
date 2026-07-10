@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Docentes - Sistema</title>
-    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../../public/css/style.css">
 </head>
 <body class="home-body">
 
@@ -15,12 +15,12 @@
         </div>
         <div class="nav-actions">
             <a href="../actividad-docente/perfil.html" class="btn-outline">Mi Perfil</a>
-            <a href="../login/login.html" class="btn-white">Cerrar Sesión</a>
+            <a href="../login/login.html" class="btn-white">Cerrar SesiÃ³n</a>
         </div>
     </nav>
 
     <main class="main-container content-align-top">
-        
+
         <div class="breadcrumb" style="color: var(--text-gray); font-size: 0.85rem; margin-bottom: 1rem;">
             Docentes / <span style="color: var(--c-primary-main); font-weight: 600;">Listado</span>
         </div>
@@ -30,10 +30,10 @@
                 <h1 class="page-title">Gestión de Docentes</h1>
                 <p class="page-subtitle">Directorio de docentes registrados en el sistema.</p>
             </div>
-            
+
             <div style="display: flex; gap: 1rem; align-items: center;">
                 <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Buscar por cédula o nombre...">
+                    <input type="text" id="searchInput" placeholder="Buscar por cÃ©dula o nombre...">
                 </div>
                 <a href="crear-docente.html" class="btn-save" style="text-decoration: none;">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.5rem;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
@@ -48,14 +48,14 @@
                     <thead>
                         <tr>
                             <th style="padding: 1rem; color: var(--text-gray); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">ID</th>
-                            <th style="padding: 1rem; color: var(--text-gray); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Cédula</th>
+                            <th style="padding: 1rem; color: var(--text-gray); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">CÃ©dula</th>
                             <th style="padding: 1rem; color: var(--text-gray); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Nombres</th>
                             <th style="padding: 1rem; color: var(--text-gray); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Apellidos</th>
                             <th style="padding: 1rem; color: var(--text-gray); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="tablaDocentes">
-                        <!-- Llenado dinámicamente -->
+                        <!-- Llenado dinÃ¡micamente -->
                     </tbody>
                 </table>
             </div>
@@ -66,8 +66,8 @@
         <p>&copy; 2026 Sistema de Gestión Docente. Todos los derechos reservados.</p>
     </footer>
 
-    <script src="../../js/docente/DocenteModel.js"></script>
-    <script src="../../js/docente/DocenteView.js"></script>
-    <script src="../../js/docente/DocenteController.js"></script>
+    <script src="../../../public/js/docente/DocenteModel.js"></script>
+    <script src="../../../public/js/docente/DocenteView.js"></script>
+    <script src="../../../public/js/docente/DocenteController.js"></script>
 </body>
 </html>

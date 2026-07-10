@@ -1,21 +1,21 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Usuarios - Admin</title>
-    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../../public/css/style.css">
 </head>
 <body class="home-body">
 
     <nav class="navbar">
         <div class="nav-brand">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-            <span>Panel de Administración</span>
+            <span>Panel de AdministraciÃ³n</span>
         </div>
         <div class="nav-actions">
-            <a href="./listado.html" class="btn-outline">Módulo Actividades</a>
-            <a href="./index.html" class="btn-white">Cerrar Sesión</a>
+            <a href="./listado.html" class="btn-outline">Modulo Actividades</a>
+            <a href="./index.html" class="btn-white">Cerrar SesiÃ³n</a>
         </div>
     </nav>
 
@@ -36,19 +36,19 @@
                 <div class="section-card">
                     <h3 style="font-size: 1.1rem; color: var(--text-dark); margin-bottom: 1.5rem; font-weight: 600;">Crear Nuevo Usuario</h3>
                     <form id="formCrearUsuario">
-                        
+
                         <div class="form-group">
                             <label for="nombreUsuario">Usuario</label>
                             <input type="text" class="form-input" id="nombreUsuario" placeholder="Ej: sacosta" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="correoUsuario">Correo Electrónico</label>
+                            <label for="correoUsuario">Correo ElectrÃ³nico</label>
                             <input type="email" class="form-input" id="correoUsuario" placeholder="correo@ug.edu.ec" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="passwordUsuario">Contraseña</label>
+                            <label for="passwordUsuario">ContraseÃ±a</label>
                             <input type="password" class="form-input" id="passwordUsuario" required>
                         </div>
 
@@ -89,7 +89,7 @@
                             <input type="text" placeholder="Buscar usuario...">
                         </div>
                     </div>
-                    
+
                     <div class="table-container" style="overflow-x: auto;">
                         <table class="data-table" style="width: 100%; min-width: 600px; border-collapse: separate; border-spacing: 0 10px;">
                             <thead>
@@ -134,6 +134,6 @@
         <p>&copy; 2026 Sistema de Gestión Docente. Todos los derechos reservados.</p>
     </footer>
 
-    <script src="../../js/actividad-docente/usuarios.js"></script>
+    <script src="../../../public/js/actividad-docente/usuarios.js"></script>
 </body>
 </html>

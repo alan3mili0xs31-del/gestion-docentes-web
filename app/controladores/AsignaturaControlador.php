@@ -1,6 +1,6 @@
 <?php
 
-require_once 'app/modelos/AsignaturaModelo.php';
+require_once __DIR__.'/../modelos/AsignaturaModelo.php';
 
 class AsignaturaControlador
 {

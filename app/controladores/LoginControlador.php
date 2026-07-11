@@ -1,6 +1,6 @@
 <?php
 
-require_once 'app/modelos/LoginModelo.php';
+require_once __DIR__.'/../modelos/LoginModelo.php';
 
 class LoginControlador {
     private LoginModelo $loginModelo;

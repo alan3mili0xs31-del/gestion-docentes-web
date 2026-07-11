@@ -1,6 +1,6 @@
 <?php
 
-require_once 'app/modelos/AsistenciaModelo.php';
+require_once __DIR__.'/../modelos/AsistenciaModelo.php';
 
 class AsistenciaControlador
 {

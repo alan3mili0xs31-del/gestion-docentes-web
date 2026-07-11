@@ -3,7 +3,7 @@
 $accion = $_GET["accion"] ?? "listar";
 
 
-require_once "app/controladores/CursoControlador.php";
+require_once __DIR__."/../app/controladores/CursoControlador.php";
 
 $controlador = new CursoControlador();
 

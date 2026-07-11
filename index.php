@@ -39,6 +39,7 @@ switch ($path) {
 
 
     case "/asignaturas":
+        esAdmin();
         estaAutenticado();
         require_once "routes/asignaturas.php";
         break;
@@ -71,7 +72,7 @@ function estaAutenticado() {
 
 function esAdmin() {
     if (strcmp($_SESSION["usuario"]["rol"], "administrador") != 0) {
-      echo "No estas autorizado a ver este contenido";
+      require_once __DIR__."/app/vistas/layout/no-autorizado.php";
       exit;
   }
 }

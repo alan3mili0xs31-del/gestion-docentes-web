@@ -1,6 +1,6 @@
 <?php
 
-require_once 'app/modelos/UsuarioModelo.php';
+require_once __DIR__.'/../modelos/UsuarioModelo.php';
 
 class UsuarioControlador
 {

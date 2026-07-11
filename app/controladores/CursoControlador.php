@@ -4,11 +4,18 @@ require_once __DIR__.'/../modelos/CursoModelo.php';
 
 class CursoControlador
 {
+    private CursoModelo $cursoModelo;
+
+    public function __construct() {
+        $this->cursoModelo = new CursoModelo();
+    }
+
     public function listar()
     {
         // TODO:
         // 1. Obtener el listado de cursos desde el modelo.
         // 2. Enviar los datos a la vista de listado.
+        $cursos = $this->cursoModelo->listar();
         require_once "app/vistas/curso/curso_listado.php";
     }
 
@@ -42,6 +49,20 @@ class CursoControlador
         // 2. Validar la informaciÃ³n.
         // 3. Actualizar el curso mediante el modelo.
         // 4. Redirigir al listado.
+    }
+
+
+    public function buscar()
+    {
+        $id_curso = $_GET["id_curso"] ?? '';
+        $curso = $this->cursoModelo->buscarPorId($id_curso);
+        if ($curso) {
+            require_once "app/vistas/curso/curso_detalle.php";
+        }
+        else {
+            require_once "app/vistas/layout/no-encontrado.php";
+        }
+
     }
 
     public function eliminar()

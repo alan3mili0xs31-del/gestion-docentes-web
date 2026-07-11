@@ -2,7 +2,7 @@
 
 require_once 'config/Conexion.php';
 
-class Usuario
+class UsuarioModelo
 {
     private $conexion;
 

@@ -26,39 +26,56 @@
 
             <div class="form-section">
                 <div class="section-card">
-                    <h2 class="section-title">InformaciÃ³n General</h2>
-                    <form action="#" class="details-form">
+                    <h2 class="section-title">Información General</h2>
+                    <form action="/gestion-docentes-web/cursos?accion=actualizar" method="POST" class="details-form">
+                        <input type="hidden" name="id_curso" id="id_curso" value="<?php echo htmlspecialchars($curso['id_curso']); ?>"></input>
                         <div class="form-group">
-                            <label>Nombre del Curso</label>
-                            <input type="text" value="Curso de POO con JavaScript" class="form-input">
+                            <label>Nombre del curso</label>
+                            <input type="text" value="<?php echo htmlspecialchars($curso['nombre']); ?>" class="form-input" name="nombre" id="nombre">
                         </div>
 
                         <div class="grid-2">
                             <div class="form-group">
                                 <label>Docente</label>
-                                <select class="form-input">
-                                    <option>Prof. Sebastian Acosta</option>
+                                <select class="form-input" name="id_docente" id="id_docente">
+                                    <option value="<?php echo htmlspecialchars($curso['id_docente']); ?>"><?php echo htmlspecialchars($curso['id_docente']); ?></option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Estado del Curso</label>
-                                <select class="form-input">
-                                    <option>Activo</option>
-                                    <option>Inactivo</option>
+                                <select class="form-input" name="estado" id="estado">
+                                    <option value="activo">Activo</option>
+                                    <option value="inactivo">Inactivo</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label>DescripciÃ³n</label>
-                            <textarea class="form-input" rows="5">En este curso aprenderemos los fundamentos de programaciÃ³n orientada a objetos...</textarea>
+                            <label>Asignatura</label>
+                            <select class="form-input" name="id_asignatura" id="id_asignatura">
+                                <option value="<?php echo htmlspecialchars($curso['id_asignatura']); ?>"><?php echo htmlspecialchars($curso['id_asignatura']); ?></option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Descripción</label>
+                            <textarea class="form-input" rows="5" name="descripcion" id="descripcion"><?php echo htmlspecialchars($curso['descripcion']); ?></textarea>
                         </div>
 
                         <div class="form-actions-bar">
-                            <a href="curso_listado.php" class="btn-cancel">Cancelar</a>
-                            <button type="submit" class="btn-save">
+                            <a href="/gestion-docentes-web/cursos" class="btn-cancel">Cancelar</a>
+
+                            <button type="submit" class="btn-save" id="guardar-curso">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
                                 Guardar Cambios
+                            </button>
+
+                            <button type="submit" class="btn-save" id="editar-curso">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 20h9"/>
+                                    <path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/>
+                                </svg>
+                                Editar curso
                             </button>
                         </div>
                     </form>
@@ -74,23 +91,24 @@
 
                     <div class="meta-group">
                         <span class="meta-label">Creado:</span>
-                        <span class="meta-value">12 Mayo, 2026</span>
+                        <span class="meta-value"><?php echo htmlspecialchars($curso['fecha_creacion']); ?></span>
                     </div>
                     <div class="meta-group">
-                        <span class="meta-label">Ãšltima ediciÃ³n:</span>
+                        <span class="meta-label">Última edición:</span>
                         <span class="meta-value">Hace 2 horas</span>
                     </div>
                     <div class="meta-group">
                         <span class="meta-label">Alumnos:</span>
-                        <span class="meta-value">35 Estudiantes</span>
+                        <span class="meta-value"><?php echo htmlspecialchars($curso['cantidad_alumnos']); ?> Estudiantes</span>
                     </div>
 
                     <div class="status-box active">
-                        <span>Estado:</span> <strong>Activo</strong>
+                        <span>Estado:</span> <strong><?php echo htmlspecialchars($curso['estado']); ?></strong>
                     </div>
                 </div>
             </aside>
         </div>
     </main>
+    <script src="public/js/curso/cursos.js"></script>
 </body>
 </html>

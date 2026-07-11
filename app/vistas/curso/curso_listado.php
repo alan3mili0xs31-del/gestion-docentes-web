@@ -41,111 +41,19 @@
             </div>
         </header>
 
-        <!-- CuadrÃ­cula de Cursos -->
+        <!-- Cuadri­cula de Cursos -->
         <div class="course-list-grid">
 
-            <!-- Curso 1 -->
-            <div class="course-card">
-                <div class="course-header bg-blue">
-                    <span class="course-code">ISI-501</span>
-                    <h3>IngenierÃ­a de Software II</h3>
-                </div>
-                <div class="course-body">
-                    <div class="course-info">
-                        <div class="info-item">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                            <span>35 Alumnos</span>
-                        </div>
-                        <div class="info-item">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                            <span>Lun y MiÃ© - 18:00</span>
-                        </div>
-                    </div>
+            <?php foreach ($cursos as $curso):
 
-                    <div class="course-progress">
-                        <div class="progress-text">
-                            <span>Avance del Semestre</span>
-                            <span>45%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill fill-blue" style="width: 45%;"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-footer">
-                    <a href="curso_detalle.php" class="btn-full btn-blue">Ver Detalles del Curso</a>
-                </div>
-            </div>
+              $colores = ["purple", "teal", "blue"];
+              $colorId = random_int(0, count($colores) - 1);
+              $colorSeleccionado = $colores[$colorId];
 
-            <!-- Curso 2 -->
-            <div class="course-card">
-                <div class="course-header bg-purple">
-                    <span class="course-code">CST-402</span>
-                    <h3>Arquitectura de Sistemas</h3>
-                </div>
-                <div class="course-body">
-                    <div class="course-info">
-                        <div class="info-item">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                            <span>28 Alumnos</span>
-                        </div>
-                        <div class="info-item">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                            <span>Mar y Jue - 20:00</span>
-                        </div>
-                    </div>
-
-                    <div class="course-progress">
-                        <div class="progress-text">
-                            <span>Avance del Semestre</span>
-                            <span>60%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill fill-purple" style="width: 60%;"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-footer">
-                    <a href="curso_detalle.php" class="btn-full btn-purple">Ver Detalles del Curso</a>
-                </div>
-            </div>
-
-            <!-- Curso 3 -->
-            <div class="course-card">
-                <div class="course-header bg-teal">
-                    <span class="course-code">PRG-305</span>
-                    <h3>ProgramaciÃ³n Avanzada</h3>
-                </div>
-                <div class="course-body">
-                    <div class="course-info">
-                        <div class="info-item">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                            <span>42 Alumnos</span>
-                        </div>
-                        <div class="info-item">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                            <span>Viernes - 16:00</span>
-                        </div>
-                    </div>
-
-                    <div class="course-progress">
-                        <div class="progress-text">
-                            <span>Avance del Semestre</span>
-                            <span>30%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill fill-teal" style="width: 30%;"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-footer">
-                    <a href="curso_detalle.php" class="btn-full btn-teal">Ver Detalles del Curso</a>
-                </div>
-            </div>
-            <?php foreach ($cursos as $curso): ?>
+            ?>
 
             <div class="course-card">
-                <div class="course-header bg-teal">
+                <div class="course-header bg-<?= $colorSeleccionado ?>">
                     <span class="course-code"><?php echo htmlspecialchars($curso['paralelo']); ?></span>
                     <h3><?php echo htmlspecialchars($curso['nombre']); ?></h3>
                 </div>
@@ -162,7 +70,7 @@
                     </div>
                 </div>
                 <div class="course-footer">
-                    <a href="./curso_detalle.php?curso_id=<?= htmlspecialchars($curso['id']) ?>">Ver Detalles del Curso</a>
+                    <a href="/gestion-docentes-web/cursos?accion=buscar&id_curso=<?= htmlspecialchars($curso['id_curso']) ?>" class="btn-full btn-<?= $colorSeleccionado ?>">Ver Detalles del Curso</a>
                 </div>
             </div>
 

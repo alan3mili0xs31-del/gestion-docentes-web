@@ -2,7 +2,7 @@
 
 require_once 'config/Conexion.php';
 
-class Asistencia
+class AsistenciaModelo
 {
     private $conexion;
 

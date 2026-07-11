@@ -3,10 +3,10 @@
 require_once __DIR__."/UsuarioModelo.php";
 
 class LoginModelo {
-  private Usuario $usuarioModelo;
+  private UsuarioModelo $usuarioModelo;
 
   public function __construct() {
-    $this->usuarioModelo = new Usuario();
+    $this->usuarioModelo = new UsuarioModelo();
   }
 
   public function autenticar(string $cedula, string $clave) {

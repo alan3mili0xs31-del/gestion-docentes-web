@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 session_start();
 
@@ -50,7 +50,7 @@ switch ($path) {
         break;
 
 
-    case "/actividades":
+    case "/actividades-docente":
         estaAutenticado();
         require_once "routes/actividades.php";
         break;

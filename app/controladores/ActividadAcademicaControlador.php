@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 require_once 'app/modelos/ActividadAcademicaModelo.php';
 
@@ -9,6 +9,7 @@ class ActividadAcademicaControlador
         // TODO:
         // 1. Obtener el listado de actividad academicas desde el modelo.
         // 2. Enviar los datos a la vista de listado.
+        require_once "app/vistas/actividad-docente/listado.html";
     }
 
     public function crear()

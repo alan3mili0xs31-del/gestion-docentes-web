@@ -1,4 +1,4 @@
-﻿class AsignaturaControlador {
+class AsignaturaControlador {
     constructor(model, view) {
         this.model = model;
         this.view = view;

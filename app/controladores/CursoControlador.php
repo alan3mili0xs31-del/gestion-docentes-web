@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 require_once 'app/modelos/CursoModelo.php';
 
@@ -9,6 +9,7 @@ class CursoControlador
         // TODO:
         // 1. Obtener el listado de cursos desde el modelo.
         // 2. Enviar los datos a la vista de listado.
+        require_once "app/vistas/curso/curso_listado.php";
     }
 
     public function crear()

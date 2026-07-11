@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $accion = $_GET["accion"] ?? "listar";
 

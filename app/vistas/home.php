@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -33,7 +33,7 @@
         </header>
 
         <div class="cards-grid">
-            <a href="/gestion-docentes-web/app/vistas/curso/curso_listado.php" class="modern-card card-blue">
+            <a href="/gestion-docentes-web/cursos" class="modern-card card-blue">
                 <div class="card-icon-wrapper">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
                 </div>
@@ -51,7 +51,7 @@
                 <div class="card-waves"></div>
             </a>
 
-            <a href="/gestion-docentes-web/app/vistas/docente/listado-docentes.html" class="modern-card card-orange">
+            <a href="/gestion-docentes-web/docentes" class="modern-card card-orange">
                 <div class="card-icon-wrapper">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -63,7 +63,7 @@
                 <div class="card-waves"></div>
             </a>
 
-            <a href="/gestion-docentes-web/app/vistas/actividad-docente/index.html" class="modern-card card-teal">
+            <a href="/gestion-docentes-web/actividades-docente" class="modern-card card-teal">
                 <div class="card-icon-wrapper">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
                 </div>
@@ -72,7 +72,7 @@
                 <div class="card-waves"></div>
             </a>
 
-            <a href="/gestion-docentes-web/app/vistas/asistencias-docente/dashboard.html" class="modern-card card-purple">
+            <a href="/gestion-docentes-web/asistencias-docente" class="modern-card card-purple">
                 <div class="card-icon-wrapper">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><rect x="8" y="14" width="8" height="4" rx="1"/></svg>
                 </div>

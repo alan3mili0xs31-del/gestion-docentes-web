@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 require_once 'app/modelos/AsistenciaModelo.php';
 
@@ -9,6 +9,7 @@ class AsistenciaControlador
         // TODO:
         // 1. Obtener el listado de asistencias desde el modelo.
         // 2. Enviar los datos a la vista de listado.
+        require_once "app/vistas/asistencias-docente/dashboard.html";
     }
 
     public function crear()

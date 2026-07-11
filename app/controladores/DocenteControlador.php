@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 require_once 'app/modelos/DocenteModelo.php';
 
@@ -9,6 +9,7 @@ class DocenteControlador
         // TODO:
         // 1. Obtener el listado de docentes desde el modelo.
         // 2. Enviar los datos a la vista de listado.
+        require_once "app/vistas/docente/listado-docentes.html";
     }
 
     public function crear()

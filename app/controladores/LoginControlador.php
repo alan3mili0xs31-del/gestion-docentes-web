@@ -46,6 +46,6 @@ class LoginControlador {
     }
 
     public function mostrarFormulario(string $error = '') {
-        require_once __DIR__."/../views/login.php";
+        require_once __DIR__."/../vistas/login.php";
     }
 }

@@ -15,7 +15,7 @@ switch ($path) {
 
 
     case "/inicio":
-        require_once "app/views/home.php";
+        require_once "app/vistas/home.php";
         break;
 
 

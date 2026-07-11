@@ -14,7 +14,7 @@ class Usuario
 
     public function buscarPorCedula($cedula)
     {
-        $sql = 'SELECT id_usuario, cedula, clave
+        $sql = 'SELECT id_usuario, cedula, clave, rol
             FROM usuarios
             WHERE cedula = :cedula';
         $stmt = $this->conexion->prepare($sql);

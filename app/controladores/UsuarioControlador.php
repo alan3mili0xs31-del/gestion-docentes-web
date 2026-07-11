@@ -1,6 +1,6 @@
 ﻿<?php
 
-require_once 'app/modelos/Usuario.php';
+require_once 'app/modelos/UsuarioModelo.php';
 
 class UsuarioControlador
 {

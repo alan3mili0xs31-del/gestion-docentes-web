@@ -1,6 +1,6 @@
 ﻿<?php
 
-require_once 'app/modelos/Asignatura.php';
+require_once 'app/modelos/AsignaturaModelo.php';
 
 class AsignaturaControlador
 {
@@ -9,6 +9,7 @@ class AsignaturaControlador
         // TODO:
         // 1. Obtener el listado de asignaturas desde el modelo.
         // 2. Enviar los datos a la vista de listado.
+        echo "Mira mis asignaturas";
     }
 
     public function crear()

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__."/Usuario.php";
+require_once __DIR__."/UsuarioModelo.php";
 
 class LoginModelo {
   private Usuario $usuarioModelo;
@@ -21,7 +21,8 @@ class LoginModelo {
 
     return [
       "usuario_id" => $usuario["id_usuario"],
-      "cedula" => $usuario["cedula"]
+      "cedula" => $usuario["cedula"],
+      "rol" => $usuario["rol"]
     ];
   }
 

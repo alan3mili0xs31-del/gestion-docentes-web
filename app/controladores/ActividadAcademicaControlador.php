@@ -1,6 +1,6 @@
 ﻿<?php
 
-require_once 'app/modelos/ActividadAcademica.php';
+require_once 'app/modelos/ActividadAcademicaModelo.php';
 
 class ActividadAcademicaControlador
 {

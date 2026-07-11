@@ -42,7 +42,7 @@
                 <div class="card-waves"></div>
             </a>
 
-            <a href="/gestion-docentes-web/app/vistas/asignatura/listado-asignaturas.html" class="modern-card card-primary">
+            <a href="/gestion-docentes-web/asignaturas" class="modern-card card-primary">
                 <div class="card-icon-wrapper solid">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/></svg>
                 </div>

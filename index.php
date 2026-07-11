@@ -15,36 +15,43 @@ switch ($path) {
 
 
     case "/inicio":
+        estaAutenticado();
         require_once "app/vistas/home.php";
         break;
 
 
     case "/usuarios":
+        estaAutenticado();
         require_once "routes/usuarios.php";
         break;
 
 
     case "/docentes":
+        estaAutenticado();
         require_once "routes/docentes.php";
         break;
 
 
     case "/cursos":
+        estaAutenticado();
         require_once "routes/cursos.php";
         break;
 
 
     case "/asignaturas":
+        estaAutenticado();
         require_once "routes/asignaturas.php";
         break;
 
 
     case "/asistencias-docente":
+        estaAutenticado();
         require_once "routes/asistencias.php";
         break;
 
 
     case "/actividades":
+        estaAutenticado();
         require_once "routes/actividades.php";
         break;
 
@@ -52,4 +59,19 @@ switch ($path) {
     default:
         header("Location: ".$baseUrl."/auth");
         exit;
+}
+
+
+function estaAutenticado() {
+    if (!isset($_SESSION["usuario"])) {
+        header("Location: /gestion-docentes-web/auth");
+        exit;
+    }
+}
+
+function esAdmin() {
+    if (strcmp($_SESSION["usuario"]["rol"], "administrador") != 0) {
+      echo "No estas autorizado a ver este contenido";
+      exit;
+  }
 }

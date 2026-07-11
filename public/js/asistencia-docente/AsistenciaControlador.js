@@ -13,8 +13,8 @@
     init() {
         // Auth guard: skip on login page
         const path = window.location.pathname;
-        if (!path.endsWith('login.html') && !this.docenteLogueadoId) {
-            window.location.href = '../login.html';
+        if (!path.endsWith('login.php') && !this.docenteLogueadoId) {
+            window.location.href = '../login.php';
             return;
         }
 
@@ -62,7 +62,7 @@
 
     handleLogout() {
         sessionStorage.removeItem('docenteLogueadoId');
-        window.location.href = '../login.html';
+        window.location.href = '../login.php';
     }
 
     handleRegistrar(data) {

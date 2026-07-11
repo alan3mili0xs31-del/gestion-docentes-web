@@ -1,6 +1,6 @@
 <?php
 
-require_once '../config/Conexion.php';
+require_once 'config/Conexion.php';
 
 class Usuario
 {
@@ -12,11 +12,16 @@ class Usuario
     }
 
 
-    public function buscarPorUsuario($usuario)
+    public function buscarPorCedula($cedula)
     {
-        // TODO:
-        // Consultar en la base de datos un usuario por su nombre de usuario.
-        // Retornar los datos encontrados.
+        $sql = 'SELECT id_usuario, cedula, clave
+            FROM usuarios
+            WHERE cedula = :cedula';
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute([
+            "cedula" => $cedula
+        ]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
 

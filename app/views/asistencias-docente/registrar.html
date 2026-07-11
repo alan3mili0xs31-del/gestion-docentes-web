@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Asistencia - Sistema de Docentes</title>
+    <title>Registrar Asistencia - Sistema de Docentes</title>
     <link rel="stylesheet" href="../../../public/css/style.css">
 </head>
 <body class="home-body">
@@ -15,7 +15,6 @@
         </div>
         <div class="nav-actions">
             <span style="color: #fff; font-size: 0.9rem; opacity: 0.85;">Hola, <span id="navbarUserName" style="font-weight: 600;">Docente</span></span>
-            <a href="../actividad-docente/perfil.html" class="btn-outline">Mi Perfil</a>
             <button id="btnLogout" class="btn-white">Salir</button>
         </div>
     </nav>
@@ -26,21 +25,20 @@
     <main class="main-container content-align-top">
 
         <div class="breadcrumb" style="color: var(--text-gray); font-size: 0.85rem; margin-bottom: 1rem;">
-            <a href="dashboard.html" style="color: var(--text-gray); text-decoration: none;">Asistencias</a> / <span style="color: var(--c-primary-main); font-weight: 600;">Editar Registro</span>
+            <a href="dashboard.html" style="color: var(--text-gray); text-decoration: none;">Asistencias</a> / <span style="color: var(--c-primary-main); font-weight: 600;">Registrar Nueva</span>
         </div>
 
         <header class="section-header">
             <div>
-                <h1 class="page-title">Editar Registro de Asistencia</h1>
-                <p class="page-subtitle">Modifica la informaciÃ³n del registro seleccionado.</p>
+                <h1 class="page-title">Registrar Asistencia</h1>
+                <p class="page-subtitle">Registra una nueva asistencia en el sistema.</p>
             </div>
         </header>
 
         <div class="details-layout" style="grid-template-columns: 1fr; max-width: 700px; margin: 0 auto; width: 100%;">
             <div class="form-section">
                 <div class="section-card">
-                    <form id="formEditar">
-                        <input type="hidden" id="asistenciaId">
+                    <form id="formRegistrar">
 
                         <div class="form-group">
                             <label for="docente">Docente</label>
@@ -75,7 +73,7 @@
                             <a href="dashboard.html" class="btn-cancel">Cancelar</a>
                             <button type="submit" class="btn-save">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.5rem;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-                                Actualizar Cambios
+                                Guardar Registro
                             </button>
                         </div>
                     </form>
@@ -89,9 +87,6 @@
         <p>&copy; 2026 Sistema de Gestión Docente. Todos los derechos reservados.</p>
     </footer>
 
-    <script src="../../../public/js/asistencia-docente/AsistenciaModel.js"></script>
-    <script src="../../../public/js/asistencia-docente/AsistenciaView.js"></script>
-    <script src="../../../public/js/asistencia-docente/AsistenciaControlador.js"></script>
 </body>
 </html>
 

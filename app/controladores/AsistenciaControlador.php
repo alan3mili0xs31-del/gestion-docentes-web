@@ -1,6 +1,6 @@
 ﻿<?php
 
-require_once '../app/modelos/Asistencia.php';
+require_once 'app/modelos/Asistencia.php';
 
 class AsistenciaControlador
 {

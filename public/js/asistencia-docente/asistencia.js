@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Check if user is logged in for protected pages
     const path = window.location.pathname;
-    const isLoginPage = path.endsWith('login.html');
-    
+    const isLoginPage = path.endsWith('login.php');
+
     if (!isLoginPage) {
         const docenteLogueadoId = sessionStorage.getItem('docenteLogueadoId');
         if (!docenteLogueadoId) {
-            window.location.href = 'login.html';
+            window.location.href = 'login.php';
             return;
         }
     }
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(docentes);
         return docentes.find(d => d.id === id);
     }
-    
+
     // Set user name in navbar
     const navbarUserName = document.getElementById('navbarUserName');
     if (navbarUserName) {
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnLogout.addEventListener('click', (e) => {
             e.preventDefault();
             sessionStorage.removeItem('docenteLogueadoId');
-            window.location.href = 'login.html';
+            window.location.href = 'login.php';
         });
     }
 
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         misAsistencias.forEach(asistencia => {
             const docente = docentes.find(d => d.id === asistencia.id_docente);
             const curso = cursos.find(c => c.id === asistencia.id_curso);
-            
+
             let estadoBadge = '';
             if (asistencia.estado === 'Presente') estadoBadge = '<span class="badge bg-success">Presente</span>';
             else if (asistencia.estado === 'Ausente') estadoBadge = '<span class="badge bg-danger">Ausente</span>';
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function cargarSelects(docenteSelectId, cursoSelectId) {
         const docenteSelect = document.getElementById(docenteSelectId);
         const cursoSelect = document.getElementById(cursoSelectId);
-        
+
         const docentes = JSON.parse(localStorage.getItem('docentes')) || [];
         const cursos = JSON.parse(localStorage.getItem('cursos')) || [];
 
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         formRegistrar.addEventListener('submit', (e) => {
             e.preventDefault();
-            
+
             const docenteId = parseInt(document.getElementById('docente').value);
             const cursoId = parseInt(document.getElementById('curso').value);
             const fecha = document.getElementById('fecha').value;
@@ -156,10 +156,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (formEditar) {
         cargarSelects('docente', 'curso');
-        
+
         const urlParams = new URLSearchParams(window.location.search);
         const asistenciaId = parseInt(urlParams.get('id'));
-        
+
         if (isNaN(asistenciaId)) {
             alert("ID de asistencia no válido.");
             window.location.href = 'dashboard.html';
@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         formEditar.addEventListener('submit', (e) => {
             e.preventDefault();
-            
+
             const id = parseInt(document.getElementById('asistenciaId').value);
             const docenteId = parseInt(document.getElementById('docente').value);
             const cursoId = parseInt(document.getElementById('curso').value);

@@ -2,57 +2,54 @@
 
 session_start();
 
-require_once 'config/Conexion.php';
+// Extraer el modulo al que intenta acceder y redirigirlo a su router
+$url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
+$baseUrl = "/gestion-docentes-web";
+$path = str_replace($baseUrl, '', $url);
 
-// Arreglo donde se almacenarán todas las rutas
-$router = [];
+switch ($path) {
 
-// Cargar rutas
-// Cada router aÃ±ade las rutas usando el arreglo de router
-require_once 'routes/auth.php';
-require_once 'routes/docentes.php';
-require_once 'routes/cursos.php';
-require_once 'routes/asignaturas.php';
-require_once 'routes/asistencias.php';
-require_once 'routes/actividades.php';
-require_once 'routes/usuarios.php';
+    case "/auth":
+        require_once "routes/auth.php";
+        break;
 
 
-// Obtener la ruta solicitada
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    case "/inicio":
+        require_once "app/views/home.php";
+        break;
 
 
-// Si el proyecto está dentro de una carpeta en localhost,
-// elimina esa parte de la URL.
-$base = '/gestion-docentes-mvc';
-$uri = str_replace($base, '', $uri);
+    case "/usuarios":
+        require_once "routes/usuarios.php";
+        break;
 
 
-if ($uri == '') {
-    $uri = '/';
+    case "/docentes":
+        require_once "routes/docentes.php";
+        break;
+
+
+    case "/cursos":
+        require_once "routes/cursos.php";
+        break;
+
+
+    case "/asignaturas":
+        require_once "routes/asignaturas.php";
+        break;
+
+
+    case "/asistencias-docente":
+        require_once "routes/asistencias.php";
+        break;
+
+
+    case "/actividades":
+        require_once "routes/actividades.php";
+        break;
+
+
+    default:
+        header("Location: ".$baseUrl."/auth");
+        exit;
 }
-
-
-$method = $_SERVER['REQUEST_METHOD'];
-
-
-// Buscar la ruta
-if (isset($router[$method][$uri])) {
-
-    $controlador = $router[$method][$uri][0];
-    $action = $router[$method][$uri][1];
-
-    require_once "app/controladores/$controlador.php";
-
-    $obj = new $controlador();
-
-    $obj->$action();
-
-} else {
-
-    http_response_code(404);
-
-    echo "<h1>404 - Página no encontrada</h1>";
-
-}
-

@@ -1,13 +1,63 @@
 ﻿<?php
 
-$router['GET']['/asignaturas'] = ['AsignaturaControlador', 'listar'];
+$accion = $_GET["accion"] ?? "listar";
 
-$router['GET']['/asignaturas/crear'] = ['AsignaturaControlador', 'crear'];
 
-$router['POST']['/asignaturas/guardar'] = ['AsignaturaControlador', 'guardar'];
+require_once "app/controladores/AsignaturaControlador.php";
 
-$router['GET']['/asignaturas/editar'] = ['AsignaturaControlador', 'editar'];
 
-$router['POST']['/asignaturas/actualizar'] = ['AsignaturaControlador', 'actualizar'];
+$controlador = new AsignaturaControlador();
 
-$router['POST']['/asignaturas/eliminar'] = ['AsignaturaControlador', 'eliminar'];
+
+switch ($accion) {
+
+
+    case "listar":
+
+        $controlador->listar();
+
+        break;
+
+
+    case "crear":
+
+        $controlador->crear();
+
+        break;
+
+
+    case "guardar":
+
+        $controlador->guardar();
+
+        break;
+
+
+    case "actualizar":
+
+        $controlador->actualizar();
+
+        break;
+
+
+    case "eliminar":
+
+        $controlador->eliminar();
+
+        break;
+
+
+    case "buscar":
+
+        $controlador->buscar();
+
+        break;
+
+
+    default:
+
+        $controlador->listar();
+
+        break;
+
+}

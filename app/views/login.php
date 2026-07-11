@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar SesiÃ³n - Sistema de Gestión Docente</title>
-    <link rel="stylesheet" href="../../public/css/style.css">
+    <title>Iniciar Sesión - Sistema de Gestión Docente</title>
+    <link rel="stylesheet" href="/gestion-docentes-web/public/css/style.css">
     <style>
         .login-body {
             min-height: 100vh;
@@ -256,13 +256,13 @@
             </h1>
 
             <p class="login-description">
-                Plataforma centralizada para el control de actividades, asistencias, asignaturas y mÃ¡s. Todo en un solo lugar.
+                Plataforma centralizada para el control de actividades, asistencias, asignaturas y más. Todo en un solo lugar.
             </p>
 
             <div class="login-features">
                 <div class="feature-item"><div class="feature-dot"></div>Control de actividades y calificaciones</div>
                 <div class="feature-item"><div class="feature-dot"></div>Gestión de asistencias en tiempo real</div>
-                <div class="feature-item"><div class="feature-dot"></div>AdministraciÃ³n de cursos y asignaturas</div>
+                <div class="feature-item"><div class="feature-dot"></div>Administración de cursos y asignaturas</div>
                 <div class="feature-item"><div class="feature-dot"></div>Perfiles de docentes integrados</div>
             </div>
         </div>
@@ -278,14 +278,14 @@
                 Credenciales incorrectas. Intente nuevamente.
             </div>
 
-            <form id="formLogin" class="login-form">
+            <form id="formLogin" class="login-form" action="/gestion-docentes-web/auth?accion=login" method="POST">
                 <div class="form-group">
                     <label for="cedula">Cedula</label>
-                    <input type="text" class="form-input" id="cedula" required placeholder="Ej: 0912345678" autocomplete="username">
+                    <input type="text" class="form-input" id="cedula" required placeholder="Ej: 0912345678" autocomplete="username" name="cedula">
                 </div>
                 <div class="form-group">
-                    <label for="password">Contraseña</label>
-                    <input type="password" class="form-input" id="password" required placeholder="Ej: 123" autocomplete="current-password">
+                    <label for="clave">Contraseña</label>
+                    <input type="password" class="form-input" id="clave" required placeholder="Ej: 123" autocomplete="current-password" name="clave">
                 </div>
                 <button type="submit" class="btn-login">Ingresar al Sistema</button>
             </form>
@@ -294,7 +294,7 @@
         </div>
     </div>
 
-    <script src="../../public/js/login/dataMock.js"></script>
-    <script src="../../public/js/login/login.js"></script>
+    <!-- <script src="../../public/js/login/dataMock.js"></script>
+    <script src="../../public/js/login/login.js"></script> -->
 </body>
 </html>

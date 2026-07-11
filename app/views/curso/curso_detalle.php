@@ -11,7 +11,7 @@
     <nav class="navbar">
         <div class="nav-brand"><span>Gestión Docente</span></div>
         <div class="nav-actions">
-            <a href="cursoDashboardView.html" class="btn-outline">Volver a Cursos</a>
+            <a href="curso_listado.php" class="btn-outline">Volver a Cursos</a>
         </div>
     </nav>
 
@@ -55,7 +55,7 @@
                         </div>
 
                         <div class="form-actions-bar">
-                            <a href="cursoDashboardView.html" class="btn-cancel">Cancelar</a>
+                            <a href="curso_listado.php" class="btn-cancel">Cancelar</a>
                             <button type="submit" class="btn-save">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
                                 Guardar Cambios

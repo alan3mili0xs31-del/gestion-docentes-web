@@ -1,13 +1,63 @@
 ﻿<?php
 
-$router['GET']['/asistencias'] = ['AsistenciaControlador', 'listar'];
+$accion = $_GET["accion"] ?? "listar";
 
-$router['GET']['/asistencias/crear'] = ['AsistenciaControlador', 'crear'];
 
-$router['POST']['/asistencias/guardar'] = ['AsistenciaControlador', 'guardar'];
+require_once "app/controladores/AsistenciaControlador.php";
 
-$router['GET']['/asistencias/editar'] = ['AsistenciaControlador', 'editar'];
 
-$router['POST']['/asistencias/actualizar'] = ['AsistenciaControlador', 'actualizar'];
+$controlador = new AsistenciaControlador();
 
-$router['POST']['/asistencias/eliminar'] = ['AsistenciaControlador', 'eliminar'];
+
+switch ($accion) {
+
+
+    case "listar":
+
+        $controlador->listar();
+
+        break;
+
+
+    case "crear":
+
+        $controlador->crear();
+
+        break;
+
+
+    case "guardar":
+
+        $controlador->guardar();
+
+        break;
+
+
+    case "actualizar":
+
+        $controlador->actualizar();
+
+        break;
+
+
+    case "eliminar":
+
+        $controlador->eliminar();
+
+        break;
+
+
+    case "buscar":
+
+        $controlador->buscar();
+
+        break;
+
+
+    default:
+
+        $controlador->listar();
+
+        break;
+
+}

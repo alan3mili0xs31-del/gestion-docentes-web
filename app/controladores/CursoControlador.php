@@ -1,6 +1,6 @@
 ﻿<?php
 
-require_once '../app/modelos/Curso.php';
+require_once 'app/modelos/Curso.php';
 
 class CursoControlador
 {

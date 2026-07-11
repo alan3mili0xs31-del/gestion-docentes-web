@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio - Gestión Docente</title>
-    <link rel="stylesheet" href="../../public/css/style.css">
+    <link rel="stylesheet" href="/gestion-docentes-web/public/css/style.css">
 </head>
 <body class="home-body">
 
@@ -15,7 +15,7 @@
         </div>
         <div class="nav-actions">
             <a href="./actividad-docente/perfil.html" class="btn-outline">Mi Perfil</a>
-            <a href="login.html" class="btn-white">Cerrar SesiÃ³n</a>
+            <a href="login.php" class="btn-white">Cerrar SesiÃ³n</a>
         </div>
     </nav>
 
@@ -33,7 +33,7 @@
         </header>
 
         <div class="cards-grid">
-            <a href="curso/cursoDashboardView.html" class="modern-card card-blue">
+            <a href="/gestion-docentes-web/app/views/curso/curso_listado.php" class="modern-card card-blue">
                 <div class="card-icon-wrapper">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
                 </div>
@@ -42,7 +42,7 @@
                 <div class="card-waves"></div>
             </a>
 
-            <a href="asignatura/listado-asignaturas.html" class="modern-card card-primary">
+            <a href="/gestion-docentes-web/app/views/asignatura/listado-asignaturas.html" class="modern-card card-primary">
                 <div class="card-icon-wrapper solid">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/></svg>
                 </div>
@@ -51,7 +51,7 @@
                 <div class="card-waves"></div>
             </a>
 
-            <a href="docente/listado-docentes.html" class="modern-card card-orange">
+            <a href="/gestion-docentes-web/app/views/docente/listado-docentes.html" class="modern-card card-orange">
                 <div class="card-icon-wrapper">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -63,7 +63,7 @@
                 <div class="card-waves"></div>
             </a>
 
-            <a href="actividad-docente/index.html" class="modern-card card-teal">
+            <a href="/gestion-docentes-web/app/views/actividad-docente/index.html" class="modern-card card-teal">
                 <div class="card-icon-wrapper">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
                 </div>
@@ -72,7 +72,7 @@
                 <div class="card-waves"></div>
             </a>
 
-            <a href="asistencia-docente/dashboard.html" class="modern-card card-purple">
+            <a href="/gestion-docentes-web/app/views/asistencias-docente/dashboard.html" class="modern-card card-purple">
                 <div class="card-icon-wrapper">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><rect x="8" y="14" width="8" height="4" rx="1"/></svg>
                 </div>

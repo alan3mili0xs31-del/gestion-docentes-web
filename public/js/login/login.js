@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (docente) {
             sessionStorage.setItem('docenteLogueadoId', docente.id);
-            window.location.href = '../views/home.html';
+            window.location.href = '../views/home.php';
         } else {
             alertaError.classList.remove('d-none');
         }

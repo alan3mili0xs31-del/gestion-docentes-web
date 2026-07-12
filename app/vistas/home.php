@@ -1,23 +1,13 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio - Gestión Docente</title>
-    <link rel="stylesheet" href="/gestion-docentes-web/public/css/style.css">
-</head>
-<body class="home-body">
+<?php
 
-    <nav class="navbar">
-        <div class="nav-brand">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-            <span>Sistema de Gestión Docente</span>
-        </div>
-        <div class="nav-actions">
-            <a href="./actividad-docente/perfil.html" class="btn-outline">Mi Perfil</a>
-            <a href="login.php" class="btn-white">Cerrar SesiÃ³n</a>
-        </div>
-    </nav>
+$menu = [
+    "ruta" => "perfil",
+    "nombre" => "Mi Perfil"
+];
+
+require_once __DIR__."/layout/curso/header.php"
+
+?>
 
     <div class="dot-pattern top-left"></div>
     <div class="dot-pattern bottom-right"></div>
@@ -42,27 +32,32 @@
                 <div class="card-waves"></div>
             </a>
 
-            <a href="/gestion-docentes-web/asignaturas" class="modern-card card-primary">
-                <div class="card-icon-wrapper solid">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/></svg>
-                </div>
-                <h2>Asignaturas</h2>
-                <p>Revise el contenido y materias</p>
-                <div class="card-waves"></div>
-            </a>
+            <?php
 
-            <a href="/gestion-docentes-web/docentes" class="modern-card card-orange">
-                <div class="card-icon-wrapper">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                        <circle cx="12" cy="7" r="4" />
-                    </svg>
-                </div>
-                <h2>Docentes</h2>
-                <p>Gestione los docentes del sistema</p>
-                <div class="card-waves"></div>
-            </a>
+                if(strcmp($_SESSION["usuario"]["rol"], "administrador") == 0) {
+                    echo '<a href="/gestion-docentes-web/docentes" class="modern-card card-orange">
+                        <div class="card-icon-wrapper">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                        </div>
+                        <h2>Docentes</h2>
+                        <p>Gestione los docentes del sistema</p>
+                        <div class="card-waves"></div>
+                    </a>';
 
+                    echo '<a href="/gestion-docentes-web/asignaturas" class="modern-card card-primary">
+                        <div class="card-icon-wrapper solid">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/></svg>
+                        </div>
+                        <h2>Asignaturas</h2>
+                        <p>Revise el contenido y materias</p>
+                        <div class="card-waves"></div>
+                    </a>';
+
+                }
+            ?>
             <a href="/gestion-docentes-web/actividades-docente" class="modern-card card-teal">
                 <div class="card-icon-wrapper">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
@@ -83,9 +78,4 @@
         </div>
     </main>
 
-    <footer class="footer">
-        <p>&copy; 2026 Sistema de Gestión Docente. Todos los derechos reservados.</p>
-    </footer>
-
-</body>
-</html>
+<?php require_once __DIR__."/layout/curso/footer.php" ?>

@@ -38,7 +38,6 @@ class LoginControlador {
 
     public function logout()
     {
-        session_start();
         $_SESSION["usuario"] = '';
         session_unset();
         session_destroy();

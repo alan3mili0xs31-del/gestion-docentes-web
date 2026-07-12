@@ -12,26 +12,64 @@ class CursoControlador
 
     public function listar()
     {
-        // TODO:
-        // 1. Obtener el listado de cursos desde el modelo.
-        // 2. Enviar los datos a la vista de listado.
         $cursos = $this->cursoModelo->listar();
         require_once "app/vistas/curso/curso_listado.php";
     }
 
     public function crear()
     {
-        // TODO:
-        // Mostrar el formulario para registrar un nuevo curso.
+        require __DIR__."/../vistas/curso/curso_crear.php";
     }
 
     public function guardar()
     {
-        // TODO:
-        // 1. Recibir los datos enviados por el formulario ($_POST).
-        // 2. Validar la informaciÃ³n.
-        // 3. Llamar al modelo para insertar el curso.
-        // 4. Redirigir al listado de cursos.
+        header('Content-Type: application/json');
+        try {
+            $json = file_get_contents("php://input");
+
+            $datos = json_decode($json, true);
+
+            if (!$datos) {
+                throw new Exception("Datos inválidos");
+            }
+
+            $nombre = $datos['nombre'];
+            $descripcion = $datos['descripcion'];
+            $id_docente = $datos['id_docente'];
+            $id_asignatura = $datos['id_asignatura'];
+            $horario = $datos['horario'];
+            $paralelo = $datos['paralelo'];
+
+            $resultado = $this->cursoModelo->guardar([
+                "nombre" => $nombre ,
+                "descripcion" => $descripcion,
+                "id_docente" => $id_docente,
+                "id_asignatura" => $id_asignatura,
+                "horario" => $horario,
+                "paralelo" => $paralelo
+            ]);
+
+            if ($resultado > 0) {
+                echo json_encode([
+                    "success" => true,
+                    "mensaje" => "Curso creado correctamente"
+                ]);
+            } else {
+                echo json_encode([
+                    "success" => false,
+                    "mensaje" => "No se pudo crear el curso"
+                ]);
+            }
+
+        } catch (Exception $e) {
+
+            http_response_code(400);
+
+            echo json_encode([
+                "success" => false,
+                "mensaje" => $e->getMessage()
+            ]);
+        }
     }
 
     public function editar()
@@ -44,11 +82,52 @@ class CursoControlador
 
     public function actualizar()
     {
-        // TODO:
-        // 1. Recibir los datos modificados.
-        // 2. Validar la informaciÃ³n.
-        // 3. Actualizar el curso mediante el modelo.
-        // 4. Redirigir al listado.
+        header('Content-Type: application/json');
+        try {
+            $json = file_get_contents("php://input");
+
+            $datos = json_decode($json, true);
+
+            if (!$datos) {
+                throw new Exception("Datos inválidos");
+            }
+
+            $id_curso = $datos['id_curso'];
+            $nombre = $datos['nombre'];
+            $descripcion = $datos['descripcion'];
+            $id_docente = $datos['id_docente'];
+            $id_asignatura = $datos['id_asignatura'];
+            $estado = $datos['estado'];
+
+            $resultado = $this->cursoModelo->actualizar($id_curso, [
+                "nombre" => $nombre ,
+                "descripcion" => $descripcion,
+                "id_docente" => $id_docente,
+                "id_asignatura" => $id_asignatura,
+                "estado" => $estado
+            ]);
+
+            if ($resultado > 0) {
+                echo json_encode([
+                    "success" => true,
+                    "mensaje" => "Curso actualizado correctamente"
+                ]);
+            } else {
+                echo json_encode([
+                    "success" => false,
+                    "mensaje" => "No se pudo actualizar el curso"
+                ]);
+            }
+
+        } catch (Exception $e) {
+
+            http_response_code(400);
+
+            echo json_encode([
+                "success" => false,
+                "mensaje" => $e->getMessage()
+            ]);
+        }
     }
 
 
@@ -62,14 +141,15 @@ class CursoControlador
         else {
             require_once "app/vistas/layout/no-encontrado.php";
         }
-
     }
 
     public function eliminar()
     {
-        // TODO:
-        // 1. Obtener el id del curso.
-        // 2. Eliminar el registro mediante el modelo.
-        // 3. Redirigir al listado.
+        $id_curso = $_GET["id_curso"] ?? '';
+        if($id_curso) {
+            $this->cursoModelo->eliminar($id_curso);
+            header("Location: /gestion-docentes-web/cursos");
+            exit();
+        }
     }
 }

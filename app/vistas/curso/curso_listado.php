@@ -1,25 +1,13 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Cursos - Gestión Docente</title>
-    <!-- Ruta al archivo CSS unificado -->
-    <link rel="stylesheet" href="public/css/style.css">
-</head>
-<body class="home-body content-page">
+<?php
 
-    <!-- Barra de NavegaciÃ³n Superior -->
-    <nav class="navbar">
-        <div class="nav-brand">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-            <span>Sistema de Gestión Docente</span>
-        </div>
-        <div class="nav-actions">
-            <a href="../home.php" class="btn-outline">Volver al Inicio</a>
-            <a href="../login.php" class="btn-white">Cerrar SesiÃ³n</a>
-        </div>
-    </nav>
+$menu = [
+    "ruta" => "inicio",
+    "nombre" => "Inicio"
+];
+
+require_once __DIR__."/../layout/curso/header.php"
+
+?>
 
     <!-- Patrones decorativos -->
     <div class="dot-pattern top-left"></div>
@@ -32,13 +20,24 @@
         <header class="section-header">
             <div>
                 <h1 class="page-title">Mis Cursos Asignados</h1>
-                <p class="page-subtitle">Semestre AcadÃ©mico 2026-I</p>
+                <p class="page-subtitle">Semestre Académico 2026-I</p>
             </div>
+
             <!-- Buscador para filtrar cursos -->
-            <div class="search-box">
+            <!-- <div class="search-box">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 <input type="text" placeholder="Buscar curso...">
-            </div>
+            </div> -->
+
+            <?php
+
+                if(strcmp($_SESSION["usuario"]["rol"], "administrador") == 0):
+                    echo '<a href="/gestion-docentes-web/cursos?accion=crear" class="btn-save" style="text-decoration: none;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.5rem;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        Nuevo Curso
+                    </a>';
+                endif;
+            ?>
         </header>
 
         <!-- Cuadri­cula de Cursos -->
@@ -69,9 +68,25 @@
                         </div>
                     </div>
                 </div>
-                <div class="course-footer">
-                    <a href="/gestion-docentes-web/cursos?accion=buscar&id_curso=<?= htmlspecialchars($curso['id_curso']) ?>" class="btn-full btn-<?= $colorSeleccionado ?>">Ver Detalles del Curso</a>
+
+                <div class="course-footer" style=" display: flex; flex-direction: column; gap: 10px;">
+                    <a href="/gestion-docentes-web/cursos?accion=buscar&id_curso=<?= htmlspecialchars($curso['id_curso']) ?>"
+                        class="btn-full btn-<?= $colorSeleccionado ?>">
+                        Ver Detalles del Curso
+                    </a>
+
+                    <?php
+                        if(strcmp($_SESSION["usuario"]["rol"], "administrador") == 0):
+                            echo '<a href="/gestion-docentes-web/cursos?accion=eliminar&id_curso='.htmlspecialchars($curso["id_curso"]).'" class="btn-full btn-red"
+                                onclick="return confirm(\'¿Está seguro de eliminar este curso?\');">
+                                Eliminar Curso
+                            </a>';
+                        endif;
+                    ?>
                 </div>
+                <!-- <div class="course-footer">
+                    <a href="/gestion-docentes-web/cursos?accion=buscar&id_curso=<?= htmlspecialchars($curso['id_curso']) ?>" class="btn-full btn-<?= $colorSeleccionado ?>">Ver Detalles del Curso</a>
+                </div> -->
             </div>
 
         <?php endforeach; ?>
@@ -80,10 +95,4 @@
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer mt-auto">
-        <p>&copy; 2026 Sistema de Gestión Docente. Todos los derechos reservados.</p>
-    </footer>
-
-</body>
-</html>
+<?php require_once __DIR__."/../layout/curso/footer.php" ?>

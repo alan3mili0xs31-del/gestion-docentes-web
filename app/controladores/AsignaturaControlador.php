@@ -4,51 +4,106 @@ require_once __DIR__.'/../modelos/AsignaturaModelo.php';
 
 class AsignaturaControlador
 {
+    private AsignaturaModelo $asignaturaModelo;
+
+    public function __construct() {
+        $this->asignaturaModelo = new AsignaturaModelo();
+    }
+
     public function listar()
     {
-        // TODO:
-        // 1. Obtener el listado de asignaturas desde el modelo.
-        // 2. Enviar los datos a la vista de listado.
-        require_once "app/vistas/asignatura/listado-asignaturas.html";
+        $asignaturas = $this->asignaturaModelo->listar();
+        require_once "app/vistas/asignatura/asignatura_listado.php";
     }
 
     public function crear()
     {
-        // TODO:
-        // Mostrar el formulario para registrar un nuevo asignatura.
+        require_once "app/vistas/asignatura/asignatura_crear.php";
     }
 
     public function guardar()
     {
-        // TODO:
-        // 1. Recibir los datos enviados por el formulario ($_POST).
-        // 2. Validar la informaciÃ³n.
-        // 3. Llamar al modelo para insertar el asignatura.
-        // 4. Redirigir al listado de asignaturas.
+        header('Content-Type: application/json');
+        try {
+            $json = file_get_contents("php://input");
+            $datos = json_decode($json, true);
+
+            if (!$datos || empty($datos['nombre'])) {
+                throw new Exception("Datos inválidos o incompletos");
+            }
+
+            $resultado = $this->asignaturaModelo->guardar([
+                'nombre' => trim($datos['nombre']),
+                'estado' => $datos['estado'] ?? 'activo'
+            ]);
+
+            if ($resultado > 0) {
+                echo json_encode(["success" => true, "mensaje" => "Asignatura creada correctamente"]);
+            } else {
+                echo json_encode(["success" => false, "mensaje" => "No se pudo crear la asignatura"]);
+            }
+        } catch (Exception $e) {
+            http_response_code(400);
+            echo json_encode(["success" => false, "mensaje" => $e->getMessage()]);
+        }
     }
 
     public function editar()
     {
-        // TODO:
-        // 1. Obtener el id del asignatura.
-        // 2. Consultar la informaciÃ³n del asignatura.
-        // 3. Mostrar el formulario de ediciÃ³n.
+        $id_asignatura = $_GET["id_asignatura"] ?? '';
+        $asignatura = $this->asignaturaModelo->buscar($id_asignatura);
+        if ($asignatura) {
+            require_once "app/vistas/asignatura/asignatura_editar.php";
+        } else {
+            require_once "app/vistas/layout/no-encontrado.php";
+        }
     }
 
     public function actualizar()
     {
-        // TODO:
-        // 1. Recibir los datos modificados.
-        // 2. Validar la informaciÃ³n.
-        // 3. Actualizar el asignatura mediante el modelo.
-        // 4. Redirigir al listado.
+        header('Content-Type: application/json');
+        try {
+            $json = file_get_contents("php://input");
+            $datos = json_decode($json, true);
+
+            if (!$datos || empty($datos['id_asignatura']) || empty($datos['nombre'])) {
+                throw new Exception("Datos inválidos o incompletos");
+            }
+
+            $resultado = $this->asignaturaModelo->actualizar($datos['id_asignatura'], [
+                'nombre' => trim($datos['nombre']),
+                'estado' => $datos['estado'] ?? 'activo'
+            ]);
+
+            if ($resultado > 0) {
+                echo json_encode(["success" => true, "mensaje" => "Asignatura actualizada correctamente"]);
+            } else {
+                echo json_encode(["success" => false, "mensaje" => "No se pudo actualizar la asignatura"]);
+            }
+        } catch (Exception $e) {
+            http_response_code(400);
+            echo json_encode(["success" => false, "mensaje" => $e->getMessage()]);
+        }
     }
 
     public function eliminar()
     {
-        // TODO:
-        // 1. Obtener el id del asignatura.
-        // 2. Eliminar el registro mediante el modelo.
-        // 3. Redirigir al listado.
+        $id_asignatura = $_GET["id_asignatura"] ?? '';
+        if ($id_asignatura) {
+            $this->asignaturaModelo->eliminar($id_asignatura);
+            header("Location: /gestion-docentes-web/asignaturas");
+            exit();
+        }
+    }
+
+    public function buscar()
+    {
+        $id_asignatura = $_GET["id_asignatura"] ?? '';
+        $asignatura = $this->asignaturaModelo->buscar($id_asignatura);
+        if ($asignatura) {
+            require_once "app/vistas/asignatura/asignatura_detalle.php";
+        } else {
+            require_once "app/vistas/layout/no-encontrado.php";
+        }
     }
 }

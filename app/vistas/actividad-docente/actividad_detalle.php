@@ -1,0 +1,71 @@
+<?php
+
+$menu = [
+    "ruta" => "actividades-docente",
+    "nombre" => "Actividades Académicas"
+];
+
+require_once __DIR__."/../layout/curso/header.php"
+
+?>
+
+    <div class="dot-pattern top-left"></div>
+    <div class="dot-pattern bottom-right"></div>
+
+    <main class="main-container content-align-top">
+
+        <div class="breadcrumb" style="color: var(--text-gray); font-size: 0.85rem; margin-bottom: 1rem;">
+            <a href="/gestion-docentes-web/actividades-docente" style="color: var(--text-gray); text-decoration: none;">Actividades</a> / <span style="color: var(--c-primary-main); font-weight: 600;">Detalles</span>
+        </div>
+
+        <header class="section-header">
+            <div>
+                <h1 class="page-title">Detalles de la Actividad</h1>
+                <p class="page-subtitle">Información completa de la asignación seleccionada.</p>
+            </div>
+            <div>
+                <a href="/gestion-docentes-web/actividades-docente" class="btn-cancel">Volver al listado</a>
+            </div>
+        </header>
+
+        <div class="details-layout" style="grid-template-columns: 1fr; max-width: 800px; margin: 0 auto; width: 100%;">
+            <div class="form-section">
+                <div class="section-card">
+                    <div id="contenedorDetalle" style="color: var(--text-dark); padding: 1rem 0;">
+                        
+                        <div style="margin-bottom: 1.5rem; border-bottom: 1px solid #eee; padding-bottom: 1rem;">
+                            <h3 style="margin-bottom: 0.5rem; color: var(--c-primary-main);">Información General</h3>
+                            <div class="grid-2" style="margin-top: 1rem;">
+                                <div>
+                                    <strong style="color: var(--text-gray); display: block; font-size: 0.85rem; text-transform: uppercase;">ID Actividad</strong>
+                                    <p style="font-size: 1.1rem; font-weight: 500; margin-top: 0.2rem;"><?= htmlspecialchars($actividad['id_actividad'] ?? 'N/A') ?></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <div class="grid-2">
+                                <div>
+                                    <strong style="color: var(--text-gray); display: block; font-size: 0.85rem; text-transform: uppercase;">Docente Asignado</strong>
+                                    <p style="font-size: 1.1rem; margin-top: 0.2rem;"><?= htmlspecialchars(($actividad['primer_nombre'] ?? '') . ' ' . ($actividad['primer_apellido'] ?? '')) ?></p>
+                                </div>
+                                <div>
+                                    <strong style="color: var(--text-gray); display: block; font-size: 0.85rem; text-transform: uppercase;">Asignatura</strong>
+                                    <p style="font-size: 1.1rem; margin-top: 0.2rem;"><?= htmlspecialchars($actividad['asignatura_nombre'] ?? '') ?></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 2rem; display: flex; gap: 1rem; border-top: 1px solid #eee; padding-top: 1.5rem;">
+                            <a href="?accion=editar&id_actividad=<?= htmlspecialchars($actividad['id_actividad'] ?? '') ?>" class="btn-save" style="text-decoration: none;">Editar Asignación</a>
+                            <a href="?accion=eliminar&id_actividad=<?= htmlspecialchars($actividad['id_actividad'] ?? '') ?>" class="btn-red" style="text-decoration: none;" onclick="return confirm('¿Está seguro de eliminar esta actividad?');">Eliminar Asignación</a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+<?php require_once __DIR__."/../layout/curso/footer.php" ?>

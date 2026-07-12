@@ -1,63 +1,121 @@
-class ActividadControlador {
-    constructor(model, view) {
-        this.model = model;
-        this.view = view;
-
-        const urlParams = new URLSearchParams(window.location.search);
-        this.actividadId = urlParams.get('id');
-
-        // Init
-        this.init();
-    }
-
-    init() {
-        // En listado.html
-        if (this.view.tablaActividades) {
-            this.updateTable();
-        }
-
-        // En crear.html
-        this.view.bindCrearActividad(this.handleCrearActividad.bind(this));
-
-        // En editar.html
-        if (this.view.formEditarActividad && this.actividadId !== null) {
-            const actividad = this.model.getById(this.actividadId);
-            this.view.bindEditarActividad(actividad, this.handleEditarActividad.bind(this));
-        }
-
-        // En detalle.html
-        if (this.view.contenedorDetalle && this.actividadId !== null) {
-            const actividad = this.model.getById(this.actividadId);
-            this.view.renderDetalle(actividad, this.actividadId);
-        }
-    }
-
-    updateTable() {
-        const actividades = this.model.getAll();
-        this.view.renderTable(actividades, this.handleEliminarActividad.bind(this));
-    }
-
-    handleCrearActividad(data) {
-        this.model.add(data);
-        window.location.href = 'listado.html';
-    }
-
-    handleEditarActividad(data) {
-        this.model.update(this.actividadId, data);
-        window.location.href = 'listado.html';
-    }
-
-    handleEliminarActividad(id) {
-        if(confirm("Â¿EstÃ¡s seguro de que deseas eliminar esta actividad acadÃ©mica?")) {
-            this.model.delete(id);
-            this.updateTable();
-        }
-    }
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-    const model = new ActividadModel();
-    const view = new ActividadView();
-    const Controlador = new ActividadControlador(model, view);
+    
+    const formCrear = document.getElementById("formCrearActividad");
+    if (formCrear) {
+        formCrear.addEventListener("submit", async function (e) {
+            e.preventDefault();
+            
+            const id_docente = document.getElementById("id_docente").value;
+            const id_asignatura = document.getElementById("id_asignatura").value;
+            
+            const datos = { id_docente, id_asignatura };
+            
+            try {
+                const resp = await fetch("/gestion-docentes-web/actividades-docente?accion=guardar", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(datos)
+                });
+                
+                if (resp.ok) {
+                    const data = await resp.json();
+                    mostrarMensaje(data.success, data.mensaje);
+                    if (data.success) {
+                        setTimeout(() => window.location.href = '/gestion-docentes-web/actividades-docente', 1500);
+                    }
+                } else {
+                    mostrarMensaje(false, "Error al crear la actividad");
+                }
+            } catch (error) {
+                mostrarMensaje(false, error.message);
+            }
+        });
+    }
+
+    const formEditar = document.getElementById("formEditarActividad");
+    if (formEditar) {
+        formEditar.addEventListener("submit", async function (e) {
+            e.preventDefault();
+            
+            const id_actividad = document.getElementById("actividadId").value;
+            const id_docente = document.getElementById("id_docente").value;
+            const id_asignatura = document.getElementById("id_asignatura").value;
+            
+            const datos = { id_actividad, id_docente, id_asignatura };
+            
+            try {
+                const resp = await fetch("/gestion-docentes-web/actividades-docente?accion=actualizar", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(datos)
+                });
+                
+                if (resp.ok) {
+                    const data = await resp.json();
+                    mostrarMensaje(data.success, data.mensaje);
+                    if (data.success) {
+                        setTimeout(() => window.location.href = '/gestion-docentes-web/actividades-docente', 1500);
+                    }
+                } else {
+                    mostrarMensaje(false, "Error al actualizar la actividad");
+                }
+            } catch (error) {
+                mostrarMensaje(false, error.message);
+            }
+        });
+    }
+
+    // Búsqueda en vivo para la tabla de actividades
+    const searchInput = document.getElementById('searchInput');
+    const tableBody = document.getElementById('tablaActividades');
+
+    if (searchInput && tableBody) {
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            const rows = tableBody.querySelectorAll('tr');
+
+            rows.forEach(row => {
+                if (row.cells.length > 1) { // Ignorar la fila de "No hay actividades"
+                    const id = row.cells[0].textContent.toLowerCase();
+                    const docente = row.cells[1].textContent.toLowerCase();
+                    const asignatura = row.cells[2].textContent.toLowerCase();
+
+                    if (id.includes(searchTerm) || docente.includes(searchTerm) || asignatura.includes(searchTerm)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                }
+            });
+        });
+    }
 });
 
+function mostrarMensaje(estado, mensaje) {
+    const toastLiveExample = document.getElementById('liveToast')
+    const contenido = document.getElementById('toastMessage')
+    const icon_repuesta = document.getElementById('icono_respuesta');
+
+    if (!toastLiveExample) return; // Si no hay toast en la página, no hace nada (ej. listado)
+
+    if (estado) {
+        icon_repuesta.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#198754" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="9 12 12 15 16 9"></polyline>
+        </svg>`;
+    } else {
+        icon_repuesta.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#dc3545" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="15" y1="9" x2="9" y2="15"></line>
+                <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>`;
+    }
+
+    contenido.innerText = mensaje;
+    if (typeof bootstrap !== 'undefined') {
+        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+        toastBootstrap.show();
+    } else {
+        alert(mensaje);
+    }
+}

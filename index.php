@@ -19,6 +19,20 @@ switch ($path) {
         require_once "app/vistas/home.php";
         break;
 
+    case "/perfil":
+        estaAutenticado();
+        require_once "app/controladores/PerfilControlador.php";
+        $controlador = new PerfilControlador();
+        $controlador->mostrarPerfil();
+        break;
+
+    case "/perfil/actualizar":
+        estaAutenticado();
+        require_once "app/controladores/PerfilControlador.php";
+        $controlador = new PerfilControlador();
+        $controlador->actualizar();
+        break;
+
 
     case "/usuarios":
         estaAutenticado();

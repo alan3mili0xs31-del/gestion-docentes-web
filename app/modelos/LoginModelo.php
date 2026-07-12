@@ -22,7 +22,10 @@ class LoginModelo {
     return [
       "usuario_id" => $usuario["id_usuario"],
       "cedula" => $usuario["cedula"],
-      "rol" => $usuario["rol"]
+      "rol" => $usuario["rol"],
+      "nombre" => $usuario["nombre"],
+      "correo" => $usuario["correo"],
+      "telefono" => $usuario["telefono"]
     ];
   }
 

@@ -1,54 +1,113 @@
 <?php
 
 require_once __DIR__.'/../modelos/ActividadAcademicaModelo.php';
+require_once __DIR__.'/../modelos/DocenteModelo.php';
 
 class ActividadAcademicaControlador
 {
+    private $modelo;
+    private $docenteModelo;
+
+    public function __construct()
+    {
+        $this->modelo = new ActividadAcademicaModelo();
+        $this->docenteModelo = new DocenteModelo();
+    }
+
+    private function getIdDocenteActual()
+    {
+        if (isset($_SESSION["usuario"]) && isset($_SESSION["usuario"]["cedula"])) {
+            $docente = $this->docenteModelo->buscarPorCedula($_SESSION["usuario"]["cedula"]);
+            if ($docente) {
+                return $docente['id_docente'];
+            }
+        }
+        return null;
+    }
+
     public function listar()
     {
-        // TODO:
-        // 1. Obtener el listado de actividad academicas desde el modelo.
-        // 2. Enviar los datos a la vista de listado.
+        $id_docente = $this->getIdDocenteActual();
+        if (!$id_docente) {
+            die("Error: No se encontró el docente asociado al usuario.");
+        }
+        
+        $actividades = $this->modelo->listar($id_docente);
         require_once "app/vistas/actividad-docente/listado.html";
     }
 
     public function crear()
     {
-        // TODO:
-        // Mostrar el formulario para registrar un nuevo actividad academica.
+        require_once "app/vistas/actividad-docente/crear.html";
     }
 
     public function guardar()
     {
-        // TODO:
-        // 1. Recibir los datos enviados por el formulario ($_POST).
-        // 2. Validar la informaciÃ³n.
-        // 3. Llamar al modelo para insertar el actividad academica.
-        // 4. Redirigir al listado de actividad academicas.
+        $id_docente = $this->getIdDocenteActual();
+        if (!$id_docente) {
+            die("Error: No se encontró el docente asociado al usuario.");
+        }
+
+        if ($_SERVER["REQUEST_METHOD"] == 'POST') {
+            $datos = [
+                'id_docente' => $id_docente,
+                'categoria' => $_POST['categoria'] ?? '',
+                'horas' => $_POST['horas'] ?? 0,
+                'fecha_inicio' => $_POST['fechaInicio'] ?? '',
+                'fecha_fin' => $_POST['fechaFin'] ?? ''
+            ];
+
+            $this->modelo->guardar($datos);
+            header("Location: ?accion=listar");
+            exit;
+        }
     }
 
     public function editar()
     {
-        // TODO:
-        // 1. Obtener el id del actividad academica.
-        // 2. Consultar la informaciÃ³n del actividad academica.
-        // 3. Mostrar el formulario de ediciÃ³n.
+        $id_docente = $this->getIdDocenteActual();
+        $id_actividad = $_GET['id'] ?? null;
+        
+        if ($id_actividad && $id_docente) {
+            $actividad = $this->modelo->buscar($id_actividad, $id_docente);
+            if ($actividad) {
+                require_once "app/vistas/actividad-docente/editar.html";
+                return;
+            }
+        }
+        header("Location: ?accion=listar");
+        exit;
     }
 
     public function actualizar()
     {
-        // TODO:
-        // 1. Recibir los datos modificados.
-        // 2. Validar la informaciÃ³n.
-        // 3. Actualizar el actividad academica mediante el modelo.
-        // 4. Redirigir al listado.
+        $id_docente = $this->getIdDocenteActual();
+        $id_actividad = $_GET['id'] ?? null;
+
+        if ($_SERVER["REQUEST_METHOD"] == 'POST' && $id_actividad && $id_docente) {
+            $datos = [
+                'id_docente' => $id_docente,
+                'categoria' => $_POST['categoria'] ?? '',
+                'horas' => $_POST['horas'] ?? 0,
+                'fecha_inicio' => $_POST['fechaInicio'] ?? '',
+                'fecha_fin' => $_POST['fechaFin'] ?? ''
+            ];
+
+            $this->modelo->actualizar($id_actividad, $datos);
+            header("Location: ?accion=listar");
+            exit;
+        }
     }
 
     public function eliminar()
     {
-        // TODO:
-        // 1. Obtener el id del actividad academica.
-        // 2. Eliminar el registro mediante el modelo.
-        // 3. Redirigir al listado.
+        $id_docente = $this->getIdDocenteActual();
+        $id_actividad = $_GET['id'] ?? null;
+
+        if ($id_actividad && $id_docente) {
+            $this->modelo->eliminar($id_actividad, $id_docente);
+        }
+        header("Location: ?accion=listar");
+        exit;
     }
 }

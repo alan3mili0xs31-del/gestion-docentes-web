@@ -21,8 +21,18 @@ class DocenteModelo
 
     public function buscar($id)
     {
-        // TODO:
-        // Buscar un docente por su identificador.
+        $stmt = $this->conexion->prepare("SELECT * FROM docentes WHERE id_docente = :id");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function buscarPorCedula($cedula)
+    {
+        $stmt = $this->conexion->prepare("SELECT * FROM docentes WHERE cedula = :cedula");
+        $stmt->bindParam(':cedula', $cedula, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetch();
     }
 
 

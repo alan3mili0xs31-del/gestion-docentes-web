@@ -14,8 +14,8 @@
             <span>Sistema de Gestión Docente</span>
         </div>
         <div class="nav-actions">
-            <a href="../actividad-docente/perfil.html" class="btn-outline">Mi Perfil</a>
-            <a href="../login/login.php" class="btn-white">Cerrar SesiÃ³n</a>
+            <a href="#" class="btn-outline">Mi Perfil</a>
+            <a href="/gestion-docentes-web/auth?accion=logout" class="btn-white">Cerrar Sesión</a>
         </div>
     </nav>
 
@@ -25,7 +25,7 @@
     <main class="main-container content-align-top">
 
         <div class="breadcrumb" style="color: var(--text-gray); font-size: 0.85rem; margin-bottom: 1rem;">
-            <a href="listado.html" style="color: var(--text-gray); text-decoration: none;">Actividades</a> / <span style="color: var(--c-primary-main); font-weight: 600;">Editar Actividad</span>
+            <a href="?accion=listar" style="color: var(--text-gray); text-decoration: none;">Actividades</a> / <span style="color: var(--c-primary-main); font-weight: 600;">Editar Actividad</span>
         </div>
 
         <header class="section-header">
@@ -38,36 +38,36 @@
         <div class="details-layout" style="grid-template-columns: 1fr; max-width: 800px; margin: 0 auto; width: 100%;">
             <div class="form-section">
                 <div class="section-card">
-                    <form id="formEditarActividad">
+                    <form method="POST" action="?accion=actualizar&id=<?= $actividad['id_actividad'] ?>">
 
                         <div class="form-group">
                             <label for="categoria">CategorÃ­a de la actividad</label>
-                            <select class="form-input" id="categoria" required>
-                                <option value="Docencia">Docencia</option>
-                                <option value="InvestigaciÃ³n" selected>InvestigaciÃ³n</option>
-                                <option value="VinculaciÃ³n">VinculaciÃ³n con la Sociedad</option>
-                                <option value="Gestión AcadÃ©mica">Gestión AcadÃ©mica</option>
+                            <select class="form-input" id="categoria" name="categoria" required>
+                                <option value="Docencia" <?= $actividad['categoria'] == 'Docencia' ? 'selected' : '' ?>>Docencia</option>
+                                <option value="InvestigaciÃ³n" <?= $actividad['categoria'] == 'Investigación' ? 'selected' : '' ?>>InvestigaciÃ³n</option>
+                                <option value="VinculaciÃ³n" <?= $actividad['categoria'] == 'Vinculación' ? 'selected' : '' ?>>VinculaciÃ³n con la Sociedad</option>
+                                <option value="Gestión AcadÃ©mica" <?= $actividad['categoria'] == 'Gestión Académica' ? 'selected' : '' ?>>Gestión AcadÃ©mica</option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label for="horas">Horas Realizadas</label>
-                            <input type="number" class="form-input" id="horas" value="40" min="1" required>
+                            <input type="number" class="form-input" id="horas" name="horas" value="<?= htmlspecialchars($actividad['horas']) ?>" min="1" required>
                         </div>
 
                         <div class="grid-2">
                             <div class="form-group">
                                 <label for="fechaInicio">Fecha de Inicio</label>
-                                <input type="date" class="form-input" id="fechaInicio" value="2026-05-01" required>
+                                <input type="date" class="form-input" id="fechaInicio" name="fechaInicio" value="<?= htmlspecialchars($actividad['fecha_inicio']) ?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="fechaFin">Fecha de Fin</label>
-                                <input type="date" class="form-input" id="fechaFin" value="2026-05-30" required>
+                                <input type="date" class="form-input" id="fechaFin" name="fechaFin" value="<?= htmlspecialchars($actividad['fecha_fin']) ?>" required>
                             </div>
                         </div>
 
                         <div class="form-actions-bar">
-                            <a href="listado.html" class="btn-cancel">Cancelar</a>
+                            <a href="?accion=listar" class="btn-cancel">Cancelar</a>
                             <button type="submit" class="btn-save">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
                                 Actualizar Actividad
@@ -84,9 +84,6 @@
         <p>&copy; 2026 Sistema de Gestión Docente. Todos los derechos reservados.</p>
     </footer>
 
-    <script src="../../../public/js/actividad-docente/ActividadModel.js"></script>
-    <script src="../../../public/js/actividad-docente/ActividadView.js"></script>
-    <script src="../../../public/js/actividad-docente/ActividadControlador.js"></script>
 </body>
 </html>
 

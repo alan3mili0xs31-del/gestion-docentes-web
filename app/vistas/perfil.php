@@ -36,7 +36,7 @@ $usuario = $_SESSION["usuario"] ?? ["nombre" => "Usuario", "cedula" => "No defin
         </div>
     <?php endif; ?>
 
-    <form method="POST" action="/gestion-docentes-web/perfil/actualizar" style="max-width: 1000px; margin: 0 auto 3rem auto; position: relative; top: -1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; align-items: start;">
+    <form method="POST" action="/ProyectoDaw/gestion-docentes-web/perfil/actualizar" style="max-width: 1000px; margin: 0 auto 3rem auto; position: relative; top: -1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; align-items: start;">
         
         <!-- Tarjeta Izquierda: Información General -->
         <div style="background: white; border-radius: 16px; padding: 2.5rem; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);">

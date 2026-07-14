@@ -40,6 +40,13 @@ switch ($accion) {
         break;
 
 
+    case "editar":
+
+        $controlador->editar();
+
+        break;
+
+
     case "eliminar":
 
         $controlador->eliminar();

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión Docente</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="/gestion-docentes-web/public/css/style.css?v=1">
+    <link rel="stylesheet" href="/ProyectoDaw/gestion-docentes-web/public/css/style.css?v=2">
 </head>
 <body class="home-body content-page">
 
@@ -15,8 +15,8 @@
             <span>Sistema de Gestión Docente</span>
         </div>
         <div class="nav-actions">
-            <a href="/gestion-docentes-web/<?= $menu["ruta"] ?>" class="btn-outline">Ir a <?= $menu["nombre"] ?></a>
-            <a href="/gestion-docentes-web/auth?accion=logout" class="btn-white">Cerrar Sesión</a>
+            <a href="/ProyectoDaw/gestion-docentes-web/<?= $menu["ruta"] ?>" class="btn-outline">Ir a <?= $menu["nombre"] ?></a>
+            <a href="/ProyectoDaw/gestion-docentes-web/auth?accion=logout" class="btn-white">Cerrar Sesión</a>
         </div>
     </nav>
 

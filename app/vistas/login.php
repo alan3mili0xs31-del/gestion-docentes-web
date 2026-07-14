@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión - Sistema de Gestión Docente</title>
-    <link rel="stylesheet" href="/gestion-docentes-web/public/css/style.css">
+    <link rel="stylesheet" href="/ProyectoDaw/gestion-docentes-web/public/css/style.css">
     <style>
         .login-body {
             min-height: 100vh;
@@ -278,7 +278,7 @@
                 Credenciales incorrectas. Intente nuevamente.
             </div>
 
-            <form id="formLogin" class="login-form" action="/gestion-docentes-web/auth?accion=login" method="POST">
+            <form id="formLogin" class="login-form" action="/ProyectoDaw/gestion-docentes-web/auth?accion=login" method="POST">
                 <div class="form-group">
                     <label for="cedula">Cedula</label>
                     <input type="text" class="form-input" id="cedula" required placeholder="Ej: 0912345678" autocomplete="username" name="cedula">

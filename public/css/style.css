@@ -758,7 +758,37 @@ a.btn-full.btn-red:hover {
 }
 
 .data-table th, .data-table td {
-    padding: 1.2rem 1rem; /* Aumenta el padding para que no se vean pegados */
+    padding: 1.2rem 1rem;
     text-align: left;
+}
+
+/* -----------------------------------------
+   BOTONES DE ACCIÓN EN TABLAS
+----------------------------------------- */
+.data-table .btn-outline {
+    background-color: transparent;
+    color: var(--c-primary-main);
+    border: 1px solid var(--c-blue-main);
+    font-weight: 600;
+}
+.data-table .btn-outline:hover {
+    background-color: var(--c-primary-main);
+    color: #FFFFFF;
+}
+
+.data-table .btn-red {
+    background-color: #FEF2F2;
+    color: #DC2626;
+    border: 1px solid #FECACA;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    display: inline-block;
+    transition: all 0.2s ease;
+}
+.data-table .btn-red:hover {
+    background-color: #DC2626;
+    color: #FFFFFF;
+    border-color: #DC2626;
 }
 

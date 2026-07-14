@@ -4,7 +4,7 @@ session_start();
 
 // Extraer el modulo al que intenta acceder y redirigirlo a su router
 $url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
-$baseUrl = "/gestion-docentes-web";
+$baseUrl = "/ProyectoDaw/gestion-docentes-web";
 $path = str_replace($baseUrl, '', $url);
 
 switch ($path) {
@@ -79,7 +79,7 @@ switch ($path) {
 
 function estaAutenticado() {
     if (!isset($_SESSION["usuario"])) {
-        header("Location: /gestion-docentes-web/auth");
+        header("Location: /ProyectoDaw/gestion-docentes-web/auth");
         exit;
     }
 }

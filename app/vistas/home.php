@@ -23,7 +23,7 @@ require_once __DIR__."/layout/curso/header.php"
         </header>
 
         <div class="cards-grid">
-            <a href="/ProyectoDaw/gestion-docentes-web/cursos" class="modern-card card-blue">
+            <a href="<?= BASE_URL ?>/cursos" class="modern-card card-blue">
                 <div class="card-icon-wrapper">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
                 </div>
@@ -35,7 +35,7 @@ require_once __DIR__."/layout/curso/header.php"
             <?php
 
                 if(strcmp($_SESSION["usuario"]["rol"], "administrador") == 0) {
-                    echo '<a href="/ProyectoDaw/gestion-docentes-web/docentes" class="modern-card card-orange">
+                    echo '<a href="' . BASE_URL . '/docentes" class="modern-card card-orange">
                         <div class="card-icon-wrapper">
                             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -47,7 +47,7 @@ require_once __DIR__."/layout/curso/header.php"
                         <div class="card-waves"></div>
                     </a>';
 
-                    echo '<a href="/ProyectoDaw/gestion-docentes-web/asignaturas" class="modern-card card-primary">
+                    echo '<a href="' . BASE_URL . '/asignaturas" class="modern-card card-primary">
                         <div class="card-icon-wrapper solid">
                             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/></svg>
                         </div>
@@ -58,7 +58,7 @@ require_once __DIR__."/layout/curso/header.php"
 
                 }
             ?>
-            <a href="/ProyectoDaw/gestion-docentes-web/actividades-docente" class="modern-card card-teal">
+            <a href="<?= BASE_URL ?>/actividades-docente" class="modern-card card-teal">
                 <div class="card-icon-wrapper">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
                 </div>
@@ -67,7 +67,7 @@ require_once __DIR__."/layout/curso/header.php"
                 <div class="card-waves"></div>
             </a>
 
-            <a href="/ProyectoDaw/gestion-docentes-web/asistencias-docente" class="modern-card card-purple">
+            <a href="<?= BASE_URL ?>/asistencias-docente" class="modern-card card-purple">
                 <div class="card-icon-wrapper">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><rect x="8" y="14" width="8" height="4" rx="1"/></svg>
                 </div>

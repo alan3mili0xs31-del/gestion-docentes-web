@@ -106,7 +106,7 @@ class AsistenciaControlador
         $id_asistencia = $_GET["id_asistencia"] ?? '';
         if ($id_asistencia) {
             $this->asistenciaModelo->eliminar($id_asistencia);
-            header("Location: /gestion-docentes-web/asistencias-docente");
+            header("Location: " . BASE_URL . "/asistencias-docente");
             exit();
         }
     }

@@ -91,7 +91,7 @@ class AsignaturaControlador
         $id_asignatura = $_GET["id_asignatura"] ?? '';
         if ($id_asignatura) {
             $this->asignaturaModelo->eliminar($id_asignatura);
-            header("Location: /gestion-docentes-web/asignaturas");
+            header("Location: " . BASE_URL . "/asignaturas");
             exit();
         }
     }

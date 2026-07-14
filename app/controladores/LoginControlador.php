@@ -23,7 +23,7 @@ class LoginControlador {
               $_SESSION["usuario"] = $usuario;
 
 
-              header("Location: /ProyectoDaw/gestion-docentes-web/inicio");
+              header("Location: " . BASE_URL . "/inicio");
               exit();
             }
             else {

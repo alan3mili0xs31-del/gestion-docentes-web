@@ -148,7 +148,7 @@ class CursoControlador
         $id_curso = $_GET["id_curso"] ?? '';
         if($id_curso) {
             $this->cursoModelo->eliminar($id_curso);
-            header("Location: /gestion-docentes-web/cursos");
+            header("Location: " . BASE_URL . "/cursos");
             exit();
         }
     }

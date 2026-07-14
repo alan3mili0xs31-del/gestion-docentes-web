@@ -102,7 +102,7 @@ class ActividadAcademicaControlador
         $id_actividad = $_GET["id_actividad"] ?? '';
         if ($id_actividad) {
             $this->actividadModelo->eliminar($id_actividad);
-            header("Location: /gestion-docentes-web/actividades-docente");
+            header("Location: " . BASE_URL . "/actividades-docente");
             exit();
         }
     }

@@ -117,7 +117,7 @@ class DocenteControlador
         $id_docente = $_GET["id_docente"] ?? '';
         if ($id_docente) {
             $this->docenteModelo->eliminar($id_docente);
-            header("Location: /gestion-docentes-web/docentes");
+            header("Location: " . BASE_URL . "/docentes");
             exit();
         }
     }

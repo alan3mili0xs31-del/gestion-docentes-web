@@ -278,7 +278,7 @@
                 Credenciales incorrectas. Intente nuevamente.
             </div>
 
-            <form id="formLogin" class="login-form" action="/ProyectoDaw/gestion-docentes-web/auth?accion=login" method="POST">
+            <form id="formLogin" class="login-form" action="<?= BASE_URL ?>/auth?accion=login" method="POST">
                 <div class="form-group">
                     <label for="cedula">Cedula</label>
                     <input type="text" class="form-input" id="cedula" required placeholder="Ej: 0912345678" autocomplete="username" name="cedula">

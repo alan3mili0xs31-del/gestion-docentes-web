@@ -14,7 +14,7 @@
             <span>Sistema de Gestión Docente</span>
         </div>
         <div class="nav-actions">
-            <a href="#" class="btn-outline">Mi Perfil</a>
+            <a href="?accion=perfil" class="btn-outline">Mi Perfil</a>
             <a href="/gestion-docentes-web/auth?accion=logout" class="btn-white">Cerrar Sesión</a>
         </div>
     </nav>
@@ -41,13 +41,13 @@
                     <form method="POST" action="?accion=guardar">
 
                         <div class="form-group">
-                            <label for="categoria">CategorÃ­a de la actividad</label>
+                            <label for="categoria">Categoría de la actividad</label>
                             <select class="form-input" id="categoria" name="categoria" required>
-                                <option value="" selected disabled>Seleccione una categorÃ­a...</option>
+                                <option value="" selected disabled>Seleccione una categoría...</option>
                                 <option value="Docencia">Docencia</option>
-                                <option value="InvestigaciÃ³n">InvestigaciÃ³n</option>
-                                <option value="VinculaciÃ³n">VinculaciÃ³n con la Sociedad</option>
-                                <option value="Gestión AcadÃ©mica">Gestión AcadÃ©mica</option>
+                                <option value="Investigación">Investigación</option>
+                                <option value="Vinculación">Vinculación con la Sociedad</option>
+                                <option value="Gestión Académica">Gestión Académica</option>
                             </select>
                         </div>
 

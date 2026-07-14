@@ -14,7 +14,7 @@
             <span>Sistema de Gestión Docente</span>
         </div>
         <div class="nav-actions">
-            <a href="#" class="btn-outline">Mi Perfil</a>
+            <a href="?accion=perfil" class="btn-outline">Mi Perfil</a>
             <a href="/gestion-docentes-web/auth?accion=logout" class="btn-white">Cerrar Sesión</a>
         </div>
     </nav>
@@ -22,7 +22,7 @@
     <main class="main-container content-align-top">
 
         <div class="breadcrumb" style="color: var(--text-gray); font-size: 0.85rem; margin-bottom: 1rem;">
-            Actividades / <span style="color: var(--c-primary-main); font-weight: 600;">Panel Principal</span>
+            <a href="/gestion-docentes-web/inicio" style="color: var(--text-gray); text-decoration: none;">Inicio</a> / <span style="color: var(--c-primary-main); font-weight: 600;">Actividades</span>
         </div>
 
         <header class="section-header">
@@ -32,6 +32,10 @@
             </div>
 
             <div style="display: flex; gap: 1rem; align-items: center;">
+                <a href="/gestion-docentes-web/inicio" class="btn-cancel" style="text-decoration: none;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.4rem;"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    Regresar
+                </a>
                 <div class="search-box">
                     <input type="text" id="inputBuscarActividad" placeholder="Buscar actividad...">
                 </div>

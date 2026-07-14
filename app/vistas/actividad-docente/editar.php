@@ -14,7 +14,7 @@
             <span>Sistema de Gestión Docente</span>
         </div>
         <div class="nav-actions">
-            <a href="#" class="btn-outline">Mi Perfil</a>
+            <a href="?accion=perfil" class="btn-outline">Mi Perfil</a>
             <a href="/gestion-docentes-web/auth?accion=logout" class="btn-white">Cerrar Sesión</a>
         </div>
     </nav>
@@ -41,12 +41,12 @@
                     <form method="POST" action="?accion=actualizar&id=<?= $actividad['id_actividad'] ?>">
 
                         <div class="form-group">
-                            <label for="categoria">CategorÃ­a de la actividad</label>
+                            <label for="categoria">Categoría de la actividad</label>
                             <select class="form-input" id="categoria" name="categoria" required>
                                 <option value="Docencia" <?= $actividad['categoria'] == 'Docencia' ? 'selected' : '' ?>>Docencia</option>
-                                <option value="InvestigaciÃ³n" <?= $actividad['categoria'] == 'Investigación' ? 'selected' : '' ?>>InvestigaciÃ³n</option>
-                                <option value="VinculaciÃ³n" <?= $actividad['categoria'] == 'Vinculación' ? 'selected' : '' ?>>VinculaciÃ³n con la Sociedad</option>
-                                <option value="Gestión AcadÃ©mica" <?= $actividad['categoria'] == 'Gestión Académica' ? 'selected' : '' ?>>Gestión AcadÃ©mica</option>
+                                <option value="Investigación" <?= $actividad['categoria'] == 'Investigación' ? 'selected' : '' ?>>Investigación</option>
+                                <option value="Vinculación" <?= $actividad['categoria'] == 'Vinculación' ? 'selected' : '' ?>>Vinculación con la Sociedad</option>
+                                <option value="Gestión Académica" <?= $actividad['categoria'] == 'Gestión Académica' ? 'selected' : '' ?>>Gestión Académica</option>
                             </select>
                         </div>
 

@@ -33,12 +33,17 @@ class ActividadAcademicaControlador
         }
         
         $actividades = $this->modelo->listar($id_docente);
-        require_once "app/vistas/actividad-docente/listado.html";
+        require_once "app/vistas/actividad-docente/listado.php";
+    }
+
+    public function perfil()
+    {
+        require_once "app/vistas/actividad-docente/perfil.php";
     }
 
     public function crear()
     {
-        require_once "app/vistas/actividad-docente/crear.html";
+        require_once "app/vistas/actividad-docente/crear.php";
     }
 
     public function guardar()
@@ -71,7 +76,7 @@ class ActividadAcademicaControlador
         if ($id_actividad && $id_docente) {
             $actividad = $this->modelo->buscar($id_actividad, $id_docente);
             if ($actividad) {
-                require_once "app/vistas/actividad-docente/editar.html";
+                require_once "app/vistas/actividad-docente/editar.php";
                 return;
             }
         }

@@ -9,7 +9,7 @@
 </head>
 <body class="home-body">
 
-    <!-- NavegaciÃ³n -->
+    <!-- Navegacion -->
     <nav class="navbar">
         <div class="nav-brand"><span>Gestión Docente</span></div>
         <div class="nav-actions">

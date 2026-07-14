@@ -14,8 +14,8 @@
             <span>Sistema de Gestión Docente</span>
         </div>
         <div class="nav-actions">
-            <a href="../actividad-docente/perfil.html" class="btn-outline">Mi Perfil</a>
-            <a href="../login/login.php" class="btn-white">Cerrar SesiÃ³n</a>
+            <a href="?accion=perfil" class="btn-outline">Mi Perfil</a>
+            <a href="/gestion-docentes-web/auth?accion=logout" class="btn-white">Cerrar Sesión</a>
         </div>
     </nav>
 
@@ -27,35 +27,31 @@
         <header class="section-header">
             <div>
                 <h1 class="page-title">Mi Perfil</h1>
-                <p class="page-subtitle">ConfiguraciÃ³n y datos personales.</p>
+                <p class="page-subtitle">Configuración y datos personales.</p>
             </div>
             <div>
-                <a href="../home.php" class="btn-cancel">Volver al Home</a>
+                <a href="?accion=listar" class="btn-cancel">Volver a Actividades</a>
             </div>
         </header>
 
         <div class="details-layout" style="grid-template-columns: 1fr; max-width: 600px; margin: 0 auto; width: 100%;">
             <div class="form-section">
                 <div class="section-card">
-                    <form id="formEditarPerfil">
+                    <form id="formEditarPerfil" method="POST" action="">
 
                         <div class="form-group">
                             <label for="perfilUsuario">Usuario (No editable)</label>
-                            <input type="text" class="form-input" id="perfilUsuario" value="sacosta" disabled style="background-color: #f3f4f6; color: var(--text-gray);">
+                            <input type="text" class="form-input" id="perfilUsuario" value="<?= htmlspecialchars($_SESSION['usuario']['usuario'] ?? '') ?>" disabled style="background-color: #f3f4f6; color: var(--text-gray);">
                         </div>
 
                         <div class="form-group">
-                            <label for="perfilCorreo">Correo ElectrÃ³nico</label>
-                            <input type="email" class="form-input" id="perfilCorreo" value="sacosta@ug.edu.ec" required>
+                            <label for="perfilCorreo">Correo Electrónico</label>
+                            <input type="email" class="form-input" id="perfilCorreo" value="<?= htmlspecialchars($_SESSION['usuario']['correo'] ?? '') ?>" disabled style="background-color: #f3f4f6; color: var(--text-gray);">
                         </div>
 
                         <div class="form-group" style="margin-bottom: 2rem;">
-                            <label for="perfilPassword">Nueva ContraseÃ±a</label>
-                            <input type="password" class="form-input" id="perfilPassword" placeholder="Dejar en blanco para no cambiar">
-                        </div>
-
-                        <div class="form-actions-bar">
-                            <button type="submit" class="btn-save" style="width: 100%; justify-content: center;">Actualizar Datos</button>
+                            <label for="perfilRol">Rol</label>
+                            <input type="text" class="form-input" id="perfilRol" value="<?= htmlspecialchars($_SESSION['usuario']['rol'] ?? '') ?>" disabled style="background-color: #f3f4f6; color: var(--text-gray);">
                         </div>
                     </form>
                 </div>
@@ -68,6 +64,5 @@
         <p>&copy; 2026 Sistema de Gestión Docente. Todos los derechos reservados.</p>
     </footer>
 
-    <script src="../../../public/js/actividad-docente/usuarios.js"></script>
 </body>
 </html>

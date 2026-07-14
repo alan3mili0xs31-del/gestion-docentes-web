@@ -41,9 +41,11 @@ require_once __DIR__."/../layout/curso/header.php"
                                 <label for="docenteCursoInput">Docente</label>
                                 <select class="form-input" id="docenteCursoInput" required>
                                     <option value="" disabled selected>Seleccione un docente...</option>
-                                    <option value="1">Alan Olaya</option>
-                                    <option value="2">Sebastian Acosta</option>
-                                    <option value="3">Josue Paredes</option>
+                                    <?php foreach ($docentes as $docente): ?>
+                                        <option value="<?= $docente['id_docente'] ?>">
+                                            <?= htmlspecialchars($docente['primer_nombre'] . ' ' . $docente['primer_apellido']) ?>
+                                        </option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
 
@@ -51,9 +53,11 @@ require_once __DIR__."/../layout/curso/header.php"
                                 <label for="asignaturaCursoInput">Asignatura</label>
                                 <select class="form-input" id="asignaturaCursoInput" required>
                                     <option value="" disabled selected>Seleccione una asignatura...</option>
-                                    <option value="1">Programación Orientada a Objetos</option>
-                                    <option value="2">Diseño y Arquitectura de Software</option>
-                                    <option value="3">Desarrollo de Aplicaciones Web</option>
+                                    <?php foreach ($asignaturas as $asignatura): ?>
+                                        <option value="<?= $asignatura['id_asignatura'] ?>">
+                                            <?= htmlspecialchars($asignatura['nombre']) ?>
+                                        </option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
                         </div>

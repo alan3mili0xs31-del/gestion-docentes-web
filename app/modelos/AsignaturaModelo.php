@@ -14,15 +14,18 @@ class AsignaturaModelo
 
     public function listar()
     {
-        // TODO:
-        // Obtener todas las asignaturas.
+        $stmt = $this->conexion->prepare("SELECT id_asignatura, nombre FROM asignaturas ORDER BY nombre ASC");
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 
 
     public function buscar($id)
     {
-        // TODO:
-        // Consultar una asignatura por id.
+        $stmt = $this->conexion->prepare("SELECT * FROM asignaturas WHERE id_asignatura = :id");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch();
     }
 
 

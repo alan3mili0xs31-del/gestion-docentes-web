@@ -18,6 +18,15 @@ class CursoControlador
 
     public function crear()
     {
+        require_once __DIR__.'/../modelos/DocenteModelo.php';
+        require_once __DIR__.'/../modelos/AsignaturaModelo.php';
+        
+        $docenteModelo = new DocenteModelo();
+        $asignaturaModelo = new AsignaturaModelo();
+        
+        $docentes = $docenteModelo->listar();
+        $asignaturas = $asignaturaModelo->listar();
+        
         require __DIR__."/../vistas/curso/curso_crear.php";
     }
 

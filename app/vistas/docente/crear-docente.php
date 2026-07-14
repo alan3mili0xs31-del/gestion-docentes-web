@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Docente - Sistema</title>
+    <title>Nuevo Docente - Sistema</title>
     <link rel="stylesheet" href="public/css/style.css">
 </head>
 <body class="home-body">
@@ -14,8 +14,8 @@
             <span>Sistema de Gestión Docente</span>
         </div>
         <div class="nav-actions">
-            <a href="../actividad-docente/perfil.html" class="btn-outline">Mi Perfil</a>
-            <a href="../login/login.php" class="btn-white">Cerrar SesiÃ³n</a>
+            <a href="/gestion-docentes-web/docentes?accion=perfil" class="btn-outline">Mi Perfil</a>
+            <a href="/gestion-docentes-web/auth?accion=logout" class="btn-white">Cerrar Sesión</a>
         </div>
     </nav>
 
@@ -25,43 +25,53 @@
     <main class="main-container content-align-top">
 
         <div class="breadcrumb" style="color: var(--text-gray); font-size: 0.85rem; margin-bottom: 1rem;">
-            <a href="listado-docentes.html" style="color: var(--text-gray); text-decoration: none;">Docentes</a> / <span style="color: var(--c-primary-main); font-weight: 600;">Editar Docente</span>
+            <a href="/gestion-docentes-web/docentes?accion=listar" style="color: var(--text-gray); text-decoration: none;">Docentes</a> / <span style="color: var(--c-primary-main); font-weight: 600;">Nuevo Docente</span>
         </div>
 
         <header class="section-header">
             <div>
-                <h1 class="page-title">Editar Docente</h1>
-                <p class="page-subtitle">Modifica la informaciÃ³n del docente seleccionado.</p>
+                <h1 class="page-title">Nuevo Docente</h1>
+                <p class="page-subtitle">Registra la información de un nuevo docente en el sistema.</p>
             </div>
         </header>
 
         <div class="details-layout" style="grid-template-columns: 1fr; max-width: 800px; margin: 0 auto; width: 100%;">
             <div class="form-section">
                 <div class="section-card">
-                    <form id="formEditar">
-                        <input type="hidden" id="docenteId">
+                    <form method="POST" action="/gestion-docentes-web/docentes?accion=guardar">
 
                         <div class="form-group">
-                            <label for="cedula">CÃ©dula</label>
-                            <input type="text" class="form-input" id="cedula" required>
+                            <label for="cedula">Cédula</label>
+                            <input type="text" class="form-input" id="cedula" name="cedula" placeholder="Ej: 0101234567" maxlength="10" required>
                         </div>
 
                         <div class="grid-2">
                             <div class="form-group">
-                                <label for="nombres">Nombres</label>
-                                <input type="text" class="form-input" id="nombres" required>
+                                <label for="primer_nombre">Primer Nombre</label>
+                                <input type="text" class="form-input" id="primer_nombre" name="primer_nombre" required>
                             </div>
                             <div class="form-group">
-                                <label for="apellidos">Apellidos</label>
-                                <input type="text" class="form-input" id="apellidos" required>
+                                <label for="segundo_nombre">Segundo Nombre</label>
+                                <input type="text" class="form-input" id="segundo_nombre" name="segundo_nombre">
+                            </div>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label for="primer_apellido">Primer Apellido</label>
+                                <input type="text" class="form-input" id="primer_apellido" name="primer_apellido" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="segundo_apellido">Segundo Apellido</label>
+                                <input type="text" class="form-input" id="segundo_apellido" name="segundo_apellido">
                             </div>
                         </div>
 
                         <div class="form-actions-bar">
-                            <a href="listado-docentes.html" class="btn-cancel">Cancelar</a>
+                            <a href="/gestion-docentes-web/docentes?accion=listar" class="btn-cancel">Cancelar</a>
                             <button type="submit" class="btn-save">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.5rem;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-                                Actualizar Docente
+                                Guardar Docente
                             </button>
                         </div>
                     </form>
@@ -75,9 +85,5 @@
         <p>&copy; 2026 Sistema de Gestión Docente. Todos los derechos reservados.</p>
     </footer>
 
-    <script src="../../../public/js/docente/DocenteModel.js"></script>
-    <script src="../../../public/js/docente/DocenteView.js"></script>
-    <script src="../../../public/js/docente/DocenteControlador.js"></script>
 </body>
 </html>
-

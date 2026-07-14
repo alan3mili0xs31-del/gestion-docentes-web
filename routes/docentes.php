@@ -25,6 +25,10 @@ switch ($accion) {
 
         break;
 
+    case "editar":
+        $controlador->editar();
+        break;
+
 
     case "guardar":
 
@@ -53,6 +57,12 @@ switch ($accion) {
 
         break;
 
+
+    case "perfil":
+        require_once __DIR__."/../app/controladores/ActividadAcademicaControlador.php";
+        $act = new ActividadAcademicaControlador();
+        $act->perfil();
+        break;
 
     default:
 

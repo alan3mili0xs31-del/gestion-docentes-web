@@ -30,7 +30,7 @@
                 <p class="page-subtitle">Configuración y datos personales.</p>
             </div>
             <div>
-                <a href="?accion=listar" class="btn-cancel">Volver a Actividades</a>
+                <a href="javascript:history.back()" class="btn-cancel">Volver</a>
             </div>
         </header>
 

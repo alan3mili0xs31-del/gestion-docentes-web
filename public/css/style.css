@@ -142,6 +142,7 @@
 ----------------------------------------- */
 .main-header {
     text-align: center;
+    margin-top: 3rem;
     margin-bottom: 3.5rem;
 }
 .header-icon {
@@ -450,9 +451,17 @@ select.form-input option {
    TARJETAS PRINCIPALES (HOME - Mis Módulos)
 ----------------------------------------- */
 .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.cards-grid > * {
+    flex: 1 1 240px;
+    max-width: 280px;
 }
 
 .modern-card {
@@ -741,7 +750,10 @@ a.btn-full.btn-red:hover {
         font-size: 2rem;
     }
     .cards-grid {
-        grid-template-columns: 1fr;
+        flex-direction: column;
+    }
+    .cards-grid > * {
+        max-width: 100%;
     }
 }
 

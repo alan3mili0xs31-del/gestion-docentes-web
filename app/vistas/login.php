@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión - Sistema de Gestión Docente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="/gestion-docentes-web/public/css/style.css">
     <style>
         .login-body {
@@ -278,17 +279,21 @@
                 Credenciales incorrectas. Intente nuevamente.
             </div>
 
-            <form id="formLogin" class="login-form" action="/gestion-docentes-web/auth?accion=login" method="POST">
+            <form id="formLogin" class="login-form mb-4" action="<?= BASE_URL ?>/auth?accion=login" method="POST">
                 <div class="form-group">
                     <label for="cedula">Cedula</label>
-                    <input type="text" class="form-input" id="cedula" required placeholder="Ej: 0912345678" autocomplete="username" name="cedula">
+                    <input type="text" class="form-input" id="cedula" required placeholder="Ej: 0100000001" autocomplete="username" name="cedula">
                 </div>
                 <div class="form-group">
                     <label for="clave">Contraseña</label>
-                    <input type="password" class="form-input" id="clave" required placeholder="Ej: 123" autocomplete="current-password" name="clave">
+                    <input type="password" class="form-input" id="clave" required placeholder="Ej: admin1234" autocomplete="current-password" name="clave">
                 </div>
                 <button type="submit" class="btn-login">Ingresar al Sistema</button>
             </form>
+
+            <?php if (!empty($error)): ?>
+                <div class="alert alert-danger text-center"><?php echo htmlspecialchars($error); ?></div>
+            <?php endif; ?>
 
             <p class="login-footer">&copy; 2026 Sistema de Gestión Docente</p>
         </div>

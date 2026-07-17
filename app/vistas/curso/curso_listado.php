@@ -5,7 +5,9 @@ $menu = [
     "nombre" => "Inicio"
 ];
 
-require_once __DIR__."/../layout/curso/header.php"
+require_once __DIR__."/../layout/header.php";
+
+$usuario_rol = $_SESSION["usuario"]["rol"];
 
 ?>
 
@@ -24,10 +26,10 @@ require_once __DIR__."/../layout/curso/header.php"
             </div>
 
             <!-- Buscador para filtrar cursos -->
-            <!-- <div class="search-box">
+            <div class="search-box" <?php if(strcmp($usuario_rol, "administrador") != 0) echo "hidden"; ?>>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                <input type="text" placeholder="Buscar curso...">
-            </div> -->
+                <input type="text" placeholder="Buscar curso..." id="cursoBuscador">
+            </div>
 
             <?php
 
@@ -95,4 +97,6 @@ require_once __DIR__."/../layout/curso/header.php"
         </div>
     </main>
 
-<?php require_once __DIR__."/../layout/curso/footer.php" ?>
+    <script src="/gestion-docentes-web/public/js/curso/busqueda.js"></script>
+
+<?php require_once __DIR__."/../layout/footer.php" ?>

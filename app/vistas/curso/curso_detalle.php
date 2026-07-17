@@ -5,7 +5,7 @@ $menu = [
     "nombre" => "Mis cursos"
 ];
 
-require_once __DIR__."/../layout/curso/header.php"
+require_once __DIR__."/../layout/header.php"
 
 ?>
 
@@ -32,7 +32,19 @@ require_once __DIR__."/../layout/curso/header.php"
                             <div class="form-group">
                                 <label>Docente</label>
                                 <select disabled class="form-input" name="id_docente" id="id_docente">
-                                    <option value="<?php echo htmlspecialchars($curso['id_docente']); ?>"><?php echo htmlspecialchars($curso['id_docente']); ?></option>
+
+
+                                    <?php foreach ($docentes as $docente):
+
+                                        $id_curso = htmlspecialchars($curso["id_docente"]);
+                                        $id_docente = htmlspecialchars($docente["id_docente"]);
+                                        $docente_nombre_completo = htmlspecialchars($docente["primer_nombre"])." ".htmlspecialchars($docente["primer_apellido"])." ".htmlspecialchars($docente["segundo_apellido"]);
+
+                                    ?>
+                                        <option <?php if(strcmp($id_curso, $id_docente) == 0) echo "selected"; ?> value="<?= $id_docente ?>"><?= $docente_nombre_completo ?></option>
+
+                                    <?php endforeach; ?>
+
                                 </select>
                             </div>
                             <div class="form-group">
@@ -49,8 +61,19 @@ require_once __DIR__."/../layout/curso/header.php"
 
                         <div class="form-group">
                             <label>Asignatura</label>
+
                             <select disabled class="form-input" name="id_asignatura" id="id_asignatura">
-                                <option value="<?php echo htmlspecialchars($curso['id_asignatura']); ?>"><?php echo htmlspecialchars($curso['id_asignatura']); ?></option>
+
+                                    <?php foreach ($asignaturas as $asignatura):
+
+                                        $id_curso = htmlspecialchars($curso["id_asignatura"]);
+                                        $id_asignatura = htmlspecialchars($asignatura["id_asignatura"]);
+
+                                    ?>
+                                        <option <?php if(strcmp($id_curso, $id_asignatura) == 0) echo "selected"; ?> value="<?= $id_asignatura ?>"><?= htmlspecialchars($asignatura["nombre"]) ?></option>
+
+                                    <?php endforeach; ?>
+
                             </select>
                         </div>
 
@@ -136,6 +159,6 @@ require_once __DIR__."/../layout/curso/header.php"
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="public/js/curso/cursos.js"></script>
 
-<?php require_once __DIR__."/../layout/curso/footer.php" ?>
+<?php require_once __DIR__."/../layout/footer.php" ?>
 
 

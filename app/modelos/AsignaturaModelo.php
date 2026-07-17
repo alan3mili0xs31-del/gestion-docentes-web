@@ -13,68 +13,110 @@ class AsignaturaModelo
 
     public function listar()
     {
-        $stmt = $this->conexion->prepare(
-            "SELECT id_asignatura, codigo, nombre, creditos, semestre, facultad
-             FROM asignaturas
-             WHERE estado = 'activo'
-             ORDER BY nombre ASC"
-        );
-        $stmt->execute();
-        return $stmt->fetchAll();
+        $sql = "SELECT
+                    id_asignatura,
+                    codigo,
+                    nombre,
+                    semestre,
+                    creditos,
+                    fecha_creacion,
+                    estado
+                FROM asignaturas
+                ORDER BY id_asignatura DESC";
+
+        $stmt = $this->conexion->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function buscar($id)
+    public function buscar($id_asignatura)
     {
-        $stmt = $this->conexion->prepare(
-            "SELECT id_asignatura, codigo, nombre, creditos, semestre, facultad
-             FROM asignaturas
-             WHERE id_asignatura = :id AND estado = 'activo'"
-        );
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetch();
+        $sql = "SELECT
+                    id_asignatura,
+                    codigo,
+                    nombre,
+                    semestre,
+                    creditos,
+                    fecha_creacion,
+                    estado
+                FROM asignaturas
+                WHERE id_asignatura = :id_asignatura";
+
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute([
+            ':id_asignatura' => $id_asignatura
+        ]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function guardar($datos)
     {
-        $stmt = $this->conexion->prepare(
-            "INSERT INTO asignaturas (codigo, nombre, creditos, semestre, facultad)
-             VALUES (:codigo, :nombre, :creditos, :semestre, :facultad)"
-        );
-        $stmt->bindParam(':codigo',   $datos['codigo'],   PDO::PARAM_STR);
-        $stmt->bindParam(':nombre',   $datos['nombre'],   PDO::PARAM_STR);
-        $stmt->bindParam(':creditos', $datos['creditos'], PDO::PARAM_INT);
-        $stmt->bindParam(':semestre', $datos['semestre'], PDO::PARAM_STR);
-        $stmt->bindParam(':facultad', $datos['facultad'], PDO::PARAM_STR);
-        return $stmt->execute();
+        $sql = "INSERT INTO asignaturas
+                (
+                    codigo,
+                    nombre,
+                    semestre,
+                    creditos,
+                    estado
+                )
+                VALUES
+                (
+                    :codigo,
+                    :nombre,
+                    :semestre,
+                    :creditos,
+                    :estado
+                )";
+
+        $stmt = $this->conexion->prepare($sql);
+
+        $stmt->execute([
+            ':codigo' => $datos['codigo'],
+            ':nombre' => $datos['nombre'],
+            ':semestre' => $datos['semestre'],
+            ':creditos' => $datos['creditos'],
+            ':estado' => $datos['estado'] ?? 'activo'
+        ]);
+
+        return $this->conexion->lastInsertId();
     }
 
-    public function actualizar($id, $datos)
+    public function actualizar($id_asignatura, $datos)
     {
-        $stmt = $this->conexion->prepare(
-            "UPDATE asignaturas
-             SET codigo = :codigo,
-                 nombre = :nombre,
-                 creditos = :creditos,
-                 semestre = :semestre,
-                 facultad = :facultad
-             WHERE id_asignatura = :id"
-        );
-        $stmt->bindParam(':codigo',   $datos['codigo'],   PDO::PARAM_STR);
-        $stmt->bindParam(':nombre',   $datos['nombre'],   PDO::PARAM_STR);
-        $stmt->bindParam(':creditos', $datos['creditos'], PDO::PARAM_INT);
-        $stmt->bindParam(':semestre', $datos['semestre'], PDO::PARAM_STR);
-        $stmt->bindParam(':facultad', $datos['facultad'], PDO::PARAM_STR);
-        $stmt->bindParam(':id',       $id,                PDO::PARAM_INT);
-        return $stmt->execute();
+        $sql = "UPDATE asignaturas
+                SET
+                    codigo = :codigo,
+                    nombre = :nombre,
+                    semestre = :semestre,
+                    creditos = :creditos,
+                    estado = :estado,
+                    fecha_modificacion = CURRENT_TIMESTAMP
+                WHERE id_asignatura = :id_asignatura";
+
+        $stmt = $this->conexion->prepare($sql);
+
+        $stmt->execute([
+            ':codigo' => $datos['codigo'],
+            ':nombre' => $datos['nombre'],
+            ':semestre' => $datos['semestre'],
+            ':creditos' => $datos['creditos'],
+            ':estado' => $datos['estado'],
+            ':id_asignatura' => $id_asignatura
+        ]);
+
+        return $stmt->rowCount();
     }
 
-    public function eliminar($id)
+    public function eliminar($id_asignatura)
     {
-        $stmt = $this->conexion->prepare(
-            "UPDATE asignaturas SET estado = 'inactivo' WHERE id_asignatura = :id"
-        );
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        return $stmt->execute();
+        $sql = "DELETE FROM asignaturas
+                WHERE id_asignatura = :id_asignatura";
+
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute([
+            ':id_asignatura' => $id_asignatura
+        ]);
+
+        return $stmt->rowCount();
     }
 }

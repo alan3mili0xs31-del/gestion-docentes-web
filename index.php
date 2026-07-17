@@ -2,10 +2,14 @@
 
 session_start();
 
+// Determinar dinámicamente la ruta base de la aplicación (funciona sin importar el nombre de la carpeta)
+$scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+$baseUrl = ($scriptDir === '/' || $scriptDir === '\\') ? '' : $scriptDir;
+define('BASE_URL', $baseUrl);
+
 // Extraer el modulo al que intenta acceder y redirigirlo a su router
 $url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
-$baseUrl = "/gestion-docentes-web";
-$path = str_replace($baseUrl, '', $url);
+$path = str_replace(BASE_URL, '', $url);
 
 switch ($path) {
 
@@ -17,6 +21,20 @@ switch ($path) {
     case "/inicio":
         estaAutenticado();
         require_once "app/vistas/home.php";
+        break;
+
+    case "/perfil":
+        estaAutenticado();
+        require_once "app/controladores/PerfilControlador.php";
+        $controlador = new PerfilControlador();
+        $controlador->mostrarPerfil();
+        break;
+
+    case "/perfil/actualizar":
+        estaAutenticado();
+        require_once "app/controladores/PerfilControlador.php";
+        $controlador = new PerfilControlador();
+        $controlador->actualizar();
         break;
 
 
@@ -39,6 +57,7 @@ switch ($path) {
 
 
     case "/asignaturas":
+        esAdmin();
         estaAutenticado();
         require_once "routes/asignaturas.php";
         break;
@@ -64,7 +83,7 @@ switch ($path) {
 
 function estaAutenticado() {
     if (!isset($_SESSION["usuario"])) {
-        header("Location: /gestion-docentes-web/auth");
+        header("Location: " . BASE_URL . "/auth");
         exit;
     }
 }

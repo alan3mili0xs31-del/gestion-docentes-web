@@ -11,58 +11,166 @@ class ActividadAcademicaModelo
         $this->conexion = Conexion::conectar();
     }
 
-    public function listar($id_docente)
+    public function listar()
     {
-        $stmt = $this->conexion->prepare("
-            SELECT a.*, CONCAT(d.primer_nombre, ' ', d.primer_apellido) AS nombre_docente 
-            FROM actividades_academicas a 
-            JOIN docentes d ON a.id_docente = d.id_docente 
-            WHERE a.id_docente = :id_docente AND a.estado = 'activo' 
-            ORDER BY a.fecha_inicio DESC
-        ");
-        $stmt->bindParam(':id_docente', $id_docente, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchAll();
+        $sql = "SELECT
+                    ac.id_actividad,
+                    ac.id_curso,
+                    ac.titulo,
+                    ac.descripcion,
+                    ac.categoria,
+                    ac.fecha_apertura,
+                    ac.fecha_cierre,
+                    c.nombre AS curso,
+                    c.paralelo,
+                    a.nombre AS asignatura,
+                    CONCAT(d.primer_nombre,' ',d.primer_apellido) AS docente
+                FROM actividades_academicas ac
+                INNER JOIN cursos c
+                    ON ac.id_curso = c.id_curso
+                INNER JOIN docentes d
+                    ON c.id_docente = d.id_docente
+                INNER JOIN asignaturas a
+                    ON c.id_asignatura = a.id_asignatura
+                ORDER BY ac.id_actividad DESC";
+
+        $stmt = $this->conexion->query($sql);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function buscar($id_actividad, $id_docente)
+    public function listarMisActividades($id_docente)
     {
-        $stmt = $this->conexion->prepare("SELECT * FROM actividades_academicas WHERE id_actividad = :id_actividad AND id_docente = :id_docente AND estado = 'activo'");
-        $stmt->bindParam(':id_actividad', $id_actividad, PDO::PARAM_INT);
-        $stmt->bindParam(':id_docente', $id_docente, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetch();
+        $sql = "SELECT
+                    ac.id_actividad,
+                    ac.id_curso,
+                    ac.titulo,
+                    ac.descripcion,
+                    ac.categoria,
+                    ac.fecha_apertura,
+                    ac.fecha_cierre,
+                    c.nombre AS curso,
+                    c.paralelo,
+                    a.nombre AS asignatura,
+                    CONCAT(d.primer_nombre,' ',d.primer_apellido) AS docente
+                FROM actividades_academicas ac
+                INNER JOIN cursos c
+                    ON ac.id_curso = c.id_curso
+                INNER JOIN docentes d
+                    ON c.id_docente = d.id_docente
+                INNER JOIN asignaturas a
+                    ON c.id_asignatura = a.id_asignatura
+                WHERE c.id_docente = :id_docente
+                ORDER BY ac.id_actividad DESC";
+
+        $stmt = $this->conexion->prepare($sql);
+
+        $stmt->execute([
+            ':id_docente' => $id_docente
+        ]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function buscar($id_actividad)
+    {
+        $sql = "SELECT
+                    ac.*,
+                    c.nombre AS curso,
+                    c.paralelo,
+                    a.nombre AS asignatura,
+                    CONCAT(d.primer_nombre,' ',d.primer_apellido) AS docente
+                FROM actividades_academicas ac
+                INNER JOIN cursos c
+                    ON ac.id_curso = c.id_curso
+                INNER JOIN docentes d
+                    ON c.id_docente = d.id_docente
+                INNER JOIN asignaturas a
+                    ON c.id_asignatura = a.id_asignatura
+                WHERE ac.id_actividad = :id_actividad";
+
+        $stmt = $this->conexion->prepare($sql);
+
+        $stmt->execute([
+            ':id_actividad' => $id_actividad
+        ]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function guardar($datos)
     {
-        $stmt = $this->conexion->prepare("INSERT INTO actividades_academicas (id_docente, categoria, horas, fecha_inicio, fecha_fin) VALUES (:id_docente, :categoria, :horas, :fecha_inicio, :fecha_fin)");
-        $stmt->bindParam(':id_docente', $datos['id_docente'], PDO::PARAM_INT);
-        $stmt->bindParam(':categoria', $datos['categoria'], PDO::PARAM_STR);
-        $stmt->bindParam(':horas', $datos['horas'], PDO::PARAM_INT);
-        $stmt->bindParam(':fecha_inicio', $datos['fecha_inicio'], PDO::PARAM_STR);
-        $stmt->bindParam(':fecha_fin', $datos['fecha_fin'], PDO::PARAM_STR);
-        return $stmt->execute();
+        $sql = "INSERT INTO actividades_academicas
+                (
+                    id_curso,
+                    titulo,
+                    descripcion,
+                    categoria,
+                    fecha_apertura,
+                    fecha_cierre
+                )
+                VALUES
+                (
+                    :id_curso,
+                    :titulo,
+                    :descripcion,
+                    :categoria,
+                    :fecha_apertura,
+                    :fecha_cierre
+                )";
+
+        $stmt = $this->conexion->prepare($sql);
+
+        $stmt->execute([
+            ':id_curso' => $datos['id_curso'],
+            ':titulo' => $datos['titulo'],
+            ':descripcion' => $datos['descripcion'],
+            ':categoria' => $datos['categoria'],
+            ':fecha_apertura' => $datos['fecha_apertura'],
+            ':fecha_cierre' => $datos['fecha_cierre']
+        ]);
+
+        return $this->conexion->lastInsertId();
     }
 
     public function actualizar($id_actividad, $datos)
     {
-        $stmt = $this->conexion->prepare("UPDATE actividades_academicas SET categoria = :categoria, horas = :horas, fecha_inicio = :fecha_inicio, fecha_fin = :fecha_fin WHERE id_actividad = :id_actividad AND id_docente = :id_docente");
-        $stmt->bindParam(':categoria', $datos['categoria'], PDO::PARAM_STR);
-        $stmt->bindParam(':horas', $datos['horas'], PDO::PARAM_INT);
-        $stmt->bindParam(':fecha_inicio', $datos['fecha_inicio'], PDO::PARAM_STR);
-        $stmt->bindParam(':fecha_fin', $datos['fecha_fin'], PDO::PARAM_STR);
-        $stmt->bindParam(':id_actividad', $id_actividad, PDO::PARAM_INT);
-        $stmt->bindParam(':id_docente', $datos['id_docente'], PDO::PARAM_INT);
-        return $stmt->execute();
+        $sql = "UPDATE actividades_academicas
+                SET
+                    id_curso = :id_curso,
+                    titulo = :titulo,
+                    descripcion = :descripcion,
+                    categoria = :categoria,
+                    fecha_apertura = :fecha_apertura,
+                    fecha_cierre = :fecha_cierre
+                WHERE id_actividad = :id_actividad";
+
+        $stmt = $this->conexion->prepare($sql);
+
+        $stmt->execute([
+            ':id_curso' => $datos['id_curso'],
+            ':titulo' => $datos['titulo'],
+            ':descripcion' => $datos['descripcion'],
+            ':categoria' => $datos['categoria'],
+            ':fecha_apertura' => $datos['fecha_apertura'],
+            ':fecha_cierre' => $datos['fecha_cierre'],
+            ':id_actividad' => $id_actividad
+        ]);
+
+        return $stmt->rowCount();
     }
 
-    public function eliminar($id_actividad, $id_docente)
+    public function eliminar($id_actividad)
     {
-        // Usamos borrado lógico
-        $stmt = $this->conexion->prepare("UPDATE actividades_academicas SET estado = 'inactivo' WHERE id_actividad = :id_actividad AND id_docente = :id_docente");
-        $stmt->bindParam(':id_actividad', $id_actividad, PDO::PARAM_INT);
-        $stmt->bindParam(':id_docente', $id_docente, PDO::PARAM_INT);
-        return $stmt->execute();
+        $sql = "DELETE FROM actividades_academicas
+                WHERE id_actividad = :id_actividad";
+
+        $stmt = $this->conexion->prepare($sql);
+
+        $stmt->execute([
+            ':id_actividad' => $id_actividad
+        ]);
+
+        return $stmt->rowCount();
     }
 }

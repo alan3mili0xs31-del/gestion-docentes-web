@@ -5,7 +5,7 @@ $menu = [
     "nombre" => "Mis cursos"
 ];
 
-require_once __DIR__."/../layout/curso/header.php"
+require_once __DIR__."/../layout/header.php"
 
 ?>
 
@@ -33,7 +33,7 @@ require_once __DIR__."/../layout/curso/header.php"
                     <form id="crearCurso_form">
                         <div class="form-group">
                             <label for="cursoNombreInput">Nombre del curso</label>
-                            <input type="text" class="form-input" id="cursoNombreInput" placeholder="Curso de programación" required>
+                            <input type="text" class="form-input" id="cursoNombreInput" placeholder="Ingrese el nombre del curso" required>
                         </div>
 
                         <div class="grid-2">
@@ -41,10 +41,14 @@ require_once __DIR__."/../layout/curso/header.php"
                                 <label for="docenteCursoInput">Docente</label>
                                 <select class="form-input" id="docenteCursoInput" required>
                                     <option value="" disabled selected>Seleccione un docente...</option>
-                                    <?php foreach ($docentes as $docente): ?>
-                                        <option value="<?= $docente['id_docente'] ?>">
-                                            <?= htmlspecialchars($docente['primer_nombre'] . ' ' . $docente['primer_apellido']) ?>
-                                        </option>
+
+                                    <?php foreach ($docentes as $docente):
+
+                                        $docente_nombre_completo = htmlspecialchars($docente["primer_nombre"])." ".htmlspecialchars($docente["primer_apellido"])." ".htmlspecialchars($docente["segundo_apellido"]);
+
+                                    ?>
+                                        <option value="<?= htmlspecialchars($docente["id_docente"]) ?>"><?= $docente_nombre_completo ?></option>
+
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -53,11 +57,13 @@ require_once __DIR__."/../layout/curso/header.php"
                                 <label for="asignaturaCursoInput">Asignatura</label>
                                 <select class="form-input" id="asignaturaCursoInput" required>
                                     <option value="" disabled selected>Seleccione una asignatura...</option>
+
                                     <?php foreach ($asignaturas as $asignatura): ?>
-                                        <option value="<?= $asignatura['id_asignatura'] ?>">
-                                            <?= htmlspecialchars($asignatura['nombre']) ?>
-                                        </option>
+
+                                        <option value="<?= htmlspecialchars($asignatura["id_asignatura"]) ?>"><?= htmlspecialchars($asignatura["nombre"]) ?></option>
+
                                     <?php endforeach; ?>
+
                                 </select>
                             </div>
                         </div>
@@ -70,7 +76,7 @@ require_once __DIR__."/../layout/curso/header.php"
 
                         <div class="form-group">
                             <label for="cursoParaleloInput">Paralelo</label>
-                            <input type="text" class="form-input" id="cursoParaleloInput" placeholder="MAT-110" required>
+                            <input type="text" class="form-input" id="cursoParaleloInput" placeholder="Ej: MAT-110" required>
                         </div>
 
                         <div class="form-group">
@@ -140,4 +146,4 @@ require_once __DIR__."/../layout/curso/header.php"
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="/gestion-docentes-web/public/js/curso/creacion.js"></script>
 
-<?php require_once __DIR__."/../layout/curso/footer.php" ?>
+<?php require_once __DIR__."/../layout/footer.php" ?>

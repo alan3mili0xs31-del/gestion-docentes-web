@@ -4,163 +4,157 @@ require_once __DIR__ . '/../modelos/AsignaturaModelo.php';
 
 class AsignaturaControlador
 {
-    private $modelo;
+    private AsignaturaModelo $asignaturaModelo;
 
     public function __construct()
     {
-        $this->modelo = new AsignaturaModelo();
+        $this->asignaturaModelo = new AsignaturaModelo();
     }
 
-    /* ─────────────────────────────────────────
-     * GET /asignaturas  → muestra listado HTML
-     * ───────────────────────────────────────── */
     public function listar()
     {
-        require_once __DIR__ . '/../vistas/asignatura/listado-asignaturas.php';
+        $asignaturas = $this->asignaturaModelo->listar();
+        require_once "app/vistas/asignatura/asignatura_listado.php";
     }
 
-    /* ─────────────────────────────────────────
-     * GET /asignaturas?accion=crear  → formulario
-     * ───────────────────────────────────────── */
     public function crear()
     {
-        require_once __DIR__ . '/../vistas/asignatura/nueva-asignatura.php';
+        require_once "app/vistas/asignatura/asignatura_crear.php";
     }
 
-    /* ─────────────────────────────────────────
-     * GET /asignaturas?accion=editar&id=X → formulario edición
-     * ───────────────────────────────────────── */
-    public function editar()
-    {
-        $id = intval($_GET['id'] ?? 0);
-        $asignatura = $this->modelo->buscar($id);
-        require_once __DIR__ . '/../vistas/asignatura/editar-asignatura.php';
-    }
-
-    /* ─────────────────────────────────────────
-     * API JSON: GET  /asignaturas?accion=api_listar
-     * ───────────────────────────────────────── */
-    public function api_listar()
-    {
-        header('Content-Type: application/json; charset=utf-8');
-        $facultad = $_GET['facultad'] ?? null;
-        $asignaturas = $this->modelo->listar();
-
-        if ($facultad) {
-            $asignaturas = array_values(
-                array_filter($asignaturas, fn($a) => $a['facultad'] === $facultad)
-            );
-        }
-
-        echo json_encode(['ok' => true, 'data' => $asignaturas]);
-    }
-
-    /* ─────────────────────────────────────────
-     * API JSON: GET  /asignaturas?accion=api_buscar&id=X
-     * ───────────────────────────────────────── */
-    public function api_buscar()
-    {
-        header('Content-Type: application/json; charset=utf-8');
-        $id = intval($_GET['id'] ?? 0);
-        $asignatura = $this->modelo->buscar($id);
-
-        if ($asignatura) {
-            echo json_encode(['ok' => true, 'data' => $asignatura]);
-        } else {
-            http_response_code(404);
-            echo json_encode(['ok' => false, 'mensaje' => 'Asignatura no encontrada']);
-        }
-    }
-
-    /* ─────────────────────────────────────────
-     * API JSON: POST /asignaturas?accion=guardar
-     * ───────────────────────────────────────── */
     public function guardar()
     {
-        header('Content-Type: application/json; charset=utf-8');
-        $datos = json_decode(file_get_contents('php://input'), true);
+        header('Content-Type: application/json');
 
-        if (!$datos) {
-            http_response_code(400);
-            echo json_encode(['ok' => false, 'mensaje' => 'Datos inválidos']);
-            return;
-        }
+        try {
+            $json = file_get_contents("php://input");
+            $datos = json_decode($json, true);
 
-        $campos = ['codigo', 'nombre', 'creditos', 'semestre', 'facultad'];
-        foreach ($campos as $campo) {
-            if (empty($datos[$campo])) {
-                http_response_code(422);
-                echo json_encode(['ok' => false, 'mensaje' => "El campo '$campo' es requerido"]);
-                return;
+            if (
+                !$datos ||
+                empty($datos['codigo']) ||
+                empty($datos['nombre']) ||
+                empty($datos['semestre']) ||
+                !isset($datos['creditos'])
+            ) {
+                throw new Exception("Datos inválidos o incompletos");
             }
-        }
 
-        $datos['creditos'] = intval($datos['creditos']);
-        $ok = $this->modelo->guardar($datos);
+            $resultado = $this->asignaturaModelo->guardar([
+                'codigo' => trim($datos['codigo']),
+                'nombre' => trim($datos['nombre']),
+                'semestre' => trim($datos['semestre']),
+                'creditos' => (int)$datos['creditos'],
+                'estado' => $datos['estado'] ?? 'activo'
+            ]);
 
-        if ($ok) {
-            echo json_encode(['ok' => true, 'mensaje' => 'Asignatura creada correctamente']);
-        } else {
-            http_response_code(500);
-            echo json_encode(['ok' => false, 'mensaje' => 'Error al guardar la asignatura']);
+            if ($resultado > 0) {
+                echo json_encode([
+                    "success" => true,
+                    "mensaje" => "Asignatura creada correctamente"
+                ]);
+            } else {
+                echo json_encode([
+                    "success" => false,
+                    "mensaje" => "No se pudo crear la asignatura"
+                ]);
+            }
+
+        } catch (Exception $e) {
+            http_response_code(400);
+
+            echo json_encode([
+                "success" => false,
+                "mensaje" => $e->getMessage()
+            ]);
         }
     }
 
-    /* ─────────────────────────────────────────
-     * API JSON: PUT /asignaturas?accion=actualizar&id=X
-     * ───────────────────────────────────────── */
+    public function editar()
+    {
+        $id_asignatura = $_GET["id_asignatura"] ?? '';
+        $asignatura = $this->asignaturaModelo->buscar($id_asignatura);
+
+        if ($asignatura) {
+            require_once "app/vistas/asignatura/asignatura_editar.php";
+        } else {
+            require_once "app/vistas/layout/no-encontrado.php";
+        }
+    }
+
     public function actualizar()
     {
-        header('Content-Type: application/json; charset=utf-8');
-        $id = intval($_GET['id'] ?? 0);
-        $datos = json_decode(file_get_contents('php://input'), true);
+        header('Content-Type: application/json');
 
-        if (!$datos || !$id) {
+        try {
+            $json = file_get_contents("php://input");
+            $datos = json_decode($json, true);
+
+            if (
+                !$datos ||
+                empty($datos['id_asignatura']) ||
+                empty($datos['codigo']) ||
+                empty($datos['nombre']) ||
+                empty($datos['semestre']) ||
+                !isset($datos['creditos'])
+            ) {
+                throw new Exception("Datos inválidos o incompletos");
+            }
+
+            $resultado = $this->asignaturaModelo->actualizar(
+                $datos['id_asignatura'],
+                [
+                    'codigo' => trim($datos['codigo']),
+                    'nombre' => trim($datos['nombre']),
+                    'semestre' => trim($datos['semestre']),
+                    'creditos' => (int)$datos['creditos'],
+                    'estado' => $datos['estado'] ?? 'activo'
+                ]
+            );
+
+            if ($resultado > 0) {
+                echo json_encode([
+                    "success" => true,
+                    "mensaje" => "Asignatura actualizada correctamente"
+                ]);
+            } else {
+                echo json_encode([
+                    "success" => false,
+                    "mensaje" => "No se pudo actualizar la asignatura"
+                ]);
+            }
+
+        } catch (Exception $e) {
             http_response_code(400);
-            echo json_encode(['ok' => false, 'mensaje' => 'Datos inválidos']);
-            return;
-        }
 
-        $datos['creditos'] = intval($datos['creditos']);
-        $ok = $this->modelo->actualizar($id, $datos);
-
-        if ($ok) {
-            echo json_encode(['ok' => true, 'mensaje' => 'Asignatura actualizada correctamente']);
-        } else {
-            http_response_code(500);
-            echo json_encode(['ok' => false, 'mensaje' => 'Error al actualizar la asignatura']);
+            echo json_encode([
+                "success" => false,
+                "mensaje" => $e->getMessage()
+            ]);
         }
     }
 
-    /* ─────────────────────────────────────────
-     * API JSON: DELETE /asignaturas?accion=eliminar&id=X
-     * ───────────────────────────────────────── */
     public function eliminar()
     {
-        header('Content-Type: application/json; charset=utf-8');
-        $id = intval($_GET['id'] ?? 0);
+        $id_asignatura = $_GET["id_asignatura"] ?? '';
 
-        if (!$id) {
-            http_response_code(400);
-            echo json_encode(['ok' => false, 'mensaje' => 'ID no válido']);
-            return;
-        }
+        if ($id_asignatura) {
+            $this->asignaturaModelo->eliminar($id_asignatura);
 
-        $ok = $this->modelo->eliminar($id);
-
-        if ($ok) {
-            echo json_encode(['ok' => true, 'mensaje' => 'Asignatura eliminada correctamente']);
-        } else {
-            http_response_code(500);
-            echo json_encode(['ok' => false, 'mensaje' => 'Error al eliminar la asignatura']);
+            header("Location: " . BASE_URL . "/asignaturas");
+            exit();
         }
     }
 
-    /* ─────────────────────────────────────────
-     * API JSON: GET /asignaturas?accion=buscar (alias)
-     * ───────────────────────────────────────── */
     public function buscar()
     {
-        $this->api_buscar();
+        $id_asignatura = $_GET["id_asignatura"] ?? '';
+        $asignatura = $this->asignaturaModelo->buscar($id_asignatura);
+
+        if ($asignatura) {
+            require_once "app/vistas/asignatura/asignatura_detalle.php";
+        } else {
+            require_once "app/vistas/layout/no-encontrado.php";
+        }
     }
 }

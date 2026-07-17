@@ -142,8 +142,7 @@
 ----------------------------------------- */
 .main-header {
     text-align: center;
-    margin-top: 3rem;
-    margin-bottom: 3.5rem;
+    margin: 12px 0;
 }
 .header-icon {
     color: var(--c-primary-main);
@@ -451,17 +450,9 @@ select.form-input option {
    TARJETAS PRINCIPALES (HOME - Mis Módulos)
 ----------------------------------------- */
 .cards-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1.5rem;
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.cards-grid > * {
-    flex: 1 1 240px;
-    max-width: 280px;
 }
 
 .modern-card {
@@ -750,10 +741,7 @@ a.btn-full.btn-red:hover {
         font-size: 2rem;
     }
     .cards-grid {
-        flex-direction: column;
-    }
-    .cards-grid > * {
-        max-width: 100%;
+        grid-template-columns: 1fr;
     }
 }
 
@@ -770,7 +758,37 @@ a.btn-full.btn-red:hover {
 }
 
 .data-table th, .data-table td {
-    padding: 1.2rem 1rem; /* Aumenta el padding para que no se vean pegados */
+    padding: 1.2rem 1rem;
     text-align: left;
+}
+
+/* -----------------------------------------
+   BOTONES DE ACCIÓN EN TABLAS
+----------------------------------------- */
+.data-table .btn-outline {
+    background-color: transparent;
+    color: var(--c-primary-main);
+    border: 1px solid var(--c-blue-main);
+    font-weight: 600;
+}
+.data-table .btn-outline:hover {
+    background-color: var(--c-primary-main);
+    color: #FFFFFF;
+}
+
+.data-table .btn-red {
+    background-color: #FEF2F2;
+    color: #DC2626;
+    border: 1px solid #FECACA;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    display: inline-block;
+    transition: all 0.2s ease;
+}
+.data-table .btn-red:hover {
+    background-color: #DC2626;
+    color: #FFFFFF;
+    border-color: #DC2626;
 }
 

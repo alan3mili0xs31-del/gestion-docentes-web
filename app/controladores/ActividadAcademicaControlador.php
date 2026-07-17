@@ -2,117 +2,186 @@
 
 require_once __DIR__.'/../modelos/ActividadAcademicaModelo.php';
 require_once __DIR__.'/../modelos/DocenteModelo.php';
+require_once __DIR__.'/../modelos/CursoModelo.php';
 
 class ActividadAcademicaControlador
 {
-    private $modelo;
-    private $docenteModelo;
+    private ActividadAcademicaModelo $actividadModelo;
+    private DocenteModelo $docenteModelo;
+    private CursoModelo $cursoModelo;
 
     public function __construct()
     {
-        $this->modelo = new ActividadAcademicaModelo();
+        $this->actividadModelo = new ActividadAcademicaModelo();
         $this->docenteModelo = new DocenteModelo();
-    }
-
-    private function getIdDocenteActual()
-    {
-        if (isset($_SESSION["usuario"]) && isset($_SESSION["usuario"]["cedula"])) {
-            $docente = $this->docenteModelo->buscarPorCedula($_SESSION["usuario"]["cedula"]);
-            if ($docente) {
-                return $docente['id_docente'];
-            }
-        }
-        return null;
+        $this->cursoModelo = new CursoModelo();
     }
 
     public function listar()
     {
-        $id_docente = $this->getIdDocenteActual();
-        if (!$id_docente) {
-            die("Error: No se encontró el docente asociado al usuario.");
-        }
-        
-        $actividades = $this->modelo->listar($id_docente);
-        require_once "app/vistas/actividad-docente/listado.php";
-    }
+        $usuario_session = $_SESSION["usuario"];
+        $actividades = [];
 
-    public function perfil()
-    {
-        require_once "app/vistas/actividad-docente/perfil.php";
+        if ($usuario_session["rol"] != "administrador") {
+            $docente = $this->docenteModelo->buscarPorCedula($usuario_session["cedula"]);
+            $actividades = $this->actividadModelo->listarMisActividades($docente["id_docente"]);
+        } else {
+            $actividades = $this->actividadModelo->listar();
+        }
+
+        require_once "app/vistas/actividad-docente/actividad_listado.php";
     }
 
     public function crear()
     {
-        require_once "app/vistas/actividad-docente/crear.php";
+        $cursos = [];
+        if ($_SESSION["usuario"]["rol"] == "administrador") {
+            $cursos = $this->cursoModelo->listar();
+        } else {
+            $docente = $this->docenteModelo->buscarPorCedula($_SESSION["usuario"]["cedula"]);
+            $cursos = $this->cursoModelo->listar($docente["id_docente"]);
+        }
+        require_once "app/vistas/actividad-docente/actividad_crear.php";
     }
 
     public function guardar()
     {
-        $id_docente = $this->getIdDocenteActual();
-        if (!$id_docente) {
-            die("Error: No se encontró el docente asociado al usuario.");
-        }
+        header('Content-Type: application/json');
 
-        if ($_SERVER["REQUEST_METHOD"] == 'POST') {
-            $datos = [
-                'id_docente' => $id_docente,
-                'categoria' => $_POST['categoria'] ?? '',
-                'horas' => $_POST['horas'] ?? 0,
-                'fecha_inicio' => $_POST['fechaInicio'] ?? '',
-                'fecha_fin' => $_POST['fechaFin'] ?? ''
-            ];
+        try {
 
-            $this->modelo->guardar($datos);
-            header("Location: ?accion=listar");
-            exit;
+            $datos = json_decode(file_get_contents("php://input"), true);
+
+            if (
+                empty($datos['id_curso']) ||
+                empty($datos['titulo']) ||
+                empty($datos['categoria']) ||
+                empty($datos['fecha_apertura']) ||
+                empty($datos['fecha_cierre'])
+            ) {
+                throw new Exception("Datos inválidos o incompletos.");
+            }
+
+            $resultado = $this->actividadModelo->guardar([
+                'id_curso'         => $datos['id_curso'],
+                'titulo'           => trim($datos['titulo']),
+                'descripcion'      => trim($datos['descripcion'] ?? ''),
+                'categoria'        => $datos['categoria'],
+                'fecha_apertura'   => $datos['fecha_apertura'],
+                'fecha_cierre'     => $datos['fecha_cierre']
+            ]);
+
+            echo json_encode([
+                "success" => $resultado > 0,
+                "mensaje" => $resultado > 0
+                    ? "Actividad creada correctamente."
+                    : "No se pudo crear la actividad."
+            ]);
+
+        } catch (Exception $e) {
+
+            http_response_code(400);
+
+            echo json_encode([
+                "success" => false,
+                "mensaje" => $e->getMessage()
+            ]);
         }
     }
 
     public function editar()
     {
-        $id_docente = $this->getIdDocenteActual();
-        $id_actividad = $_GET['id'] ?? null;
-        
-        if ($id_actividad && $id_docente) {
-            $actividad = $this->modelo->buscar($id_actividad, $id_docente);
-            if ($actividad) {
-                require_once "app/vistas/actividad-docente/editar.php";
-                return;
-            }
+        $id_actividad = $_GET["id_actividad"] ?? '';
+
+        $actividad = $this->actividadModelo->buscar($id_actividad);
+
+        if ($actividad) {
+
+            $cursos = $this->cursoModelo->listar();
+
+            require_once "app/vistas/actividad-docente/actividad_editar.php";
+
+        } else {
+
+            require_once "app/vistas/layout/no-encontrado.php";
         }
-        header("Location: ?accion=listar");
-        exit;
     }
 
     public function actualizar()
     {
-        $id_docente = $this->getIdDocenteActual();
-        $id_actividad = $_GET['id'] ?? null;
+        header('Content-Type: application/json');
 
-        if ($_SERVER["REQUEST_METHOD"] == 'POST' && $id_actividad && $id_docente) {
-            $datos = [
-                'id_docente' => $id_docente,
-                'categoria' => $_POST['categoria'] ?? '',
-                'horas' => $_POST['horas'] ?? 0,
-                'fecha_inicio' => $_POST['fechaInicio'] ?? '',
-                'fecha_fin' => $_POST['fechaFin'] ?? ''
-            ];
+        try {
 
-            $this->modelo->actualizar($id_actividad, $datos);
-            header("Location: ?accion=listar");
-            exit;
+            $datos = json_decode(file_get_contents("php://input"), true);
+
+            if (
+                empty($datos['id_actividad']) ||
+                empty($datos['id_curso']) ||
+                empty($datos['titulo']) ||
+                empty($datos['categoria']) ||
+                empty($datos['fecha_apertura']) ||
+                empty($datos['fecha_cierre'])
+            ) {
+                throw new Exception("Datos inválidos o incompletos.");
+            }
+
+            $resultado = $this->actividadModelo->actualizar(
+                $datos['id_actividad'],
+                [
+                    'id_curso'         => $datos['id_curso'],
+                    'titulo'           => trim($datos['titulo']),
+                    'descripcion'      => trim($datos['descripcion'] ?? ''),
+                    'categoria'        => $datos['categoria'],
+                    'fecha_apertura'   => $datos['fecha_apertura'],
+                    'fecha_cierre'     => $datos['fecha_cierre']
+                ]
+            );
+
+            echo json_encode([
+                "success" => $resultado > 0,
+                "mensaje" => $resultado > 0
+                    ? "Actividad actualizada correctamente."
+                    : "No se pudo actualizar la actividad."
+            ]);
+
+        } catch (Exception $e) {
+
+            http_response_code(400);
+
+            echo json_encode([
+                "success" => false,
+                "mensaje" => $e->getMessage()
+            ]);
         }
     }
 
     public function eliminar()
     {
-        $id_docente = $this->getIdDocenteActual();
-        $id_actividad = $_GET['id'] ?? null;
+        $id_actividad = $_GET["id_actividad"] ?? '';
 
-        if ($id_actividad && $id_docente) {
-            $this->modelo->eliminar($id_actividad, $id_docente);
+        if ($id_actividad) {
+
+            $this->actividadModelo->eliminar($id_actividad);
+
+            header("Location: " . BASE_URL . "/actividades-docente");
+            exit();
         }
-        header("Location: ?accion=listar");
-        exit;
+    }
+
+    public function buscar()
+    {
+        $id_actividad = $_GET["id_actividad"] ?? '';
+
+        $actividad = $this->actividadModelo->buscar($id_actividad);
+
+        if ($actividad) {
+
+            require_once "app/vistas/actividad-docente/actividad_detalle.php";
+
+        } else {
+
+            require_once "app/vistas/layout/no-encontrado.php";
+        }
     }
 }

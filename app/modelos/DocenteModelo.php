@@ -14,74 +14,80 @@ class DocenteModelo
 
     public function listar()
     {
-        $stmt = $this->conexion->prepare(
-            "SELECT id_docente, cedula, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, estado
-             FROM docentes
-             ORDER BY primer_apellido ASC, primer_nombre ASC"
-        );
-        $stmt->execute();
-        return $stmt->fetchAll();
+        $sql = "SELECT id_docente, cedula, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, fecha_creacion, especialidad, estado
+                FROM docentes
+                ORDER BY id_docente DESC";
+        $stmt = $this->conexion->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
-    public function buscar($id)
+    public function buscar($id_docente)
     {
-        $stmt = $this->conexion->prepare("SELECT * FROM docentes WHERE id_docente = :id");
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetch();
+        $sql = "SELECT id_docente, cedula, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, fecha_creacion, especialidad, estado
+                FROM docentes
+                WHERE id_docente = :id_docente";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute([':id_docente' => $id_docente]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function buscarPorCedula($cedula)
     {
-        $stmt = $this->conexion->prepare("SELECT * FROM docentes WHERE cedula = :cedula");
-        $stmt->bindParam(':cedula', $cedula, PDO::PARAM_STR);
-        $stmt->execute();
-        return $stmt->fetch();
+        $sql = "SELECT id_docente, cedula, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, fecha_creacion, especialidad, estado
+                FROM docentes
+                WHERE cedula = :cedula";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute([':cedula' => $cedula]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
 
     public function guardar($datos)
     {
-        $stmt = $this->conexion->prepare(
-            "INSERT INTO docentes (cedula, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido)
-             VALUES (:cedula, :primer_nombre, :segundo_nombre, :primer_apellido, :segundo_apellido)"
-        );
-        $stmt->bindParam(':cedula', $datos['cedula']);
-        $stmt->bindParam(':primer_nombre', $datos['primer_nombre']);
-        $stmt->bindParam(':segundo_nombre', $datos['segundo_nombre']);
-        $stmt->bindParam(':primer_apellido', $datos['primer_apellido']);
-        $stmt->bindParam(':segundo_apellido', $datos['segundo_apellido']);
-        return $stmt->execute();
+        $sql = "INSERT INTO docentes (cedula, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, especialidad, estado)
+                VALUES (:cedula, :primer_nombre, :segundo_nombre, :primer_apellido, :segundo_apellido, :especialidad, :estado)";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute([
+            ':cedula' => $datos['cedula'],
+            ':primer_nombre' => $datos['primer_nombre'],
+            ':segundo_nombre' => $datos['segundo_nombre'],
+            ':primer_apellido' => $datos['primer_apellido'],
+            ':segundo_apellido' => $datos['segundo_apellido'],
+            ':especialidad' => $datos['especialidad'],
+            ':estado' => $datos['estado'] ?? 'activo'
+        ]);
+        return $this->conexion->lastInsertId();
     }
 
-
-    public function actualizar($id, $datos)
+    public function actualizar($id_docente, $datos)
     {
-        $stmt = $this->conexion->prepare(
-            "UPDATE docentes SET
-                cedula = :cedula,
-                primer_nombre = :primer_nombre,
-                segundo_nombre = :segundo_nombre,
-                primer_apellido = :primer_apellido,
-                segundo_apellido = :segundo_apellido,
-                fecha_modificacion = NOW()
-             WHERE id_docente = :id"
-        );
-        $stmt->bindParam(':cedula', $datos['cedula']);
-        $stmt->bindParam(':primer_nombre', $datos['primer_nombre']);
-        $stmt->bindParam(':segundo_nombre', $datos['segundo_nombre']);
-        $stmt->bindParam(':primer_apellido', $datos['primer_apellido']);
-        $stmt->bindParam(':segundo_apellido', $datos['segundo_apellido']);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        return $stmt->execute();
+        $sql = "UPDATE docentes
+                SET cedula = :cedula,
+                    primer_nombre = :primer_nombre,
+                    segundo_nombre = :segundo_nombre,
+                    primer_apellido = :primer_apellido,
+                    segundo_apellido = :segundo_apellido,
+                    especialidad = :especialidad,
+                    estado = :estado
+                WHERE id_docente = :id_docente";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute([
+            ':cedula' => $datos['cedula'],
+            ':primer_nombre' => $datos['primer_nombre'],
+            ':segundo_nombre' => $datos['segundo_nombre'],
+            ':primer_apellido' => $datos['primer_apellido'],
+            ':segundo_apellido' => $datos['segundo_apellido'],
+            ':especialidad' => $datos['especialidad'],
+            ':estado' => $datos['estado'],
+            ':id_docente' => $id_docente
+        ]);
+        return $stmt->rowCount();
     }
 
-
-    public function eliminar($id)
+    public function eliminar($id_docente)
     {
-        $stmt = $this->conexion->prepare("DELETE FROM docentes WHERE id_docente = :id");
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        return $stmt->execute();
+        $sql = "DELETE FROM docentes WHERE id_docente = :id_docente";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute([':id_docente' => $id_docente]);
+        return $stmt->rowCount();
     }
 }

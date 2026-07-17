@@ -39,6 +39,13 @@ switch ($accion) {
         break;
 
 
+    case "editar":
+
+        $controlador->editar();
+
+        break;
+
+
     case "eliminar":
 
         $controlador->eliminar();
@@ -52,6 +59,11 @@ switch ($accion) {
 
         break;
 
+    case "filtrar_nombre":
+
+        $controlador->buscarPorNombre();
+
+        break;
 
     default:
 

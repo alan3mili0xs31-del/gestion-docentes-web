@@ -25,10 +25,6 @@ switch ($accion) {
 
         break;
 
-    case "editar":
-        $controlador->editar();
-        break;
-
 
     case "guardar":
 
@@ -40,6 +36,13 @@ switch ($accion) {
     case "actualizar":
 
         $controlador->actualizar();
+
+        break;
+
+
+    case "editar":
+
+        $controlador->editar();
 
         break;
 
@@ -58,12 +61,10 @@ switch ($accion) {
         break;
 
 
-    case "perfil":
-        $controlador->perfil();
-        break;
-
     default:
+
         $controlador->listar();
+
         break;
 
 }

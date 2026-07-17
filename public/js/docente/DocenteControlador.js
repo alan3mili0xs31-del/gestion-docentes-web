@@ -1,74 +1,180 @@
-class DocenteControlador {
-    constructor(model, view) {
-        this.model = model;
-        this.view = view;
-
-        const urlParams = new URLSearchParams(window.location.search);
-        this.docenteId = urlParams.get('id');
-
-        this.init();
-    }
-
-    init() {
-        if (this.view.tablaDocentes) {
-            this.updateTable();
-            this.view.bindSearch(this.handleSearch.bind(this));
-        }
-
-        if (this.view.formCrear) {
-            this.view.bindCrearDocente(this.handleCrearDocente.bind(this));
-        }
-
-        if (this.view.formEditar && this.docenteId !== null) {
-            const docente = this.model.getById(this.docenteId);
-            this.view.bindEditarDocente(docente, this.handleEditarDocente.bind(this));
-        }
-
-        if (this.view.contenedorDetalle && this.docenteId !== null) {
-            const docente = this.model.getById(this.docenteId);
-            this.view.renderDetalle(docente);
-        }
-    }
-
-    updateTable(data = null) {
-        const docentes = data || this.model.getAll();
-        this.view.renderTable(docentes, this.handleEliminarDocente.bind(this));
-    }
-
-    handleSearch(term) {
-        const termLower = term.toLowerCase().trim();
-        const todos = this.model.getAll();
-        const filtrados = todos.filter(doc => 
-            doc.cedula.toLowerCase().includes(termLower) || 
-            doc.nombres.toLowerCase().includes(termLower) || 
-            doc.apellidos.toLowerCase().includes(termLower)
-        );
-        this.updateTable(filtrados);
-    }
-
-    handleCrearDocente(data) {
-        this.model.add(data);
-        alert('Docente creado exitosamente');
-        window.location.href = 'listado-docentes.html';
-    }
-
-    handleEditarDocente(data) {
-        this.model.update(this.docenteId, data);
-        alert('Docente actualizado correctamente');
-        window.location.href = 'listado-docentes.html';
-    }
-
-    handleEliminarDocente(id) {
-        if (confirm('Â¿EstÃ¡s seguro de eliminar este docente?')) {
-            this.model.delete(id);
-            this.updateTable();
-        }
-    }
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-    const model = new DocenteModel();
-    const view = new DocenteView();
-    const Controlador = new DocenteControlador(model, view);
+
+    // ===========================
+    // CREAR DOCENTE
+    // ===========================
+    const formCrear = document.getElementById("formCrear");
+    if (formCrear) {
+        formCrear.addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const cedula = document.getElementById("cedula").value.trim();
+            const primer_nombre = document.getElementById("primer_nombre").value.trim();
+            const segundo_nombre = document.getElementById("segundo_nombre").value.trim();
+            const primer_apellido = document.getElementById("primer_apellido").value.trim();
+            const segundo_apellido = document.getElementById("segundo_apellido").value.trim();
+            const especialidad = document.getElementById("especialidad").value.trim();
+
+            const datos = {
+                cedula,
+                primer_nombre,
+                segundo_nombre,
+                primer_apellido,
+                segundo_apellido,
+                especialidad
+            };
+
+            try {
+                const resp = await fetch("/gestion-docentes-web/docentes?accion=guardar", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(datos)
+                });
+
+                if (resp.ok) {
+                    const data = await resp.json();
+                    mostrarMensaje(data.success, data.mensaje);
+
+                    if (data.success) {
+                        setTimeout(() => {
+                            window.location.href = "/gestion-docentes-web/docentes";
+                        }, 1500);
+                    }
+                } else {
+                    mostrarMensaje(false, "Error al crear el docente");
+                }
+
+            } catch (error) {
+                mostrarMensaje(false, error.message);
+            }
+        });
+    }
+
+    // ===========================
+    // EDITAR DOCENTE
+    // ===========================
+    const formEditar = document.getElementById("formEditar");
+    if (formEditar) {
+        formEditar.addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const id_docente = document.getElementById("docenteId").value;
+            const cedula = document.getElementById("cedula").value.trim();
+            const primer_nombre = document.getElementById("primer_nombre").value.trim();
+            const segundo_nombre = document.getElementById("segundo_nombre").value.trim();
+            const primer_apellido = document.getElementById("primer_apellido").value.trim();
+            const segundo_apellido = document.getElementById("segundo_apellido").value.trim();
+            const especialidad = document.getElementById("especialidad").value;
+            const estado = document.getElementById("estado").value;
+
+            const datos = {
+                id_docente,
+                cedula,
+                primer_nombre,
+                segundo_nombre,
+                primer_apellido,
+                segundo_apellido,
+                especialidad,
+                estado
+            };
+            console.log(datos);
+            try {
+                const resp = await fetch("/gestion-docentes-web/docentes?accion=actualizar", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(datos)
+                });
+
+                if (resp.ok) {
+                    const data = await resp.json();
+                    mostrarMensaje(data.success, data.mensaje);
+
+                    if (data.success) {
+                        setTimeout(() => {
+                            window.location.href = "/gestion-docentes-web/docentes";
+                        }, 1500);
+                    }
+                } else {
+                    mostrarMensaje(false, "Error al actualizar el docente");
+                }
+
+            } catch (error) {
+                mostrarMensaje(false, error.message);
+            }
+        });
+    }
+
+    // ===========================
+    // BÚSQUEDA EN VIVO
+    // ===========================
+    const searchInput = document.getElementById('searchInput');
+    const tableBody = document.getElementById('tablaDocentes');
+
+    if (searchInput && tableBody) {
+        searchInput.addEventListener('input', function () {
+
+            const searchTerm = this.value.toLowerCase().trim();
+            const rows = tableBody.querySelectorAll('tr');
+
+            rows.forEach(row => {
+
+                if (row.cells.length > 1) {
+
+                    // Ajusta los índices según el orden de tus columnas
+                    const cedula = row.cells[1].textContent.toLowerCase();
+                    const nombres = row.cells[2].textContent.toLowerCase();
+                    const apellidos = row.cells[3].textContent.toLowerCase();
+                    const especialidad = row.cells[4].textContent.toLowerCase();
+
+                    if (
+                        cedula.includes(searchTerm) ||
+                        nombres.includes(searchTerm) ||
+                        apellidos.includes(searchTerm) ||
+                        especialidad.includes(searchTerm)
+                    ) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                }
+            });
+        });
+    }
 });
 
+function mostrarMensaje(estado, mensaje) {
+
+    const toastLiveExample = document.getElementById('liveToast');
+    const contenido = document.getElementById('toastMessage');
+    const icon_repuesta = document.getElementById('icono_respuesta');
+
+    if (!toastLiveExample) return;
+
+    if (estado) {
+        icon_repuesta.innerHTML = `
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="#198754" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="9 12 12 15 16 9"></polyline>
+            </svg>`;
+    } else {
+        icon_repuesta.innerHTML = `
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="#dc3545" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="15" y1="9" x2="9" y2="15"></line>
+                <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>`;
+    }
+
+    contenido.innerText = mensaje;
+
+    if (typeof bootstrap !== 'undefined') {
+        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+        toastBootstrap.show();
+    } else {
+        alert(mensaje);
+    }
+}

@@ -4,80 +4,132 @@ require_once __DIR__.'/../modelos/DocenteModelo.php';
 
 class DocenteControlador
 {
-    private $modelo;
+    private DocenteModelo $docenteModelo;
 
-    public function __construct()
-    {
-        $this->modelo = new DocenteModelo();
+    public function __construct() {
+        $this->docenteModelo = new DocenteModelo();
     }
 
     public function listar()
     {
-        $docentes = $this->modelo->listar();
-        require_once "app/vistas/docente/listado-docentes.php";
+        $docentes = $this->docenteModelo->listar();
+        require_once "app/vistas/docente/docente_listado.php";
     }
 
     public function crear()
     {
-        require_once "app/vistas/docente/crear-docente.php";
+        require_once "app/vistas/docente/docente_crear.php";
     }
 
     public function guardar()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $datos = [
-                'cedula' => $_POST['cedula'] ?? '',
-                'primer_nombre' => $_POST['primer_nombre'] ?? '',
-                'segundo_nombre' => $_POST['segundo_nombre'] ?? '',
-                'primer_apellido' => $_POST['primer_apellido'] ?? '',
-                'segundo_apellido' => $_POST['segundo_apellido'] ?? '',
-            ];
-            $this->modelo->guardar($datos);
+        header('Content-Type: application/json');
+        try {
+            $json = file_get_contents("php://input");
+            $datos = json_decode($json, true);
+
+            if (!$datos) {
+                throw new Exception("Datos inválidos");
+            }
+
+            $primer_nombre = trim($datos['primer_nombre'] ?? '');
+            $segundo_nombre = trim($datos['segundo_nombre'] ?? '');
+
+            $primer_apellido = trim($datos['primer_apellido'] ?? '');
+            $segundo_apellido = trim($datos['segundo_apellido'] ?? '');
+
+            $especialidad = trim($datos['especialidad'] ?? '');
+
+            $resultado = $this->docenteModelo->guardar([
+                'cedula' => $datos['cedula'] ?? '',
+                'primer_nombre' => $primer_nombre,
+                'segundo_nombre' => $segundo_nombre,
+                'primer_apellido' => $primer_apellido,
+                'segundo_apellido' => $segundo_apellido,
+                'especialidad' => $especialidad,
+                'estado' => $datos['estado'] ?? 'activo'
+            ]);
+
+            if ($resultado > 0) {
+                echo json_encode(["success" => true, "mensaje" => "Docente creado correctamente"]);
+            } else {
+                echo json_encode(["success" => false, "mensaje" => "No se pudo crear el docente"]);
+            }
+        } catch (Exception $e) {
+            http_response_code(400);
+            echo json_encode(["success" => false, "mensaje" => $e->getMessage()]);
         }
-        header("Location: /gestion-docentes-web/docentes?accion=listar");
-        exit;
     }
 
     public function editar()
     {
-        $id = $_GET['id'] ?? null;
-        if ($id) {
-            $docente = $this->modelo->buscar($id);
-            if ($docente) {
-                require_once "app/vistas/docente/editar-docente.php";
-                return;
-            }
+        $id_docente = $_GET["id_docente"] ?? '';
+        $docente = $this->docenteModelo->buscar($id_docente);
+        if ($docente) {
+            require_once "app/vistas/docente/docente_editar.php";
+        } else {
+            require_once "app/vistas/layout/no-encontrado.php";
         }
-        header("Location: /gestion-docentes-web/docentes?accion=listar");
-        exit;
     }
 
     public function actualizar()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $id = $_GET['id'] ?? null;
-            if ($id) {
-                $datos = [
-                    'cedula' => $_POST['cedula'] ?? '',
-                    'primer_nombre' => $_POST['primer_nombre'] ?? '',
-                    'segundo_nombre' => $_POST['segundo_nombre'] ?? '',
-                    'primer_apellido' => $_POST['primer_apellido'] ?? '',
-                    'segundo_apellido' => $_POST['segundo_apellido'] ?? '',
-                ];
-                $this->modelo->actualizar($id, $datos);
+        header('Content-Type: application/json');
+        try {
+            $json = file_get_contents("php://input");
+            $datos = json_decode($json, true);
+
+            if (!$datos) {
+                throw new Exception("Datos inválidos");
             }
+
+            $primer_nombre = trim($datos['primer_nombre'] ?? '');
+            $segundo_nombre = trim($datos['segundo_nombre'] ?? '');
+
+            $primer_apellido = trim($datos['primer_apellido'] ?? '');
+            $segundo_apellido = trim($datos['segundo_apellido'] ?? '');
+
+            $especialidad = trim($datos['especialidad'] ?? '');
+
+            $resultado = $this->docenteModelo->actualizar($datos['id_docente'], [
+                'cedula' => $datos['cedula'] ?? '',
+                'primer_nombre' => $primer_nombre,
+                'segundo_nombre' => $segundo_nombre,
+                'primer_apellido' => $primer_apellido,
+                'segundo_apellido' => $segundo_apellido,
+                'especialidad' => $especialidad,
+                'estado' => $datos['estado'] ?? 'activo'
+            ]);
+
+            if ($resultado > 0) {
+                echo json_encode(["success" => true, "mensaje" => "Docente actualizado correctamente"]);
+            } else {
+                echo json_encode(["success" => false, "mensaje" => "No se pudo actualizar el docente"]);
+            }
+        } catch (Exception $e) {
+            http_response_code(400);
+            echo json_encode(["success" => false, "mensaje" => $e->getMessage()]);
         }
-        header("Location: /gestion-docentes-web/docentes?accion=listar");
-        exit;
     }
 
     public function eliminar()
     {
-        $id = $_GET['id'] ?? null;
-        if ($id) {
-            $this->modelo->eliminar($id);
+        $id_docente = $_GET["id_docente"] ?? '';
+        if ($id_docente) {
+            $this->docenteModelo->eliminar($id_docente);
+            header("Location: " . BASE_URL . "/docentes");
+            exit();
         }
-        header("Location: /gestion-docentes-web/docentes?accion=listar");
-        exit;
+    }
+
+    public function buscar()
+    {
+        $id_docente = $_GET["id_docente"] ?? '';
+        $docente = $this->docenteModelo->buscar($id_docente);
+        if ($docente) {
+            require_once "app/vistas/docente/docente_detalle.php";
+        } else {
+            require_once "app/vistas/layout/no-encontrado.php";
+        }
     }
 }

@@ -18,12 +18,16 @@ class LoginModelo {
     if (strcmp($usuario["clave"], $clave) !== 0) {
       return null;
     }
+        $usuario = [
+            "usuario_id" => $usuario["id_usuario"],
+            "cedula" => $usuario["cedula"],
+            "rol" => $usuario["rol"],
+            "nombre" => $usuario["nombre"],
+            "correo" => $usuario["correo"],
+            "telefono" => $usuario["telefono"]
+        ];
 
-    return [
-      "usuario_id" => $usuario["id_usuario"],
-      "cedula" => $usuario["cedula"],
-      "rol" => $usuario["rol"]
-    ];
+        return $usuario;
   }
 
 }

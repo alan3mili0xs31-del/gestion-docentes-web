@@ -1,0 +1,200 @@
+<?php
+
+$menu = [
+    "ruta" => "inicio",
+    "nombre" => "Inicio"
+];
+
+require_once __DIR__."/../layout/header.php";
+
+$usuario_rol = $_SESSION["usuario"]["rol"];
+
+?>
+
+    <div class="dot-pattern top-left"></div>
+    <div class="dot-pattern bottom-right"></div>
+
+    <main class="main-container content-align-top">
+
+        <div class="breadcrumb" style="color: var(--text-gray); font-size: 0.85rem; margin-bottom: 1rem;">
+            <a href="/gestion-docentes-web/asistencias-docente" style="color: var(--text-gray); text-decoration: none;">Asistencias</a> / <span style="color: var(--c-primary-main); font-weight: 600;">Editar Asistencia</span>
+        </div>
+
+        <header class="section-header">
+            <div>
+                <h1 class="page-title">Editar Asistencia</h1>
+                <p class="page-subtitle">Modifica un registro de asistencia existente.</p>
+            </div>
+        </header>
+
+        <div class="details-layout" style="grid-template-columns: 1fr; max-width: 800px; margin: 0 auto; width: 100%;">
+            <div class="form-section">
+                <div class="section-card">
+                    <form id="formEditarAsistencia">
+
+                        <input type="hidden"
+                            id="asistenciaId"
+                            name="id_asistencia"
+                            value="<?= htmlspecialchars($asistencia['id_asistencia'] ?? '') ?>">
+
+
+                        <div class="form-group" <?php if(strcmp($usuario_rol, "administrador") != 0) echo "hidden"; ?>>
+
+                            <label for="id_docente">Docente</label>
+
+                            <select class="form-input" id="id_docente" name="id_docente" required>
+
+                                <option value="">Seleccione un docente</option>
+
+                                <?php foreach ($docentes as $docente): ?>
+
+                                    <option value="<?= htmlspecialchars($docente['id_docente']) ?>"
+                                        <?= (isset($asistencia['id_docente']) &&
+                                            $asistencia['id_docente'] == $docente['id_docente']) ? 'selected' : '' ?>>
+
+                                        <?= htmlspecialchars(
+                                            $docente['cedula'] . ' - ' .
+                                            $docente['primer_nombre'] . ' ' .
+                                            $docente['primer_apellido']
+                                        ) ?>
+
+                                    </option>
+
+                                <?php endforeach; ?>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label for="id_curso">Curso</label>
+
+                            <select class="form-input" id="id_curso" name="id_curso" required>
+
+                                <option value="">Seleccione un curso</option>
+
+                                <?php foreach ($cursos as $curso): ?>
+
+                                    <option value="<?= htmlspecialchars($curso['id_curso']) ?>"
+                                        <?= (isset($asistencia['id_curso']) &&
+                                            $asistencia['id_curso'] == $curso['id_curso']) ? 'selected' : '' ?>>
+
+                                        <?= htmlspecialchars(
+                                            $curso['nombre'] .
+                                            ' - ' .
+                                            $curso['asignatura'] .
+                                            ' (' .
+                                            $curso['paralelo'] .
+                                            ')'
+                                        ) ?>
+
+                                    </option>
+
+                                <?php endforeach; ?>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <div class="grid-2">
+
+                            <div class="form-group">
+
+                                <label for="fecha">Fecha</label>
+
+                                <input
+                                    readonly
+                                    type="date"
+                                    class="form-input"
+                                    id="fecha"
+                                    name="fecha"
+                                    value="<?= htmlspecialchars($asistencia['fecha'] ?? '') ?>"
+                                    required>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label for="estado">Estado</label>
+
+                                <select class="form-input" id="estado" name="estado" required>
+
+                                    <option value="presente"
+                                        <?= (isset($asistencia['estado']) && $asistencia['estado'] === 'presente') ? 'selected' : '' ?>>
+                                        Presente
+                                    </option>
+
+                                    <option value="ausente"
+                                        <?= (isset($asistencia['estado']) && $asistencia['estado'] === 'ausente') ? 'selected' : '' ?>>
+                                        Ausente
+                                    </option>
+
+                                    <option value="atrasado"
+                                        <?= (isset($asistencia['estado']) && $asistencia['estado'] === 'atrasado') ? 'selected' : '' ?>>
+                                        Atrasado
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="form-actions-bar">
+
+                            <a href="/gestion-docentes-web/asistencias-docente" class="btn-cancel">
+                                Cancelar
+                            </a>
+
+
+                            <button type="submit" class="btn-save">
+
+                                <svg width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor"
+                                    stroke-width="2"
+                                    style="margin-right:0.5rem;">
+
+                                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                                    <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                                    <polyline points="7 3 7 8 15 8"></polyline>
+
+                                </svg>
+
+                                Actualizar Registro
+
+                            </button>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <div id="icono_respuesta"></div>
+                <strong class="me-auto"> Respuesta del servidor</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="toastMessage">
+            Asistencia procesada.
+            </div>
+        </div>
+    </div>
+
+    <script src="/gestion-docentes-web/public/js/asistencias-docente/AsistenciaControlador.js"></script>
+
+<?php require_once __DIR__."/../layout/footer.php" ?>

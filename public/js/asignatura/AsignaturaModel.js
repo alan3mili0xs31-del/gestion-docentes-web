@@ -1,51 +1,50 @@
-/**
- * AsignaturaModel.js
- * Capa de datos: realiza peticiones al API PHP.
- * Base: /gestion-docentes-web/asignaturas
- */
 class AsignaturaModel {
     constructor() {
-        this.baseUrl = '/gestion-docentes-web/asignaturas';
+        this.storageKey = 'asignaturas';
+        this.initData();
     }
 
-    async getAll(facultad = '') {
-        const url = facultad
-            ? `${this.baseUrl}?accion=api_listar&facultad=${encodeURIComponent(facultad)}`
-            : `${this.baseUrl}?accion=api_listar`;
-        const res = await fetch(url);
-        const json = await res.json();
-        return json.data || [];
+    initData() {
+        const guardadas = localStorage.getItem(this.storageKey);
+        if (!guardadas) {
+            const iniciales = [
+                { id: 1, codigo: "INF-601", nombre: "Ingeniería de Software II", creditos: 4, semestre: "6", facultad: "FACCI" },
+                { id: 2, codigo: "INF-602", nombre: "Base de Datos Avanzada", creditos: 3, semestre: "6", facultad: "FACCI" },
+                { id: 3, codigo: "INF-603", nombre: "Arquitectura de Sistemas", creditos: 4, semestre: "6", facultad: "FACCI" },
+            ];
+            localStorage.setItem(this.storageKey, JSON.stringify(iniciales));
+        }
     }
 
-    async getById(id) {
-        const res = await fetch(`${this.baseUrl}?accion=api_buscar&id=${id}`);
-        if (!res.ok) return null;
-        const json = await res.json();
-        return json.data || null;
+    getAll() {
+        return JSON.parse(localStorage.getItem(this.storageKey)) || [];
     }
 
-    async add(asignatura) {
-        const res = await fetch(`${this.baseUrl}?accion=guardar`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(asignatura)
-        });
-        return await res.json();
+    getById(id) {
+        return this.getAll().find(a => a.id === parseInt(id));
     }
 
-    async update(id, asignatura) {
-        const res = await fetch(`${this.baseUrl}?accion=actualizar&id=${id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(asignatura)
-        });
-        return await res.json();
+    add(asignatura) {
+        const asignaturas = this.getAll();
+        const nuevoId = asignaturas.length > 0 ? Math.max(...asignaturas.map(a => a.id)) + 1 : 1;
+        asignatura.id = nuevoId;
+        asignaturas.push(asignatura);
+        localStorage.setItem(this.storageKey, JSON.stringify(asignaturas));
     }
 
-    async delete(id) {
-        const res = await fetch(`${this.baseUrl}?accion=eliminar&id=${id}`, {
-            method: 'DELETE'
-        });
-        return await res.json();
+    update(id, updatedAsignatura) {
+        const asignaturas = this.getAll();
+        const index = asignaturas.findIndex(a => a.id === parseInt(id));
+        if (index !== -1) {
+            updatedAsignatura.id = parseInt(id);
+            asignaturas[index] = updatedAsignatura;
+            localStorage.setItem(this.storageKey, JSON.stringify(asignaturas));
+        }
+    }
+
+    delete(id) {
+        let asignaturas = this.getAll();
+        asignaturas = asignaturas.filter(a => a.id !== parseInt(id));
+        localStorage.setItem(this.storageKey, JSON.stringify(asignaturas));
     }
 }

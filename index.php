@@ -39,7 +39,6 @@ switch ($path) {
 
 
     case "/asignaturas":
-        esAdmin();
         estaAutenticado();
         require_once "routes/asignaturas.php";
         break;

@@ -1,3 +1,7 @@
+/**
+ * AsignaturaControlador.js
+ * Orquesta Model y View usando async/await para llamadas al API.
+ */
 class AsignaturaControlador {
     constructor(model, view) {
         this.model = model;
@@ -9,65 +13,77 @@ class AsignaturaControlador {
         this.init();
     }
 
-    init() {
+    async init() {
+        // Listado
         if (this.view.tablaAsignaturas) {
-            this.updateTable();
+            await this.updateTable();
             this.view.bindFilter(this.handleFilter.bind(this));
         }
 
+        // Crear
         if (this.view.formNueva) {
             this.view.bindCrearAsignatura(this.handleCrearAsignatura.bind(this));
         }
 
-        if (this.view.formEditar && this.asignaturaId !== null) {
-            const asignatura = this.model.getById(this.asignaturaId);
+        // Editar: cargar datos existentes
+        if (this.view.formEditar && this.asignaturaId) {
+            const asignatura = await this.model.getById(this.asignaturaId);
             this.view.bindEditarAsignatura(asignatura, this.handleEditarAsignatura.bind(this));
-        }
-
-        if (this.view.contenedorDetalle && this.asignaturaId !== null) {
-            const asignatura = this.model.getById(this.asignaturaId);
-            this.view.renderDetalle(asignatura);
         }
     }
 
-    updateTable(data = null) {
-        const asignaturas = data || this.model.getAll();
+    async updateTable(facultad = '') {
+        const asignaturas = await this.model.getAll(facultad);
         this.view.renderTable(asignaturas, this.handleEliminarAsignatura.bind(this));
     }
 
-    handleFilter(facultad) {
-        if (!facultad) {
-            this.updateTable();
-            return;
+    async handleFilter(facultad) {
+        await this.updateTable(facultad);
+    }
+
+    async handleCrearAsignatura(data) {
+        this.view.setLoading(true, 'btnGuardar');
+        const res = await this.model.add(data);
+        this.view.setLoading(false, 'btnGuardar');
+
+        if (res.ok) {
+            this.view.showAlert('✅ ' + res.mensaje, 'success');
+            setTimeout(() => {
+                window.location.href = '/gestion-docentes-web/asignaturas';
+            }, 1000);
+        } else {
+            this.view.showAlert('❌ ' + (res.mensaje || 'Error al guardar'), 'error');
         }
-        const todas = this.model.getAll();
-        const filtradas = todas.filter(asig => asig.facultad === facultad);
-        this.updateTable(filtradas);
     }
 
-    handleCrearAsignatura(data) {
-        this.model.add(data);
-        alert('Asignatura creada exitosamente');
-        window.location.href = 'listado-asignaturas.html';
+    async handleEditarAsignatura(data) {
+        this.view.setLoading(true, 'btnActualizar');
+        const res = await this.model.update(this.asignaturaId, data);
+        this.view.setLoading(false, 'btnActualizar');
+
+        if (res.ok) {
+            this.view.showAlert('✅ ' + res.mensaje, 'success');
+            setTimeout(() => {
+                window.location.href = '/gestion-docentes-web/asignaturas';
+            }, 1000);
+        } else {
+            this.view.showAlert('❌ ' + (res.mensaje || 'Error al actualizar'), 'error');
+        }
     }
 
-    handleEditarAsignatura(data) {
-        this.model.update(this.asignaturaId, data);
-        alert('Asignatura actualizada correctamente');
-        window.location.href = 'listado-asignaturas.html';
-    }
-
-    handleEliminarAsignatura(id) {
-        if (confirm('Â¿EstÃ¡s seguro de eliminar esta asignatura?')) {
-            this.model.delete(id);
-            this.updateTable();
+    async handleEliminarAsignatura(id) {
+        if (!confirm('¿Estás seguro de eliminar esta asignatura?')) return;
+        const res = await this.model.delete(id);
+        if (res.ok) {
+            await this.updateTable();
+        } else {
+            alert('❌ ' + (res.mensaje || 'Error al eliminar'));
         }
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     const model = new AsignaturaModel();
-    const view = new AsignaturaView();
-    const Controlador = new AsignaturaControlador(model, view);
+    const view  = new AsignaturaView();
+    new AsignaturaControlador(model, view);
 });
-

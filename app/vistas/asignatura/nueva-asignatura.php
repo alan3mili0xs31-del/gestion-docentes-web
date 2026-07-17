@@ -1,10 +1,13 @@
-﻿<!DOCTYPE html>
+<?php
+$usuario = $_SESSION['usuario'] ?? [];
+?>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nueva Asignatura - Sistema</title>
-    <link rel="stylesheet" href="../../../public/css/style.css">
+    <link rel="stylesheet" href="/gestion-docentes-web/public/css/style.css">
 </head>
 <body class="home-body">
 
@@ -15,7 +18,7 @@
         </div>
         <div class="nav-actions">
             <a href="/gestion-docentes-web/actividades-docente?accion=perfil" class="btn-outline">Mi Perfil</a>
-            <a href="/gestion-docentes-web/auth?accion=logout" class="btn-white">Cerrar SesiÃ³n</a>
+            <a href="/gestion-docentes-web/auth?accion=logout" class="btn-white">Cerrar Sesión</a>
         </div>
     </nav>
 
@@ -25,13 +28,14 @@
     <main class="main-container content-align-top">
 
         <div class="breadcrumb" style="color: var(--text-gray); font-size: 0.85rem; margin-bottom: 1rem;">
-            <a href="listado-asignaturas.html" style="color: var(--text-gray); text-decoration: none;">Asignaturas</a> / <span style="color: var(--c-primary-main); font-weight: 600;">Nueva Asignatura</span>
+            <a href="/gestion-docentes-web/asignaturas" style="color: var(--text-gray); text-decoration: none;">Asignaturas</a> /
+            <span style="color: var(--c-primary-main); font-weight: 600;">Nueva Asignatura</span>
         </div>
 
         <header class="section-header">
             <div>
                 <h1 class="page-title">Nueva Asignatura</h1>
-                <p class="page-subtitle">Registra la informaciÃ³n de una nueva materia en el sistema.</p>
+                <p class="page-subtitle">Registra la información de una nueva materia en el sistema.</p>
             </div>
         </header>
 
@@ -42,11 +46,11 @@
 
                         <div class="grid-2">
                             <div class="form-group">
-                                <label for="codigo">CÃ³digo de Asignatura</label>
+                                <label for="codigo">Código de Asignatura</label>
                                 <input type="text" class="form-input" id="codigo" placeholder="Ej: INF-601" required>
                             </div>
                             <div class="form-group">
-                                <label for="creditos">CrÃ©ditos</label>
+                                <label for="creditos">Créditos</label>
                                 <input type="number" class="form-input" id="creditos" min="1" max="10" required>
                             </div>
                         </div>
@@ -73,16 +77,18 @@
                                 <label for="facultad">Facultad</label>
                                 <select class="form-input" id="facultad" required>
                                     <option value="" disabled selected>Seleccione una facultad...</option>
-                                    <option value="FACCI">Ciencias InformÃ¡ticas</option>
+                                    <option value="FACCI">Ciencias Informáticas</option>
                                     <option value="FACI">Ciencias Industriales</option>
-                                    <option value="FACE">Ciencias EconÃ³micas</option>
+                                    <option value="FACE">Ciencias Económicas</option>
                                 </select>
                             </div>
                         </div>
 
+                        <div id="alertMsg" style="display:none; margin: 0.8rem 0; padding: 0.8rem 1rem; border-radius: 8px; font-size: 0.9rem;"></div>
+
                         <div class="form-actions-bar">
-                            <a href="listado-asignaturas.html" class="btn-cancel">Cancelar</a>
-                            <button type="submit" class="btn-save">
+                            <a href="/gestion-docentes-web/asignaturas" class="btn-cancel">Cancelar</a>
+                            <button type="submit" class="btn-save" id="btnGuardar">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.5rem;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
                                 Guardar Asignatura
                             </button>
@@ -98,10 +104,8 @@
         <p>&copy; 2026 Sistema de Gestión Docente. Todos los derechos reservados.</p>
     </footer>
 
-    <script src="../../../public/js/asignatura/AsignaturaModel.js"></script>
-    <script src="../../../public/js/asignatura/AsignaturaView.js"></script>
-    <script src="../../../public/js/asignatura/AsignaturaControlador.js"></script>
+    <script src="/gestion-docentes-web/public/js/asignatura/AsignaturaModel.js"></script>
+    <script src="/gestion-docentes-web/public/js/asignatura/AsignaturaView.js"></script>
+    <script src="/gestion-docentes-web/public/js/asignatura/AsignaturaControlador.js"></script>
 </body>
 </html>
-
-

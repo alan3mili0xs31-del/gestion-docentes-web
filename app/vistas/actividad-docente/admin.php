@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -15,7 +15,7 @@
         </div>
         <div class="nav-actions">
             <a href="./listado.html" class="btn-outline">Modulo Actividades</a>
-            <a href="./index.html" class="btn-white">Cerrar SesiÃ³n</a>
+            <a href="/gestion-docentes-web/auth?accion=logout" class="btn-white">Cerrar SesiÃ³n</a>
         </div>
     </nav>
 
@@ -137,3 +137,4 @@
     <script src="../../../public/js/actividad-docente/usuarios.js"></script>
 </body>
 </html>
+

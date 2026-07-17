@@ -1,54 +1,166 @@
 <?php
 
-require_once __DIR__.'/../modelos/AsignaturaModelo.php';
+require_once __DIR__ . '/../modelos/AsignaturaModelo.php';
 
 class AsignaturaControlador
 {
+    private $modelo;
+
+    public function __construct()
+    {
+        $this->modelo = new AsignaturaModelo();
+    }
+
+    /* ─────────────────────────────────────────
+     * GET /asignaturas  → muestra listado HTML
+     * ───────────────────────────────────────── */
     public function listar()
     {
-        // TODO:
-        // 1. Obtener el listado de asignaturas desde el modelo.
-        // 2. Enviar los datos a la vista de listado.
-        require_once "app/vistas/asignatura/listado-asignaturas.html";
+        require_once __DIR__ . '/../vistas/asignatura/listado-asignaturas.php';
     }
 
+    /* ─────────────────────────────────────────
+     * GET /asignaturas?accion=crear  → formulario
+     * ───────────────────────────────────────── */
     public function crear()
     {
-        // TODO:
-        // Mostrar el formulario para registrar un nuevo asignatura.
+        require_once __DIR__ . '/../vistas/asignatura/nueva-asignatura.php';
     }
 
-    public function guardar()
-    {
-        // TODO:
-        // 1. Recibir los datos enviados por el formulario ($_POST).
-        // 2. Validar la informaciÃ³n.
-        // 3. Llamar al modelo para insertar el asignatura.
-        // 4. Redirigir al listado de asignaturas.
-    }
-
+    /* ─────────────────────────────────────────
+     * GET /asignaturas?accion=editar&id=X → formulario edición
+     * ───────────────────────────────────────── */
     public function editar()
     {
-        // TODO:
-        // 1. Obtener el id del asignatura.
-        // 2. Consultar la informaciÃ³n del asignatura.
-        // 3. Mostrar el formulario de ediciÃ³n.
+        $id = intval($_GET['id'] ?? 0);
+        $asignatura = $this->modelo->buscar($id);
+        require_once __DIR__ . '/../vistas/asignatura/editar-asignatura.php';
     }
 
+    /* ─────────────────────────────────────────
+     * API JSON: GET  /asignaturas?accion=api_listar
+     * ───────────────────────────────────────── */
+    public function api_listar()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        $facultad = $_GET['facultad'] ?? null;
+        $asignaturas = $this->modelo->listar();
+
+        if ($facultad) {
+            $asignaturas = array_values(
+                array_filter($asignaturas, fn($a) => $a['facultad'] === $facultad)
+            );
+        }
+
+        echo json_encode(['ok' => true, 'data' => $asignaturas]);
+    }
+
+    /* ─────────────────────────────────────────
+     * API JSON: GET  /asignaturas?accion=api_buscar&id=X
+     * ───────────────────────────────────────── */
+    public function api_buscar()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        $id = intval($_GET['id'] ?? 0);
+        $asignatura = $this->modelo->buscar($id);
+
+        if ($asignatura) {
+            echo json_encode(['ok' => true, 'data' => $asignatura]);
+        } else {
+            http_response_code(404);
+            echo json_encode(['ok' => false, 'mensaje' => 'Asignatura no encontrada']);
+        }
+    }
+
+    /* ─────────────────────────────────────────
+     * API JSON: POST /asignaturas?accion=guardar
+     * ───────────────────────────────────────── */
+    public function guardar()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        $datos = json_decode(file_get_contents('php://input'), true);
+
+        if (!$datos) {
+            http_response_code(400);
+            echo json_encode(['ok' => false, 'mensaje' => 'Datos inválidos']);
+            return;
+        }
+
+        $campos = ['codigo', 'nombre', 'creditos', 'semestre', 'facultad'];
+        foreach ($campos as $campo) {
+            if (empty($datos[$campo])) {
+                http_response_code(422);
+                echo json_encode(['ok' => false, 'mensaje' => "El campo '$campo' es requerido"]);
+                return;
+            }
+        }
+
+        $datos['creditos'] = intval($datos['creditos']);
+        $ok = $this->modelo->guardar($datos);
+
+        if ($ok) {
+            echo json_encode(['ok' => true, 'mensaje' => 'Asignatura creada correctamente']);
+        } else {
+            http_response_code(500);
+            echo json_encode(['ok' => false, 'mensaje' => 'Error al guardar la asignatura']);
+        }
+    }
+
+    /* ─────────────────────────────────────────
+     * API JSON: PUT /asignaturas?accion=actualizar&id=X
+     * ───────────────────────────────────────── */
     public function actualizar()
     {
-        // TODO:
-        // 1. Recibir los datos modificados.
-        // 2. Validar la informaciÃ³n.
-        // 3. Actualizar el asignatura mediante el modelo.
-        // 4. Redirigir al listado.
+        header('Content-Type: application/json; charset=utf-8');
+        $id = intval($_GET['id'] ?? 0);
+        $datos = json_decode(file_get_contents('php://input'), true);
+
+        if (!$datos || !$id) {
+            http_response_code(400);
+            echo json_encode(['ok' => false, 'mensaje' => 'Datos inválidos']);
+            return;
+        }
+
+        $datos['creditos'] = intval($datos['creditos']);
+        $ok = $this->modelo->actualizar($id, $datos);
+
+        if ($ok) {
+            echo json_encode(['ok' => true, 'mensaje' => 'Asignatura actualizada correctamente']);
+        } else {
+            http_response_code(500);
+            echo json_encode(['ok' => false, 'mensaje' => 'Error al actualizar la asignatura']);
+        }
     }
 
+    /* ─────────────────────────────────────────
+     * API JSON: DELETE /asignaturas?accion=eliminar&id=X
+     * ───────────────────────────────────────── */
     public function eliminar()
     {
-        // TODO:
-        // 1. Obtener el id del asignatura.
-        // 2. Eliminar el registro mediante el modelo.
-        // 3. Redirigir al listado.
+        header('Content-Type: application/json; charset=utf-8');
+        $id = intval($_GET['id'] ?? 0);
+
+        if (!$id) {
+            http_response_code(400);
+            echo json_encode(['ok' => false, 'mensaje' => 'ID no válido']);
+            return;
+        }
+
+        $ok = $this->modelo->eliminar($id);
+
+        if ($ok) {
+            echo json_encode(['ok' => true, 'mensaje' => 'Asignatura eliminada correctamente']);
+        } else {
+            http_response_code(500);
+            echo json_encode(['ok' => false, 'mensaje' => 'Error al eliminar la asignatura']);
+        }
+    }
+
+    /* ─────────────────────────────────────────
+     * API JSON: GET /asignaturas?accion=buscar (alias)
+     * ───────────────────────────────────────── */
+    public function buscar()
+    {
+        $this->api_buscar();
     }
 }

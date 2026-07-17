@@ -12,7 +12,7 @@ class Conexion
             try {
 
                 self::$conexion = new PDO(
-                    "mysql:host=localhost;dbname=gestion_docentes_db;charset=utf8",
+                    "mysql:host=127.0.0.1;dbname=gestion_docentes_db;charset=utf8",
                     "root",
                     ""
                 );

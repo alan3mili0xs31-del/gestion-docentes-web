@@ -11,6 +11,7 @@ class LoginModelo {
 
   public function autenticar(string $cedula, string $clave) {
     $usuario = $this->usuarioModelo->buscarPorCedula($cedula);
+
     if ($usuario == null) {
       return null;
     }

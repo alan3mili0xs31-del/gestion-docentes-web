@@ -21,7 +21,8 @@ class UsuarioModelo
         $stmt->execute([
             "cedula" => $cedula
         ]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $usuario;
     }
 
 

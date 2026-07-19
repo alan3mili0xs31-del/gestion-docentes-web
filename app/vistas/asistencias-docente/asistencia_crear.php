@@ -32,11 +32,15 @@ $usuario_rol = $_SESSION["usuario"]["rol"];
                 <div class="section-card">
                     <form id="formCrearAsistencia">
 
-                        <div class="form-group" <?php if(strcmp($usuario_rol, "administrador") != 0) echo "hidden"; ?>>
+                        <div class="form-group">
                             <label for="id_docente">Docente</label>
 
+
                             <select class="form-input" id="id_docente" name="id_docente" required>
-                                <option value="">Seleccione un docente</option>
+                                <?php if(strcmp($usuario_rol, "administrador") == 0): ?>
+                                    <option value="">Seleccione un docente</option>
+
+                                <?php endif; ?>
 
                                 <?php foreach ($docentes as $docente): ?>
 

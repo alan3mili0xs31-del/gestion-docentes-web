@@ -4,11 +4,11 @@ START TRANSACTION;
 
 INSERT INTO `usuarios` (`id_usuario`, `cedula`, `nombre`, `correo`, `telefono`, `clave`, `rol`, `fecha_modificacion`, `fecha_creacion`, `estado`) VALUES
 (1, '0100000001', 'Pepito Gutierrez', 'Gutierrez@hotmail.com', '0999999999', 'admin1234', 'administrador', '2026-07-12 15:47:16', '2026-07-12 15:47:16', 'activo'),
-(2, '0101234567', NULL, NULL, NULL, 'docente123', 'docente', '2026-07-12 15:47:16', '2026-07-12 15:47:16', 'activo'),
-(3, '0102345678', NULL, NULL, NULL, 'docente123', 'docente', '2026-07-12 15:47:16', '2026-07-12 15:47:16', 'activo'),
-(4, '0103456789', NULL, NULL, NULL, 'docente123', 'docente', '2026-07-12 15:47:16', '2026-07-12 15:47:16', 'activo'),
-(5, '0104567890', NULL, NULL, NULL, 'docente123', 'docente', '2026-07-12 15:47:16', '2026-07-12 15:47:16', 'activo'),
-(6, '0105678901', NULL, NULL, NULL, 'docente123', 'docente', '2026-07-12 15:47:16', '2026-07-12 15:47:16', 'activo');
+(2, '0101234567', "Carlos Mendoza", NULL, NULL, 'docente123', 'docente', '2026-07-12 15:47:16', '2026-07-12 15:47:16', 'activo'),
+(3, '0102345678', "María Paredes", NULL, NULL, 'docente123', 'docente', '2026-07-12 15:47:16', '2026-07-12 15:47:16', 'activo'),
+(4, '0103456789', "Luis Cevallos", NULL, NULL, 'docente123', 'docente', '2026-07-12 15:47:16', '2026-07-12 15:47:16', 'activo'),
+(5, '0104567890', "Ana Morales", NULL, NULL, 'docente123', 'docente', '2026-07-12 15:47:16', '2026-07-12 15:47:16', 'activo'),
+(6, '0105678901', "Jorge Vera", NULL, NULL, 'docente123', 'docente', '2026-07-12 15:47:16', '2026-07-12 15:47:16', 'activo');
 
 
 
